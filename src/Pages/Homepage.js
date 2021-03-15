@@ -1,7 +1,6 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb, Table, Tooltip } from 'antd';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { HomeFilled, PlusCircleFilled, FolderFilled } from '@ant-design/icons';
+import { Layout, Menu, Breadcrumb, Table, Tooltip, Space } from 'antd';
+import { HomeFilled, PlusCircleFilled, FolderFilled, EditFilled, DeleteFilled } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 
 const { SubMenu } = Menu;
@@ -37,6 +36,18 @@ const columns = [
       <Tooltip placement="topLeft" title={description}>
         {description}
       </Tooltip>
+    ),
+  },
+  {
+    title: <center><b>Action</b></center>,
+    key: 'action',
+    render: () => (
+      <center>
+      <Space size="middle">
+        <a><EditFilled /></a>
+        <a><DeleteFilled /></a>
+      </Space>
+      </center>
     ),
   },
 ];

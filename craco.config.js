@@ -15,7 +15,6 @@ module.exports = {
             '@font-size-base': '16px',
             '@font-size-sm': '16px',
           },
-            
             javascriptEnabled: true,
           },
         },
