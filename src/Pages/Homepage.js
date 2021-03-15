@@ -1,5 +1,10 @@
 import React from 'react';
 import { Layout, Menu, Breadcrumb, Table, Tooltip } from 'antd';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HomeFilled, PlusCircleFilled, FolderFilled } from '@ant-design/icons';
+import { Link } from 'react-router-dom'
+
+const { SubMenu } = Menu;
 
 const { Header, Content, Footer } = Layout;
 
@@ -60,27 +65,34 @@ const data = [
   },
 ];
 
+
 const Homepage = () => (
 <Layout className="layout">
     <Header>
       <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-        <Menu.Item key="1">nav 1</Menu.Item>
-        <Menu.Item key="2">nav 2</Menu.Item>
-        <Menu.Item key="3">nav 3</Menu.Item>
+      <Menu theme="dark" selectedKeys={['1']} mode="horizontal">
+      <Menu.Item key="1" icon={<HomeFilled />}>
+          Homepage
+        </Menu.Item>
+        
+        <SubMenu key="2" icon={<PlusCircleFilled />} title="Create">
+            <Menu.Item key="setting:1"><Link to='/upload'>Source code</Link></Menu.Item>
+            <Menu.Item key="setting:2">Version</Menu.Item>
+        </SubMenu>
+        
+        <Menu.Item key="3" icon={<FolderFilled />}>
+          <Link to='/'>Versions</Link>
+        </Menu.Item>
       </Menu>
     </Header>
     <Content style={{ padding: '0 50px' }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>List</Breadcrumb.Item>
-        <Breadcrumb.Item>App</Breadcrumb.Item>
       </Breadcrumb>
       <div className="site-layout-content">
       <Table columns={columns} dataSource={data}  />
       </div>
     </Content>
-    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+    <Footer style={{ textAlign: 'center' }}>Group Project ©2021 Created by FV&GM</Footer>
   </Layout>
 );
 
