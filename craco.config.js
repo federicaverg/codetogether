@@ -1,7 +1,5 @@
 const CracoLessPlugin = require('craco-less');
 
-
-
 module.exports = {
   plugins: [
     {
@@ -14,6 +12,8 @@ module.exports = {
             '@text-color': '#5A6467',
             '@font-family': 'Source Sans Pro',
             '@layout-header-background': '#415881',
+            '@font-size-base': '16px',
+            '@font-size-sm': '16px',
           },
             
             javascriptEnabled: true,
