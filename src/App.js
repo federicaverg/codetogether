@@ -5,11 +5,13 @@ import HomePage from './Pages/Homepage';
 import UploadSourceCode from './Pages/UploadSourceCode'
 
 
-const App = () => (
-  <Router>
-  <Route path="/" component={HomePage} />
-  <Route path="/upload" component={UploadSourceCode} />
-  </Router>
-);
+const App = () => {
+  return (
+    <Router>
+    <Route path="/" exact render={HomePage} />
+    <Route path="/upload" component={UploadSourceCode} />
+    </Router>
+    )
+};
 
 export default App;
