@@ -76,22 +76,6 @@ const data = [
 ];
 
 const Homepage = () => (
-<Layout>
-    <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-      <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-      <Menu.Item key="1" icon={<HomeFilled />}>
-          Homepage
-        </Menu.Item>
-        <SubMenu key="2" icon={<PlusCircleFilled />} title="Create">
-            <Menu.Item key="setting:1"><Link to='/upload'>Source code</Link></Menu.Item>
-            <Menu.Item key="setting:2">Version</Menu.Item>
-        </SubMenu>
-        <Menu.Item key="3" icon={<FolderFilled />}>
-          <Link to='/'>Versions</Link>
-        </Menu.Item>
-      </Menu>
-    </Header>
     <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -101,8 +85,6 @@ const Homepage = () => (
       <Table columns={columns} dataSource={data}  />
       </div>
     </Content>
-    <Footer style={{ textAlign: 'center' }}>Group Project ©2021 Created by FV&GM</Footer>
-  </Layout>
 );
 
 export default Homepage;

@@ -1,6 +1,13 @@
 import React, {PureComponent} from 'react';
 import { Layout, Space, Typography, Menu } from 'antd';
 import {CodepenCircleOutlined, HomeOutlined, MenuOutlined, FileAddOutlined} from '@ant-design/icons';
+import {BrowserRouter as Router,  Link, Route} from "react-router-dom";
+
+import CreateExercise from './CreateExercise';
+import CreateVersion from './CreateVersion';
+import ExercisesDisplay from './ExercisesDisplay';
+import VersionsDisplay from './VersionsDisplay';
+
 
 const {Header} = Layout;
 const {Text} = Typography;
@@ -10,6 +17,7 @@ export default class PagesContainer extends PureComponent {
     render() {
         return (
             <div className="pages-container">
+              <Router>
                 <Header>
                 <Space>
                 <CodepenCircleOutlined style={{ fontSize: '20px', color: '#fff' }}/>
@@ -17,17 +25,18 @@ export default class PagesContainer extends PureComponent {
                 </Space>
                 <Menu selectedKeys="home" mode="horizontal">
                 <Menu.Item key="home" icon={<HomeOutlined />}>
-                  Home
+                  <Link to="/">Home</Link>
                 </Menu.Item>
                 <Menu.Item key="versions" icon={<MenuOutlined />}>
                   Versions
                 </Menu.Item>
                 <SubMenu key="create" title="Create" icon={<FileAddOutlined />}>
-                <Menu.Item key="setting:1">Source code</Menu.Item>
-                <Menu.Item key="setting:2">Version</Menu.Item>
+                <Menu.Item key="setting:1"><Text style={{fontSize: '12px', textTransform: 'uppercase', textAlign: 'center'}}><Link to="/createx">Source code</Link></Text></Menu.Item>
+                <Menu.Item key="setting:2"><Text style={{fontSize: '12px', textTransform: 'uppercase', textAlign: 'center'}}>Version</Text></Menu.Item>
                 </SubMenu>
                 </Menu>
                 </Header>
+                </Router>
             </div>
         )
     }
