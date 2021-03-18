@@ -1,30 +1,30 @@
 // Class that represents the landing page/homepage, so where the table containing all the exisiting exercises is displayed
 
 import React from 'react';
-import { Layout, Menu, Breadcrumb, Table, Tooltip, Space } from 'antd';
+import { Layout, Table, Tooltip, Space } from 'antd';
 import { EditFilled, DeleteFilled } from '@ant-design/icons';
 
 const { Content } = Layout;
 
 const columns = [
   {
-    title: <b>Title</b>,
+    title: "Title",
     dataIndex: 'title',
     key: 'title',
     render: text => <a>{text}</a>,
   },
   {
-    title: <b>Lecture</b>,
+    title: "Lecture",
     dataIndex: 'lecture',
     key: 'lecture',
   },
   {
-    title: <b>Last updated</b>,
+    title: "Last updated",
     dataIndex: 'update',
     key: 'update',
   },
   {
-    title: <b>Description</b>,
+    title: "Description",
     dataIndex: 'description',
     key: 'description',
     width: 400,
@@ -38,7 +38,7 @@ const columns = [
     ),
   },
   {
-    title: <center><b>Action</b></center>,
+    title: <center>Action</center>,
     key: 'action',
     render: () => (
       <center>
@@ -76,15 +76,13 @@ const data = [
 ];
 
 const Homepage = () => (
-    <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
-      <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>Exercises</Breadcrumb.Item>
-      </Breadcrumb>
+  <div className="homepage">
+    <Content className="site-layout" style={{ padding: '0 50px', marginTop: 70 }}>
       <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
       <Table columns={columns} dataSource={data}  />
       </div>
     </Content>
+    </div>
 );
 
 export default Homepage;
