@@ -42,7 +42,7 @@ const columns = [
     key: 'action',
     render: () => (
       <center>
-      <Space size="middle">
+      <Space size="large">
         <a><EditFilled /></a>
         <a><DeleteFilled /></a>
       </Space>
@@ -77,7 +77,7 @@ const data = [
 
 const Homepage = () => (
   <div className="homepage">
-    <Content className="site-layout" style={{ padding: '0 50px', marginTop: 70 }}>
+    <Content className="site-layout" style={{ padding: '0 50px', marginTop:50}}>
       <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
       <Table columns={columns} dataSource={data}  />
       </div>

@@ -17,6 +17,7 @@ export default class PagesContainer extends PureComponent {
                 <CodepenCircleOutlined style={{ fontSize: '20px', color: '#fff' }}/>
                 <Text style={{fontSize: '20px', color:'#fff', fontFamily:'Vidaloka'}}>Group Project</Text>
                 </Space>
+                </Header>
                 <Menu selectedKeys="home" mode="horizontal">
                 <Menu.Item key="home" icon={<HomeOutlined />}>
                   <Link to="/">Home</Link>
@@ -29,7 +30,7 @@ export default class PagesContainer extends PureComponent {
                 <Menu.Item key="setting:2"><Text style={{fontSize: '12px', textTransform: 'uppercase', textAlign: 'center'}}>Version</Text></Menu.Item>
                 </SubMenu>
                 </Menu>
-                </Header>
+                
                 </Router>
             </div>
         )
