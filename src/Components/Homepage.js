@@ -1,11 +1,10 @@
+// Class that represents the landing page/homepage, so where the table containing all the exisiting exercises is displayed
+
 import React from 'react';
 import { Layout, Menu, Breadcrumb, Table, Tooltip, Space } from 'antd';
-import { HomeFilled, PlusCircleFilled, FolderFilled, EditFilled, DeleteFilled } from '@ant-design/icons';
-import { Link } from 'react-router-dom'
+import { EditFilled, DeleteFilled } from '@ant-design/icons';
 
-const { SubMenu } = Menu;
-
-const { Header, Content, Footer } = Layout;
+const { Content } = Layout;
 
 const columns = [
   {
@@ -76,35 +75,16 @@ const data = [
   },
 ];
 
-
 const Homepage = () => (
-<Layout className="layout">
-    <Header>
-      <div className="logo" />
-      <Menu theme="dark" selectedKeys={['1']} mode="horizontal">
-      <Menu.Item key="1" icon={<HomeFilled />}>
-          Homepage
-        </Menu.Item>
-        
-        <SubMenu key="2" icon={<PlusCircleFilled />} title="Create">
-            <Menu.Item key="setting:1"><Link to='/upload'>Source code</Link></Menu.Item>
-            <Menu.Item key="setting:2">Version</Menu.Item>
-        </SubMenu>
-        
-        <Menu.Item key="3" icon={<FolderFilled />}>
-          <Link to='/'>Versions</Link>
-        </Menu.Item>
-      </Menu>
-    </Header>
-    <Content style={{ padding: '0 50px' }}>
+    <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>Exercises</Breadcrumb.Item>
       </Breadcrumb>
-      <div className="site-layout-content">
+      <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
       <Table columns={columns} dataSource={data}  />
       </div>
     </Content>
-    <Footer style={{ textAlign: 'center' }}>Group Project ©2021 Created by FV&GM</Footer>
-  </Layout>
 );
 
 export default Homepage;

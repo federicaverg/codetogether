@@ -1,15 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.less';
-import HomePage from './Pages/Homepage';
-import UploadSourceCode from './Pages/UploadSourceCode'
 
+import PagesContainer from './Components/PagesContainer';
+import Homepage from './Components/Homepage';
 
-const App = () => (
-  <Router>
-  <Route path="/" component={HomePage} />
-  <Route path="/upload" component={UploadSourceCode} />
-  </Router>
-);
+const App = () => {
+  return (
+      <Router>
+        <PagesContainer/>
+        <Route path='/' exact component={Homepage} />
+      </Router>
+    )
+};
 
 export default App;
