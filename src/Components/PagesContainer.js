@@ -3,12 +3,6 @@ import { Layout, Space, Typography, Menu } from 'antd';
 import {CodepenCircleOutlined, HomeOutlined, MenuOutlined, FileAddOutlined} from '@ant-design/icons';
 import {BrowserRouter as Router,  Link, Route} from "react-router-dom";
 
-import CreateExercise from './CreateExercise';
-import CreateVersion from './CreateVersion';
-import ExercisesDisplay from './ExercisesDisplay';
-import VersionsDisplay from './VersionsDisplay';
-
-
 const {Header} = Layout;
 const {Text} = Typography;
 const { SubMenu } = Menu;

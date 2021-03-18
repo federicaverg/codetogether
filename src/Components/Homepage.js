@@ -1,10 +1,10 @@
+// Class that represents the landing page/homepage, so where the table containing all the exisiting exercises is displayed
+
 import React from 'react';
 import { Layout, Menu, Breadcrumb, Table, Tooltip, Space } from 'antd';
-import { HomeFilled, PlusCircleFilled, FolderFilled, EditFilled, DeleteFilled } from '@ant-design/icons';
-import { Link } from 'react-router-dom'
-const { SubMenu } = Menu;
+import { EditFilled, DeleteFilled } from '@ant-design/icons';
 
-const { Header, Content, Footer } = Layout;
+const { Content } = Layout;
 
 const columns = [
   {
