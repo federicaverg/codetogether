@@ -2,8 +2,11 @@ import React, {PureComponent} from 'react';
 import { Layout, Space, Typography, Menu } from 'antd';
 import {CodepenCircleOutlined, HomeOutlined, MenuOutlined, FileAddOutlined} from '@ant-design/icons';
 import {BrowserRouter as Router,  Link, Route} from "react-router-dom";
+
 import Homepage from "./Homepage";
 import VersionMenu from "./VersionMenu";
+import CreateSourceCode from "./CreateSourceCode";
+import CreateVersion from "./CreateVersion";
 
 const {Header} = Layout;
 const {Text} = Typography;
@@ -28,17 +31,15 @@ export default class PagesContainer extends PureComponent {
                 <Link to="/versions">Versions</Link>
                 </Menu.Item>
                 <SubMenu key="create" title="Create" icon={<FileAddOutlined />}>
-                <Menu.Item key="setting:1"><Text style={{fontSize: '12px', textTransform: 'uppercase', textAlign: 'center'}}><Link to="/createx">Source code</Link></Text></Menu.Item>
-                <Menu.Item key="setting:2"><Text style={{fontSize: '12px', textTransform: 'uppercase', textAlign: 'center'}}>Version</Text></Menu.Item>
+                <Menu.Item key="setting:1"><Text style={{fontSize: '12px', textTransform: 'uppercase', textAlign: 'center', letterSpacing:'2px'}}><Link to="/create/source-code">Source Code</Link></Text></Menu.Item>
+                <Menu.Item key="setting:2"><Text style={{fontSize: '12px', textTransform: 'uppercase', textAlign: 'center', letterSpacing:'2px'}}><Link to="/create/version">Version</Link></Text></Menu.Item>
                 </SubMenu>
                 </Menu>
 
-                <Route exact path="/">
-                <Homepage />
-                </Route>
-                <Route exact path="/versions">
-                <VersionMenu />
-                </Route>
+                <Route exact path='/' exact component={Homepage} />
+                <Route exact path='/versions' exact component={VersionMenu} />
+                <Route exact path='/create/source-code' exact component={CreateSourceCode} />
+                <Route exact path='/create/version' exact component={CreateVersion} />
                 </Router>
             </div>
         )
