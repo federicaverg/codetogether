@@ -1,7 +1,9 @@
 import React from 'react';
-import { Form, Input, DatePicker, Button, InputNumber } from 'antd';
+import { Form, Input, DatePicker, Button, InputNumber, Typography } from 'antd';
+import { CodeOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
+const { Text } = Typography;
 
 const layout = {
   labelCol: {
@@ -62,12 +64,16 @@ export default class CreateSourceCode extends React.Component {
         />
         </Form.Item>
 
+        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
+        <Button type="primary" icon={<CodeOutlined />} size='large' />
+        </Form.Item>
+
         <Form.Item label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>}>
         <InputNumber min={0} max={20} defaultValue={0} onChange={onChange} />
         </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
-        <Button type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}}>
+        <Button type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}}> 
           Submit
         </Button>
       </Form.Item>
