@@ -3,6 +3,7 @@
 import React from 'react';
 import { Layout, Table, Tooltip, Space } from 'antd';
 import { EditFilled, DeleteFilled } from '@ant-design/icons';
+import axios from 'axios';
 
 const { Content } = Layout;
 
@@ -15,13 +16,13 @@ const columns = [
   },
   {
     title: "Lecture",
-    dataIndex: 'lecture',
-    key: 'lecture',
+    dataIndex: 'date',
+    key: 'date',
   },
   {
     title: "Last updated",
-    dataIndex: 'update',
-    key: 'update',
+    dataIndex: 'lastAccess',
+    key: 'lastAccess',
   },
   {
     title: "Description",
@@ -75,14 +76,37 @@ const data = [
   },
 ];
 
-const Homepage = () => (
-  <div className="homepage">
+const exercises = [];
+
+class Homepage extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {exercises: []};
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:5000/')
+    .then(response => {
+      this.setState({exercises: response.data })
+    })
+    .catch((error) => { console.log(error);})
+  }
+
+
+
+    render() {
+      return (
+        <div className="homepage">
     <Content className="site-layout" style={{ padding: '0 50px', marginTop:50}}>
       <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
-      <Table columns={columns} dataSource={data}  />
+      <Table columns={columns} dataSource={exercises}  />
       </div>
     </Content>
     </div>
-);
+      )
+    }
+}
 
 export default Homepage;
