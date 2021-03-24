@@ -89,7 +89,10 @@ class Homepage extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:5000/')
     .then(response => {
-      this.setState({exercises: response.data })
+      console.log("before");
+      console.log(response)
+      console.log("after");
+      //this.setState({exercises: response.data })
     })
     .catch((error) => { console.log(error);})
   }
