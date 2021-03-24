@@ -7,7 +7,7 @@ import PagesContainer from './Components/PagesContainer';
 
 const App = () => {
   return (
-        <PagesContainer/>
+        <Container/>
     )
 };
 

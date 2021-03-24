@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
 import Editor from "./Editor";
 
-var codeWrong = `class Person:
-def __init__(self, name, age):
-  self.name = name
-  self.age = age
+var codeWrong = `class Vehicle {
+  protected String brand = "Ford";         // Vehicle attribute
+  public void honk() {                     // Vehicle method
+    System.out.println("Tuut, tuut!");
+  }
+}
 
-def myfunc(self):
-  print("Hello my name is " + self.name)
+class Car extends Vehicle {
+  private String modelName = "Mustang";    // Car attribute
+  public static void main(String[] args) {
 
-p1 = Person("John", 36)
+    // Create a myCar object
+    Car myCar = new Car();
 
-p1.age = 40
+    // Call the honk() method (from the Vehicle class) on the myCar object
+    myCar.honk();
 
-print(p1.age)
-
+    // Display the value of the brand attribute (from the Vehicle class) and the value of the modelName from the Car class
+    System.out.println(myCar.brand + " " + myCar.modelName);
+  }
+}
 `;
 
 var code = codeWrong.replace(/\s/g, '');

@@ -9,7 +9,7 @@ import "./prism.css";
 
 
 function highlighter(value) {
-    return Prism.highlight(value, Prism.languages.java, "javascript");
+    return Prism.highlight(value, Prism.languages.java, "java");
 }
 
 export default function App({ initialValue, onChange }) {
