@@ -8,6 +8,7 @@ import VersionMenu from "./VersionMenu";
 import CreateSourceCode from "./CreateSourceCode";
 import CreateVersion from "./CreateVersion";
 import DisplayExercise from "./DisplayExercise";
+import DisplayVersion from "./DisplayVersion";
 
 const {Header} = Layout;
 const {Text} = Typography;
@@ -42,6 +43,7 @@ export default class PagesContainer extends PureComponent {
                 <Route exact path='/create/source-code' exact component={CreateSourceCode} />
                 <Route exact path='/create/version' exact component={CreateVersion} />
                 <Route exact path='/display/exercise' exact component={DisplayExercise} />
+                <Route exact path='/display/version' exact component={DisplayVersion} />
                 </Router>
             </div>
         )

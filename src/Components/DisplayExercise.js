@@ -1,15 +1,54 @@
 import React, {PureComponent} from 'react';
-import {Divider,Typography, Layout,Row, Col, Tabs, Space} from 'antd';
+import {Divider,Typography, Layout,Row, Col, Tabs, Skeleton, Card, Comment, Tooltip, List} from 'antd';
+import moment from 'moment';
 
 const {Text} = Typography;
 const {Content} = Layout;
 const { TabPane } = Tabs;
 
+const data = [
+    {
+      actions: [<span key="comment-list-reply-to-0">Reply to</span>],
+      author: 'Han Solo',
+      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      content: (
+        <p>
+          We supply a series of design principles, practical patterns and high quality design
+          resources (Sketch and Axure), to help people create their product prototypes beautifully and
+          efficiently.
+        </p>
+      ),
+      datetime: (
+        <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+          <span>{moment().subtract(1, 'days').fromNow()}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      actions: [<span key="comment-list-reply-to-0">Reply to</span>],
+      author: 'Han Solo',
+      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      content: (
+        <p>
+          We supply a series of design principles, practical patterns and high quality design
+          resources (Sketch and Axure), to help people create their product prototypes beautifully and
+          efficiently.
+        </p>
+      ),
+      datetime: (
+        <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+          <span>{moment().subtract(2, 'days').fromNow()}</span>
+        </Tooltip>
+      ),
+    },
+  ];
+  
+  
+
 const initialPanes = [
-    { title: 'Source code', content: 'Source code of exercise', key: '1', closable: false, },
+    { title: 'Source code', content: <Skeleton />, key: '1', closable: false, },
     { title: 'V1', content: 'Version', key: '2' },
   ];
-
 
 export default class DisplayExercise extends PureComponent {
     newTabIndex = 0;
@@ -65,11 +104,10 @@ export default class DisplayExercise extends PureComponent {
         return(
             <div className="display-exercise">
                 <Content style={{ padding: '0 50px', marginTop:55}}>
-                <Divider orientation="left">
-                <Text style={{fontSize: '16px', letterSpacing:'2px', textTransform: 'uppercase',color:'#969FB3'}}>Title</Text></Divider>
 
                 <Row justify="space-around">
-                <Col span={13}><Tabs
+
+                <Col span={15}><Tabs
                 type="editable-card"
                 onChange={this.onChange}
                 activeKey={activeKey}
@@ -77,7 +115,33 @@ export default class DisplayExercise extends PureComponent {
                 {panes.map(pane => ( <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
                     {pane.content}</TabPane>))}
                 </Tabs></Col>
-                <Col span={9}>col</Col>
+
+                <Col span={6}><Card title="Exercise title" >
+                    <p>Card content</p>
+                    <p>Card content</p>
+                    <p>Card content</p>
+                    </Card>
+
+                    <List
+                    className="comment-list"
+                    header={`${data.length} replies`}
+                    itemLayout="horizontal"
+                    dataSource={data}
+                    renderItem={item => (
+                    <li>
+                        <Comment
+                        actions={item.actions}
+                        author={item.author}
+                        avatar={item.avatar}
+                        content={item.content}
+                        datetime={item.datetime}
+                        />
+                    </li>
+                    )}
+                />
+
+                </Col>
+
                 </Row>                       
                 </Content>
             </div>

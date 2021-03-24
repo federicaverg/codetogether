@@ -16,8 +16,8 @@ const columns = [
   },
   {
     title: "Lecture",
-    dataIndex: 'date',
-    key: 'date',
+    dataIndex: 'lecture',
+    key: 'lecture',
   },
   {
     title: "Last updated",
