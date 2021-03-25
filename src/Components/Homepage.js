@@ -87,7 +87,7 @@ class Homepage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/')
+    axios.get('http://localhost:5000/exercises')
     .then(response => {
       console.log("before");
       console.log(response)
