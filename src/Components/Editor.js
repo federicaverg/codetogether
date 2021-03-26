@@ -3,7 +3,6 @@ import Yace from "yace";
 import Prism from "prismjs";
 import { highlight } from "mdhl";
 
-import "./style-container.css";
 import "mdhl/mdhl.css";
 import "./prism.css";
 
