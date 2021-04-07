@@ -76,8 +76,6 @@ const data = [
   },
 ];
 
-const exercises = [];
-
 class Homepage extends React.Component {
 
   constructor() {
@@ -89,12 +87,12 @@ class Homepage extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:5000/exercises')
     .then(response => {
-      console.log("before");
-      console.log(response)
-      console.log("after");
-      //this.setState({exercises: response.data })
+      console.log(response.data)
+      this.setState({exercises: response.data })
+      console.log(this.state.exercises)
     })
     .catch((error) => { console.log(error);})
+
   }
 
 
@@ -104,7 +102,7 @@ class Homepage extends React.Component {
         <div className="homepage">
     <Content className="site-layout" style={{ padding: '0 50px', marginTop:50}}>
       <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
-      <Table columns={columns} dataSource={exercises}  />
+      <Table columns={columns} dataSource={this.state.exercises}  />
       </div>
     </Content>
     </div>

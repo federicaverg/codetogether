@@ -9,9 +9,11 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-if (process.env.state == "debug"){
-    app.use(cors());
-}
+// if (process.env.state == "debug"){
+//     app.use(cors());
+// }
+
+app.use(cors());
 app.use(express.json());
 
 // Database URI
