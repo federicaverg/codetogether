@@ -1,9 +1,13 @@
 import React, {PureComponent} from 'react';
-import {Divider,Typography, Layout,Row, Col, Tabs, Skeleton, Card, Comment, Tooltip, List} from 'antd';
+import {Typography, Layout,Row, Col, Tabs, Skeleton, Card, Comment, Tooltip, List} from 'antd';
 import moment from 'moment';
+import axios from 'axios';
+
+import Container from './Container';
 
 const {Text} = Typography;
 const {Content} = Layout;
+
 const { TabPane } = Tabs;
 
 const data = [
@@ -42,21 +46,35 @@ const data = [
       ),
     },
   ];
-  
-  
 
+  const exercise = [];
+  
+  
 const initialPanes = [
-    { title: 'Source code', content: <Skeleton />, key: '1', closable: false, },
-    { title: 'V1', content: 'Version', key: '2' },
+    { title: 'Source code', content: [], key: '1', closable: false, },
+    //{ title: 'V1', content: 'Version', key: '2' },
   ];
 
 export default class DisplayExercise extends PureComponent {
-    newTabIndex = 0;
-     state = {
-    activeKey: initialPanes[0].key,
-    panes: initialPanes,
-    };
+  
+  newTabIndex = 0;
+  state = {
+  activeKey: initialPanes[0].key,
+  panes: initialPanes,
+  cont: initialPanes.content,
+  exercise: initialPanes[0].content,
+  };
 
+  componentDidMount() {
+    axios.get('http://localhost:5000/exercises')
+    .then(response => {
+      console.log(response.data)
+      this.setState({exercise: response.data })
+      console.log(this.state.cont)
+    })
+    .catch((error) => { console.log(error);})
+
+  }
     onChange = activeKey => {
         this.setState({ activeKey });
     };
@@ -113,7 +131,7 @@ export default class DisplayExercise extends PureComponent {
                 activeKey={activeKey}
                 onEdit={this.onEdit}>
                 {panes.map(pane => ( <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
-                    {pane.content}</TabPane>))}
+                    <Container/></TabPane>))}
                 </Tabs></Col>
 
                 <Col span={6}><Card title="Exercise title" >
