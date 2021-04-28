@@ -62,14 +62,13 @@ export default class DisplayExercise extends PureComponent {
   activeKey: initialPanes[0].key,
   panes: initialPanes,
   cont: initialPanes.content,
-  exercise: initialPanes[0].content,
   };
 
   componentDidMount() {
-    axios.get('http://localhost:5000/exercises')
+    axios.get(`http://localhost:5000/exercises/6089303edca19abd5e2e8cc0`)
     .then(response => {
       console.log(response.data)
-      this.setState({exercise: response.data })
+      this.setState({cont: response.data })
       console.log(this.state.cont)
     })
     .catch((error) => { console.log(error);})
@@ -131,7 +130,7 @@ export default class DisplayExercise extends PureComponent {
                 activeKey={activeKey}
                 onEdit={this.onEdit}>
                 {panes.map(pane => ( <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
-                    <Container/></TabPane>))}
+                    <Container value={this.state.cont}/></TabPane>))}
                 </Tabs></Col>
 
                 <Col span={6}><Card title="Exercise title" >

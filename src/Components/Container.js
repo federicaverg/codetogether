@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Editor from "./Editor";
 
-var codeWrong = `class Vehicle {
+var codeWrong = `class HELLO {
   protected String brand = "Ford";         // Vehicle attribute
   public void honk() {                     // Vehicle method
     System.out.println("Tuut, tuut!");
@@ -35,8 +35,18 @@ return code;}
 
 var codeRight = hex2a(code);
 
-export default function Container() {
+export default function Container(props) {
   const [value, setValue] = useState("");
+  var exercisey = JSON.stringify(props.value);
+  //var exercisex = JSON.parse(exercisey);
+  console.log(props.value);
+
+  /*for (const [key, value] of Object.entries(props.value)) {
+    console.log(key, value);
+  }*/
+
+  //props.value.forEach(tf => {console.log(tf)});
+  //code = exercise.value[0].code.replace(/\s/g, '');
 
   useEffect(() => {
     console.log(value);
