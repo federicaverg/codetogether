@@ -39,14 +39,15 @@ export default function Container(props) {
   const [value, setValue] = useState("");
   var exercisey = JSON.stringify(props.value);
   //var exercisex = JSON.parse(exercisey);
-  console.log(props.value);
+  console.log(props.value.code);
 
   /*for (const [key, value] of Object.entries(props.value)) {
     console.log(key, value);
   }*/
 
   //props.value.forEach(tf => {console.log(tf)});
-  //code = exercise.value[0].code.replace(/\s/g, '');
+  code = props.value.code.replace(/\s/g, '');
+  console.log(hex2a(code));
 
   useEffect(() => {
     console.log(value);
@@ -55,8 +56,8 @@ export default function Container(props) {
   // reload browser after change
   return (
     <Editor
-      initialValue={codeWrong}
-      onChange={value => setValue(value)}
+      initialValue={hex2a(code)}
+      onChange={value => setValue(props.value.code)}
     />
   );
 }

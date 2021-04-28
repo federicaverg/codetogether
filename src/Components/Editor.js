@@ -19,7 +19,7 @@ export default function App({ initialValue, onChange }) {
       styles: {
         fontSize: "20px"
       },
-      highlighter,
+      highlighter: highlight,
       lineNumbers:true
     });
 
