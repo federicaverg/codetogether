@@ -1,3 +1,4 @@
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import Editor from "./Editor";
 
@@ -27,7 +28,7 @@ class Car extends Vehicle {
 var code = codeWrong.replace(/\s/g, '');
 
 function hex2a(hexx) {
-    var hex = hexx.toString();//force conversion88
+    var hex = hexx.toString();
     var code = '';
     for (var i = 0; i < hex.length; i += 2)
         code += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
@@ -37,27 +38,25 @@ var codeRight = hex2a(code);
 
 export default function Container(props) {
   const [value, setValue] = useState("");
-  var exercisey = JSON.stringify(props.value);
-  //var exercisex = JSON.parse(exercisey);
-  console.log(props.value.code);
 
-  /*for (const [key, value] of Object.entries(props.value)) {
-    console.log(key, value);
-  }*/
+  var codeProps = props.codice.replace(/\s/g, '');
 
-  //props.value.forEach(tf => {console.log(tf)});
-  code = props.value.code.replace(/\s/g, '');
-  console.log(hex2a(code));
+  console.log(props.match);
+
+
+
 
   useEffect(() => {
     console.log(value);
   }, [value]);
 
-  // reload browser after change
+  // reload browser after chage
   return (
     <Editor
-      initialValue={hex2a(code)}
-      onChange={value => setValue(props.value.code)}
+      initialValue={props.codice}
+      onChange={value => setValue(value)}
     />
   );
 }
+
+

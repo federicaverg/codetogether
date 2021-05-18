@@ -43,7 +43,8 @@ export default class PagesContainer extends PureComponent {
                 <Route exact path='/create/source-code' exact component={CreateSourceCode} />
                 <Route exact path='/create/version' exact component={CreateVersion} />
                 <Route exact path='/display/exercise' exact component={DisplayExercise} />
-                <Route exact path='/display/version' exact component={DisplayVersion} />
+                <Route exact path='/display/exercise/:id' exact component={DisplayExercise} />
+
                 </Router>
             </div>
         )

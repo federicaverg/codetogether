@@ -2,17 +2,22 @@
 
 import React from 'react';
 import { Layout, Table, Tooltip, Space } from 'antd';
+import {BrowserRouter as Router,  Link, Route} from "react-router-dom";
 import { EditFilled, DeleteFilled } from '@ant-design/icons';
 import axios from 'axios';
 
 const { Content } = Layout;
+
+const ident = 0;
 
 const columns = [
   {
     title: "Title",
     dataIndex: 'title',
     key: 'title',
-    render: text => <a>{text}</a>,
+    render: (text) => <Link to={`/display/exercise/${text}`}>
+      {text}
+    </Link>,
   },
   {
     title: "Lecture",
@@ -89,12 +94,12 @@ class Homepage extends React.Component {
     .then(response => {
       console.log(response.data)
       this.setState({exercises: response.data })
+      
       console.log(this.state.exercises)
     })
     .catch((error) => { console.log(error);})
 
   }
-
 
 
     render() {

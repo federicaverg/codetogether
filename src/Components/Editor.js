@@ -19,13 +19,11 @@ export default function App({ initialValue, onChange }) {
       styles: {
         fontSize: "20px"
       },
-      highlighter: highlight,
+      highlighter,
       lineNumbers:true
     });
 
-    editor.onUpdate(value => {
-        console.log(value);
-      });
+    editor.onUpdate(onChange);
 
     return () => {
       editor.root.innerHTML = "";

@@ -49,31 +49,59 @@ const data = [
 
   const exercise = [];
   
-  
+
 const initialPanes = [
-    { title: 'Source code', content: [], key: '1', closable: false, },
+    { title: 'Source code', content: "", key: '1', closable: false, },
     //{ title: 'V1', content: 'Version', key: '2' },
   ];
 
 export default class DisplayExercise extends PureComponent {
   
-  newTabIndex = 0;
-  state = {
-  activeKey: initialPanes[0].key,
-  panes: initialPanes,
-  cont: initialPanes.content,
-  };
 
-  componentDidMount() {
-    axios.get(`http://localhost:5000/exercises/6089303edca19abd5e2e8cc0`)
-    .then(response => {
-      console.log(response.data)
-      this.setState({cont: response.data })
-      console.log(this.state.cont)
-    })
-    .catch((error) => { console.log(error);})
+  constructor(props){
+    super(props);
 
+    
+
+    this.state = {
+      activeKey: initialPanes[0].key,
+      panes: initialPanes,
+      cont: initialPanes[0].content,
+      prova: props.match
+      };
+
+    
+    console.log(this.state.prova);
   }
+  newTabIndex = 0;
+  
+
+  // componentDidMount() {
+  //   axios.get(`http://localhost:5000/exercises/6089303edca19abd5e2e8cc0`)
+  //   .then(response => {
+  //     console.log(response.data)
+  //     this.setState({cont: response.data.code })
+  //     console.log(this.state.cont)
+  //   })
+  //   .catch((error) => { console.log(error);})
+
+  // }
+
+  // ID = 6089303edca19abd5e2e8cc0
+
+  async componentDidMount() {
+    console.log("HELLO");
+    console.log(this.state.cont);
+    try {
+      const response = await axios.get('http://localhost:5000/exercises/6089303edca19abd5e2e8cc0');
+      console.log(response);
+      this.setState({cont: response.data.code })
+      console.log(this.state.cont)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
     onChange = activeKey => {
         this.setState({ activeKey });
     };
@@ -117,7 +145,7 @@ export default class DisplayExercise extends PureComponent {
     };
 
     render() {
-        const { panes, activeKey } = this.state;
+        const { panes, activeKey, cont } = this.state;
         return(
             <div className="display-exercise">
                 <Content style={{ padding: '0 50px', marginTop:55}}>
@@ -130,7 +158,7 @@ export default class DisplayExercise extends PureComponent {
                 activeKey={activeKey}
                 onEdit={this.onEdit}>
                 {panes.map(pane => ( <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
-                    <Container value={this.state.cont}/></TabPane>))}
+                    <Container codice={this.state.cont}/></TabPane>))}
                 </Tabs></Col>
 
                 <Col span={6}><Card title="Exercise title" >
