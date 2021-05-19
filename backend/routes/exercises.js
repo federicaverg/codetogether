@@ -7,7 +7,10 @@ router.route('/').get((req, res) => {
     // .find() is a Mongoose method --> it gets a list of all the users from the 
     // MongoDB Atlas database, the method return a Promise
     Exercise.find()
-    .then(exercises => res.json(exercises))
+    .then(exercises =>{
+        console.log("tutti gli esercizi")
+        res.json(exercises)
+    })
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -38,9 +41,20 @@ router.route('/add').post((req, res) => {
 });
 
 // Object ID created automatically by MongoDB
-router.route('/:id').get((req, res) => {
-    Exercise.findById(req.params.id)
-      .then(exercise => res.json(exercise))
+// router.route('/:id').get((req, res) => {
+//     Exercise.findById(req.params.id)
+//       .then(exercise => {res.json(exercise)})
+//       .catch(err => res.status(400).json('Error: ' + err));
+//   });
+
+router.route('/title/:title?').get((req, res) => {
+    console.log(req.params.title);
+    console.log("Sono qui");
+    Exercise.findOne({title: req.params.title})
+      .then(exercise => {
+          console.log(exercise)
+          res.json(exercise);
+        })
       .catch(err => res.status(400).json('Error: ' + err));
   });
 

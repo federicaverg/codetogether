@@ -93,9 +93,10 @@ export default class DisplayExercise extends PureComponent {
     console.log("HELLO");
     console.log(this.state.cont);
     try {
-      const response = await axios.get('http://localhost:5000/exercises/6089303edca19abd5e2e8cc0');
+      console.log(this.state.prova.params.id);
+      const response = await axios.get(`http://localhost:5000/exercises/title/${this.state.prova.params.id}`);
       console.log(response);
-      this.setState({cont: response.data.code })
+      this.setState({cont: response.data })
       console.log(this.state.cont)
     } catch (error) {
       console.error(error);
@@ -158,13 +159,12 @@ export default class DisplayExercise extends PureComponent {
                 activeKey={activeKey}
                 onEdit={this.onEdit}>
                 {panes.map(pane => ( <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
-                    <Container codice={this.state.cont}/></TabPane>))}
+                    <Container codice={"this.state.cont"}/></TabPane>))}
                 </Tabs></Col>
 
-                <Col span={6}><Card title="Exercise title" >
-                    <p>Card content</p>
-                    <p>Card content</p>
-                    <p>Card content</p>
+                <Col span={6}><Card title={this.state.cont.title} >
+                    <p><i>this.state.cont.</i></p>
+                    <p>{this.state.cont.description}</p>
                     </Card>
 
                     <List
