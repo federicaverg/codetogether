@@ -45,14 +45,6 @@ export default class CreateVersion extends PureComponent {
             </Select>
           </Form.Item>
 
-          <Form.Item name="Part" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Part</label>} rules={[{required:true}]}>
-            <Select style={{ width: 80 }} onChange={handleChange}>
-            <Option value="1">1</Option>
-            <Option value="2">2</Option>
-            <Option value="3">3</Option>
-            </Select>
-          </Form.Item>
-
           <Form.Item label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Description</label>} >
         <TextArea />
         </Form.Item>

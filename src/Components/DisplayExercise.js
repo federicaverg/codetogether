@@ -11,41 +11,37 @@ const {Content} = Layout;
 const { TabPane } = Tabs;
 
 const data = [
-    {
-      actions: [<span key="comment-list-reply-to-0">Reply to</span>],
-      author: 'Han Solo',
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      content: (
-        <p>
-          We supply a series of design principles, practical patterns and high quality design
-          resources (Sketch and Axure), to help people create their product prototypes beautifully and
-          efficiently.
-        </p>
-      ),
-      datetime: (
-        <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-          <span>{moment().subtract(1, 'days').fromNow()}</span>
-        </Tooltip>
-      ),
-    },
-    {
-      actions: [<span key="comment-list-reply-to-0">Reply to</span>],
-      author: 'Han Solo',
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      content: (
-        <p>
-          We supply a series of design principles, practical patterns and high quality design
-          resources (Sketch and Axure), to help people create their product prototypes beautifully and
-          efficiently.
-        </p>
-      ),
-      datetime: (
-        <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-          <span>{moment().subtract(2, 'days').fromNow()}</span>
-        </Tooltip>
-      ),
-    },
-  ];
+  {
+    //actions: [<span key="comment-list-reply-to-0">Reply to</span>],
+    author: 'John Doe',
+    avatar: 'https://png2.cleanpng.com/sh/5fe1cfc4233cbd91920b61031ec6e683/L0KzQYm3WcIxN6pngJH0aYP2gLBuTfNwdaF6jNd7LXnmf7B6TgBweqVmet5uLX7ohMj2kvsub6NmiNpyY4OwccfolPFzNZpoRadrYUPmRofsU8A3amI6RqICNUa1R4KAUcU0P2U6Uao7MkG8SIS1kP5o/kisspng-computer-icons-portable-network-graphics-avatar-ic-5ba3c66e306b15.0756271715374598221983.png',
+    content: (
+      <p>
+        I think that the loop should be increased with a counter declared inside of the second method.
+      </p>
+    ),
+    datetime: (
+      <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+        <span>{moment().subtract(1, 'days').fromNow()}</span>
+      </Tooltip>
+    ),
+  },
+  {
+    //actions: [<span key="comment-list-reply-to-0">Reply to</span>],
+    author: 'Jane Doe',
+    avatar: 'https://cdn.iconscout.com/icon/premium/png-512-thumb/female-avatar-12-774634.png',
+    content: (
+      <p>
+        Why do we need to put the 'this' declaration in this case?
+      </p>
+    ),
+    datetime: (
+      <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+        <span>{moment().subtract(2, 'days').fromNow()}</span>
+      </Tooltip>
+    ),
+  },
+];  
 
   const exercise = [];
   
@@ -159,8 +155,15 @@ export default class DisplayExercise extends PureComponent {
                 activeKey={activeKey}
                 onEdit={this.onEdit}>
                 {panes.map(pane => ( <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
-                    <Container codice={"this.state.cont"}/></TabPane>))}
+                    <Container codice={"culo"}/></TabPane>))}
                 </Tabs></Col>
+
+
+
+
+
+
+
 
                 <Col span={6}><Card title={this.state.cont.title} >
                     <p><i>this.state.cont.</i></p>

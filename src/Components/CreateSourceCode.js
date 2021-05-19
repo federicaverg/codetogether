@@ -60,16 +60,12 @@ export default class CreateSourceCode extends React.Component {
           value={value}
           onChange={this.onChange}
           placeholder="</>"
-          autoSize={{ minRows: 5, maxRows: 15 }}
+          autoSize={{ minRows: 5, maxRows: 20 }}
         />
         </Form.Item>
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
         <Button type="primary" icon={<CodeOutlined />} size='large' />
-        </Form.Item>
-
-        <Form.Item label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>}>
-        <InputNumber min={0} max={20} defaultValue={0} onChange={onChange} />
         </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
@@ -82,6 +78,4 @@ export default class CreateSourceCode extends React.Component {
     </div>
     );
   }
-
-
 }
