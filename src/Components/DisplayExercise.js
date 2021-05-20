@@ -1,13 +1,11 @@
 import React, {PureComponent} from 'react';
-import {Typography, Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, List} from 'antd';
+import {Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, List} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import {BrowserRouter as Router,  Link, Route} from "react-router-dom";
 import moment from 'moment';
 import axios from 'axios';
 
 import Container from './Container';
 
-const {Text} = Typography;
 const {Content} = Layout;
 
 const { TabPane } = Tabs;
@@ -53,8 +51,8 @@ export default class DisplayExercise extends PureComponent {
   constructor(props){
     super(props);
     this.newTabIndex = 0;
-
-    const panes = [{title:'SOURCE CODE', content: ["giorgio è bll"], key: '1', closable: false,}];
+    // hard-coded initial pane for source code
+    const panes = [{title:'SOURCE CODE', content: ["giorgio è bll"] /*cont.code*/, key: '1', closable: false}];
 
     this.state = {
       activeKey: panes[0].key,
@@ -156,7 +154,6 @@ export default class DisplayExercise extends PureComponent {
                     </li>
                     )}
                 />
-
                 </Col>
 
                 </Row>                       

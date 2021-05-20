@@ -2,15 +2,17 @@
 
 import React, {Component} from 'react';
 import { Layout, Table, Tooltip, Space, message, Popconfirm } from 'antd';
-import { EditFilled, DeleteFilled } from '@ant-design/icons';
+import { DeleteFilled } from '@ant-design/icons';
 
 const { Content } = Layout;
 
+// to show success message
 function confirm() {
   message.success('Successfully deleted');
 }
 
 class VersionMenu extends Component { 
+  // definition of columns in the table
   columns = [
     {
       title: "Version",
@@ -54,7 +56,6 @@ class VersionMenu extends Component {
       render: (record) => (
         <center>
         <Space size="large">
-          <a><EditFilled /></a>
           <Popconfirm
         title="Delete this version?"
         onConfirm={() => {
@@ -72,6 +73,7 @@ class VersionMenu extends Component {
     },
   ];
 
+  // where the data of the table is stored
   state = {
     data: [
       {
@@ -101,6 +103,7 @@ class VersionMenu extends Component {
     ]
   }
 
+  // method to remove the row of a selected version
   removeVersion = (key) => {
     console.log('delete ', key);
     const dataSource = [...this.state.data];
