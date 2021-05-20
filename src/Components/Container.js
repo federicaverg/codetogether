@@ -41,6 +41,8 @@ export default function Container(props) {
 
   var codeProps = props.codice.replace(/\s/g, '');
 
+  var ciao = hex2a(codeProps);
+
   console.log(props.match);
 
 
@@ -53,7 +55,7 @@ export default function Container(props) {
   // reload browser after chage
   return (
     <Editor
-      initialValue={props.codice}
+      initialValue={ciao}
       onChange={value => setValue(value)}
     />
   );

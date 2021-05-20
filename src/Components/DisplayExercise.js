@@ -69,11 +69,11 @@ export default class DisplayExercise extends PureComponent {
     axios.get(`http://localhost:5000/exercises/title/${this.state.exerciseInfo.params.id}`)
     .then(response => {
       console.log(response)
-      this.setState({cont: response.data })
-      //const firstPane = [...this.state.panes];
-      const first = [{title:'SOURCE CODE', content: this.state.cont.code, closable:false, key: '1'}]
+      this.setState({cont: response.data });
+      // override first tab pane with code from database
+      const first = [{title:'SOURCE CODE', content: <Container codice={this.state.cont.code}/>, closable:false, key: '1'}]
+      //const first = [{title:'SOURCE CODE', content: this.state.cont.code, closable:false, key: '1'}]
       this.setState({panes: first});
-      //console.log(firstPane);
       console.log(this.state.cont)
     })
     .catch((error) => { console.log(error);})
