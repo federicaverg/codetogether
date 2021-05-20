@@ -52,23 +52,28 @@ export default class DisplayExercise extends PureComponent {
     super(props);
     this.newTabIndex = 0;
     // hard-coded initial pane for source code
-    const panes = [{title:'SOURCE CODE', content: ["giorgio è bll"] /*cont.code*/, key: '1', closable: false}];
+    const panes = [{title:'SOURCE CODE', content: [], key: '1', closable: false}];
+
+    console.log(props.match);
 
     this.state = {
       activeKey: panes[0].key,
       panes,
       cont: ["ciao"],
-      prova: props.match,
-      versions: ["VersioneProva", "Federica", "ciaooo"]
+      exerciseInfo: props.match,
+      versions: ["Exercise 4", "Federica", "ciaooo"],
       };
-    //console.log(this.state.prova);
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:5000/exercises/title/${this.state.prova.params.id}`)
+    axios.get(`http://localhost:5000/exercises/title/${this.state.exerciseInfo.params.id}`)
     .then(response => {
       console.log(response)
-      this.setState({cont: response.data.code })
+      this.setState({cont: response.data })
+      //const firstPane = [...this.state.panes];
+      const first = [{title:'SOURCE CODE', content: this.state.cont.code, closable:false, key: '1'}]
+      this.setState({panes: first});
+      //console.log(firstPane);
       console.log(this.state.cont)
     })
     .catch((error) => { console.log(error);})
@@ -79,7 +84,15 @@ export default class DisplayExercise extends PureComponent {
     const { panes } = this.state;
     const titleVersion = ver;
     const activeKey = `newTab${this.newTabIndex++}`;
-    panes.push({ title: titleVersion, content: 'New Tab Pane', key: activeKey });
+
+    // getting the code
+    /*axios.get(`http://localhost:5000/exercises/title/${ver}`)
+    .then(response => {
+      this.setState({x: response.data.code});
+      console.log(x)
+    })
+    .catch((error) => { console.log(error);})*/
+    panes.push({ title: titleVersion, content: "New Pane fresco", key: activeKey });
     this.setState({ panes, activeKey });
   }
 
