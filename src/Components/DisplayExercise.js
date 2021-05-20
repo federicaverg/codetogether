@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Typography, Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, List} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import {BrowserRouter as Router,  Link, Route} from "react-router-dom";
 import moment from 'moment';
 import axios from 'axios';
 
@@ -46,7 +47,6 @@ const comments = [
 ];  
 
 const exercise = [];
-const count = 1;
 
 export default class DisplayExercise extends PureComponent {
   
@@ -56,7 +56,7 @@ export default class DisplayExercise extends PureComponent {
     this.state = {
       cont: ["ciao"],
       prova: props.match,
-      versions: []
+      versions: ["VersioneProva"]
       };
 
     console.log(this.state.prova);
@@ -88,7 +88,7 @@ export default class DisplayExercise extends PureComponent {
 
                     <Dropdown overlay={
                       <Menu>
-                        {this.state.versions.map(ver => (<Menu.Item key={ver._id}>{ver.title}</Menu.Item>))}
+                        {this.state.versions.map(ver => (<Menu.Item key={ver._id}><Link to={`/versions`}>{ver.title}</Link></Menu.Item>))}
                         </Menu>}>
                         <Button icon={<PlusOutlined />} />
                       </Dropdown>
