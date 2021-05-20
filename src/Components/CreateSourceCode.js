@@ -78,7 +78,7 @@ export default class CreateSourceCode extends React.Component {
         </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
-        <Button type="primary" htmlType="submit" onCLick={() => this.nomemet()} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}}> 
+        <Button type="primary" htmlType="submit" /*onCLick={() => this.nomemet()}*/ style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}}> 
           Submit
         </Button>
       </Form.Item>
