@@ -54,17 +54,16 @@ export default class DisplayExercise extends PureComponent {
     super(props);
     this.newTabIndex = 0;
 
-    const panes = [{title:'SOURCE CODE', content: ["giorgio è bll"], key: '1'}];
+    const panes = [{title:'SOURCE CODE', content: ["giorgio è bll"], key: '1', closable: false,}];
 
     this.state = {
       activeKey: panes[0].key,
       panes,
       cont: ["ciao"],
       prova: props.match,
-      versions: ["VersioneProva"]
+      versions: ["VersioneProva", "Federica", "ciaooo"]
       };
-
-    console.log(this.state.prova);
+    //console.log(this.state.prova);
   }
 
   componentDidMount() {
@@ -77,6 +76,7 @@ export default class DisplayExercise extends PureComponent {
     .catch((error) => { console.log(error);})
   }
 
+  // to add new tab pane given a selected version
   addPane = (ver) => {
     const { panes } = this.state;
     const titleVersion = ver;
@@ -90,6 +90,30 @@ export default class DisplayExercise extends PureComponent {
     this.setState({ activeKey });
   };
 
+  // to pass the remove method call
+  onEdit = (targetKey, action) => {
+    this[action](targetKey);
+  };
+
+  // to close  atab
+  remove = targetKey => {
+    let { activeKey } = this.state;
+    let lastIndex;
+    this.state.panes.forEach((pane, i) => {
+      if (pane.key === targetKey) {
+        lastIndex = i - 1;
+      }
+    });
+    const panes = this.state.panes.filter(pane => pane.key !== targetKey);
+    if (panes.length && activeKey === targetKey) {
+      if (lastIndex >= 0) {
+        activeKey = panes[lastIndex].key;
+      } else {
+        activeKey = panes[0].key;
+      }
+    }
+    this.setState({ panes, activeKey });
+  };
 
     render() {
         return(
@@ -99,8 +123,8 @@ export default class DisplayExercise extends PureComponent {
 
                 <Col span={15}>
                   
-                <Tabs activeKey={this.state.activeKey} onChange={this.onChange}>
-                     {this.state.panes.map(pane => (<TabPane tab={pane.title} key={pane.key}>{pane.content}</TabPane>))}
+                <Tabs hideAdd activeKey={this.state.activeKey} onChange={this.onChange} type="editable-card" onEdit={this.onEdit}>
+                     {this.state.panes.map(pane => (<TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{pane.content}</TabPane>))}
                     </Tabs></Col>
 
                     <Dropdown overlay={
