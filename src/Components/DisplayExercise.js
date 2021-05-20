@@ -52,8 +52,13 @@ export default class DisplayExercise extends PureComponent {
   
   constructor(props){
     super(props);
+    this.newTabIndex = 0;
+
+    const panes = [{title:'SOURCE CODE', content: ["giorgio è bll"], key: '1'}];
 
     this.state = {
+      activeKey: panes[0].key,
+      panes,
       cont: ["ciao"],
       prova: props.match,
       versions: ["VersioneProva"]
@@ -72,6 +77,20 @@ export default class DisplayExercise extends PureComponent {
     .catch((error) => { console.log(error);})
   }
 
+  addPane = (ver) => {
+    const { panes } = this.state;
+    const titleVersion = ver;
+    const activeKey = `newTab${this.newTabIndex++}`;
+    panes.push({ title: titleVersion, content: 'New Tab Pane', key: activeKey });
+    this.setState({ panes, activeKey });
+  }
+
+  // to move between different tabs
+  onChange = activeKey => {
+    this.setState({ activeKey });
+  };
+
+
     render() {
         return(
             <div className="display-exercise">
@@ -80,17 +99,15 @@ export default class DisplayExercise extends PureComponent {
 
                 <Col span={15}>
                   
-                <Tabs defaultActiveKey="1">
-                      <TabPane tab="SOURCE CODE" key="1">
-                      <Container codice={"this.state.cont"}/>
-                      </TabPane>
+                <Tabs activeKey={this.state.activeKey} onChange={this.onChange}>
+                     {this.state.panes.map(pane => (<TabPane tab={pane.title} key={pane.key}>{pane.content}</TabPane>))}
                     </Tabs></Col>
 
                     <Dropdown overlay={
                       <Menu>
-                        {this.state.versions.map(ver => (<Menu.Item key={ver._id}><Link to={`/versions`}>{ver.title}</Link></Menu.Item>))}
+                        {this.state.versions.map(ver => (<Menu.Item key={ver._id}><Button type="link" onClick={() => {this.addPane(ver)}}>{ver}</Button></Menu.Item>))}
                         </Menu>}>
-                        <Button icon={<PlusOutlined />} />
+                        <Button icon={<PlusOutlined />}/>
                       </Dropdown>
 
                 <Col span={6}><Card title={this.state.cont.title} >
