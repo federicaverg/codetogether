@@ -46,6 +46,7 @@ const comments = [
 ];  
 
 const exercise = [];
+const count = 1;
 
 export default class DisplayExercise extends PureComponent {
   
@@ -54,7 +55,8 @@ export default class DisplayExercise extends PureComponent {
 
     this.state = {
       cont: ["ciao"],
-      prova: props.match
+      prova: props.match,
+      versions: []
       };
 
     console.log(this.state.prova);
@@ -86,12 +88,7 @@ export default class DisplayExercise extends PureComponent {
 
                     <Dropdown overlay={
                       <Menu>
-                            <Menu.Item key="display">
-                              Version 1
-                            </Menu.Item>
-                            <Menu.Item key="mode">
-                              Version 8
-                            </Menu.Item>
+                        {this.state.versions.map(ver => (<Menu.Item key={ver._id}>{ver.title}</Menu.Item>))}
                         </Menu>}>
                         <Button icon={<PlusOutlined />} />
                       </Dropdown>
