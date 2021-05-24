@@ -16,8 +16,12 @@ const layout = {
 
 const onFinish = (values) => {
   console.log(values);
+
   //console.log(values.title);
+
   //console.log(values.date);
+  //console.log(JSON.stringify(values.date));
+  
   //console.log(values.description);
   //console.log(values.code);
 };
