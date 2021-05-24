@@ -1,10 +1,10 @@
 import React from 'react';
-import { Form, Input, DatePicker, Button, InputNumber, Typography } from 'antd';
+import { Form, Input, DatePicker, Button, Typography } from 'antd';
 import { CodeOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
-const { Text } = Typography;
 
+// define layout of page in columns and rows
 const layout = {
   labelCol: {
     span: 5,
@@ -15,59 +15,33 @@ const layout = {
 };
 
 const onFinish = (values) => {
-  console.log(values);};
-
-  function onChange(numvalue) {
-    console.log('changed', numvalue);
-  }
-
+  console.log(values);
+  //console.log(values.title);
+  //console.log(values.date);
+  //console.log(values.description);
+  //console.log(values.code);
+};
 
 export default class CreateSourceCode extends React.Component {
 
-  constructor(props){
-    super(props);
-    
-  }
-
-  state = {
-    value: '',
-  };
-
-  stateA = {
-    inputValue: 1,
-  };
-
-  onChange = ({ target: { value } }) => {
-    this.setState({ value });
-  };
-
-  nomemet = () => {
-
-  };
-
-
-
   render() {
-    const { value } = this.state;
     return (
       <div className="create-source-code" style={{ padding: '0 50px', marginTop:80,}}>
       <Form {...layout} name="nest-messages" onFinish={onFinish} >
-      <Form.Item name="Title" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Title</label>} rules={[{ required: true, }, ]}>
-        <Input />
+      <Form.Item name="title" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Title</label>} rules={[{ required: true, }, ]}>
+        <Input name="title"/>
       </Form.Item>
       
-      <Form.Item name="Date of lecture" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Date of lecture</label>} rules={[{required: true,}]} >
-          <DatePicker />
+      <Form.Item name="date" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Date of lecture</label>} rules={[{required: true,}]} >
+          <DatePicker name="datePicker"/>
         </Form.Item>
 
-        <Form.Item label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Description</label>} >
+        <Form.Item name="description" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Description</label>} >
         <TextArea />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
+        <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
         <TextArea
-          value={value}
-          onChange={this.onChange}
           placeholder="</>"
           autoSize={{ minRows: 5, maxRows: 20 }}
         />
@@ -78,12 +52,11 @@ export default class CreateSourceCode extends React.Component {
         </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
-        <Button type="primary" htmlType="submit" /*onCLick={() => this.nomemet()}*/ style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}}> 
+        <Button type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}}> 
           Submit
         </Button>
       </Form.Item>
-    </Form>
-      
+    </Form>      
     </div>
     );
   }
