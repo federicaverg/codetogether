@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, DatePicker, Button, Typography } from 'antd';
+import { Form, Input, DatePicker, Button, InputNumber } from 'antd';
 import { CodeOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
@@ -23,6 +23,8 @@ const onFinish = (values) => {
   //console.log(JSON.stringify(values.date));
   
   //console.log(values.description);
+
+  console.log(values.parts);
   //console.log(values.code);
 };
 
@@ -42,6 +44,10 @@ export default class CreateSourceCode extends React.Component {
 
         <Form.Item name="description" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Description</label>} >
         <TextArea />
+        </Form.Item>
+
+        <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>} >
+        <InputNumber min={1} max={10} defaultValue={1}/>
         </Form.Item>
 
         <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
