@@ -51,10 +51,7 @@ export default class CreateVersion extends PureComponent {
         </Button>
       </Form.Item>
         
-        </Form>
-
-        
-          
+        </Form>      
         </div>
         );
       }

@@ -17,22 +17,22 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const title = req.body.title;
     const date = Date.parse(req.body.date);
-    const lastAccess = Date.parse(req.body.lastAccess);
+    //const lastAccess = Date.parse(req.body.lastAccess);
     const description = req.body.description;
     const code = req.body.code;
     const versions = [];
     const parts = Number(req.body.parts);
-    const intervals = req.body.parts;
+    //const intervals = req.body.parts;
 
     const newExercise = new Exercise({
         title,
         date,
-        lastAccess,
+        //lastAccess,
         description,
         code,
         versions,
         parts,
-        intervals
+        //intervals
     });
 
     newExercise.save()

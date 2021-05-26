@@ -55,7 +55,7 @@ export default function Container(props) {
   // reload browser after chage
   return (
     <Editor
-      initialValue={ciao}
+      initialValue={props.codice}
       onChange={value => setValue(value)}
     />
   );

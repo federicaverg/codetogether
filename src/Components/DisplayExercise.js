@@ -60,8 +60,9 @@ export default class DisplayExercise extends PureComponent {
       activeKey: panes[0].key,
       panes,
       cont: ["ciao"],
+      dateString: "",
       exerciseInfo: props.match,
-      versions: ["Exercise 4", "Federica", "ciaooo"],
+      versions: [],
       };
   }
 
@@ -73,6 +74,7 @@ export default class DisplayExercise extends PureComponent {
       // override first tab pane with code from database
       const first = [{title:'SOURCE CODE', content: <Container codice={this.state.cont.code}/>, closable:false, key: '1'}]
       //const first = [{title:'SOURCE CODE', content: this.state.cont.code, closable:false, key: '1'}]
+      this.setState({dateString: this.state.cont.date.substring(0,10)})
       this.setState({panes: first});
       console.log(this.state.cont)
     })
@@ -84,14 +86,7 @@ export default class DisplayExercise extends PureComponent {
     const { panes } = this.state;
     const titleVersion = ver;
     const activeKey = `newTab${this.newTabIndex++}`;
-
-    // getting the code
-    /*axios.get(`http://localhost:5000/exercises/title/${ver}`)
-    .then(response => {
-      this.setState({x: response.data.code});
-      console.log(x)
-    })
-    .catch((error) => { console.log(error);})*/
+    
     panes.push({ title: titleVersion, content: "New Pane fresco", key: activeKey });
     this.setState({ panes, activeKey });
   }
@@ -146,7 +141,7 @@ export default class DisplayExercise extends PureComponent {
                       </Dropdown>
 
                 <Col span={6}><Card title={this.state.cont.title} >
-                    <p><i>{this.state.cont.date}</i></p>
+                    <p><i>{this.state.dateString}</i></p>
                     <p>{this.state.cont.description}</p>
                     </Card>
 

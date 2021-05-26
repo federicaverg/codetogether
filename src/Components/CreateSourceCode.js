@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, DatePicker, Button, InputNumber } from 'antd';
 import { CodeOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 const { TextArea } = Input;
 
@@ -20,12 +21,24 @@ const onFinish = (values) => {
   //console.log(values.title);
 
   //console.log(values.date);
-  //console.log(JSON.stringify(values.date));
+  console.log(JSON.stringify(values.date));
   
   //console.log(values.description);
 
-  console.log(values.parts);
+  //console.log(values.parts);
   //console.log(values.code);
+
+  axios.post(`http://localhost:5000/exercises/add`, {
+    title: values.title,
+    date: values.date,
+    description: values.description,
+    code: values.code,
+    parts: values.parts
+  })
+    .then(response => {
+      console.log(response)
+    })
+    .catch((error) => { console.log(error);})
 };
 
 export default class CreateSourceCode extends React.Component {
@@ -47,7 +60,7 @@ export default class CreateSourceCode extends React.Component {
         </Form.Item>
 
         <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>} >
-        <InputNumber min={1} max={10} defaultValue={1}/>
+        <InputNumber min={1} max={10}/>
         </Form.Item>
 
         <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>

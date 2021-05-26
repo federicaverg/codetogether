@@ -56,8 +56,8 @@ class Homepage extends React.Component {
     },
     {
       title: "Last updated",
-      dataIndex: 'lastAccess',
-      key: 'lastAccess',
+      dataIndex: 'updatedAt',
+      key: 'updatedAt',
     },
     {
       title: "Description",
@@ -122,7 +122,18 @@ class Homepage extends React.Component {
     .then(response => {
       console.log(response.data)
       this.setState({exercises: response.data })
+      console.log(this.state.exercises[2])
+
+      for(var i = 0; i<response.data.length; i++){
+          response.data[i].date = response.data[i].date.substring(0,10);
+          response.data[i].updatedAt = response.data[i].updatedAt.substring(0,10);
+      }
+      this.setState({exercises: response.data })
       console.log(this.state.exercises)
+
+
+
+
     })
     .catch((error) => { console.log(error);})
   }
