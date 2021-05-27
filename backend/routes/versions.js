@@ -1,15 +1,15 @@
 const router = require('express').Router();
-let Exercise = require('../models/exercise.model');
+let Version = require('../models/version.model');
 
 // this is the first EndPoint that handles incoming HTTP GET requests
 router.route('/').get((req, res) => {
     
     // .find() is a Mongoose method --> it gets a list of all the users from the 
     // MongoDB Atlas database, the method return a Promise
-    Exercise.find()
-    .then(exercises =>{
+    Version.find()
+    .then(versions =>{
         console.log("all the versions")
-        res.json(exercises)
+        res.json(versions)
     })
     .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -20,52 +20,42 @@ router.route('/add').post((req, res) => {
     //const lastAccess = Date.parse(req.body.lastAccess);
     const description = req.body.description;
     const code = req.body.code;
-    const versions = [];
+    const exercise = [];
     const parts = Number(req.body.parts);
     //const intervals = req.body.parts;
 
-    const newExercise = new Exercise({
+    const newVersion = new Exercise({
         title,
         date,
         //lastAccess,
         description,
         code,
-        versions,
+        exercise,
         parts,
         //intervals
     });
 
-    newExercise.save()
-    .then(() => res.json('Exercise added!'))
+    newVersion.save()
+    .then(() => res.json('Version added!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// Object ID created automatically by MongoDB
-// router.route('/:id').get((req, res) => {
-//     Exercise.findById(req.params.id)
-//       .then(exercise => {res.json(exercise)})
-//       .catch(err => res.status(400).json('Error: ' + err));
-//   });
-
 router.route('/title/:title?').get((req, res) => {
     console.log(req.params.title);
-    console.log("Sono qui");
-    Exercise.findOne({title: req.params.title})
-      .then(exercise => {
-          console.log(exercise)
-          res.json(exercise);
+    console.log("Getting a title");
+    Version.findOne({title: req.params.title})
+      .then(version => {
+          console.log(version)
+          res.json(version);
         })
       .catch(err => res.status(400).json('Error: ' + err));
   });
 
-router.route('/:id').delete((req,res) => {
-    Exercise.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Exercise deleted.'))
+  router.route('/:id').delete((req,res) => {
+    Version.findByIdAndDelete(req.params.id)
+    .then(() => res.json('Version deleted.'))
     .catch(err => res.status(400).json('Error' + err));
 });
 
-
-
-// UPDATE EXERCISE
 
 module.exports = router;

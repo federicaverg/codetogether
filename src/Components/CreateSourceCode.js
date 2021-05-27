@@ -28,15 +28,28 @@ const onFinish = (values) => {
   //console.log(values.parts);
   //console.log(values.code);
 
-  axios.post(`http://localhost:5000/exercises/add`, {
-    title: values.title,
-    date: values.date,
-    description: values.description,
-    code: values.code,
-    parts: values.parts
-  })
+  axios.get(`http://localhost:5000/versions/title/${values.title}`)
+    .then(response => {
+      console.log(response.data)
+      if(response.data === ""){
+        axios.post(`http://localhost:5000/exercises/add`, {
+          title: values.title,
+          date: values.date,
+          description: values.description,
+          code: values.code,
+          parts: values.parts
+        })
     .then(response => {
       console.log(response)
+    })
+    .catch((error) => { console.log(error);})
+      }
+      else{
+        console.log("Esercizio già presente");
+      }
+
+      
+      console.log(this.state.exercises)
     })
     .catch((error) => { console.log(error);})
 };

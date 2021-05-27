@@ -29,11 +29,11 @@ connection.once('open', () => {
 })
 
 const exercisesRouter = require('./routes/exercises');
-//const versionRouter = require('./routes/versions');
+const versionRouter = require('./routes/versions');
 
 // when someone goes to these routes it will load everything inside these files
 app.use('/exercises', exercisesRouter);
-//app.use('/versions', versionRouter);
+app.use('/versions', versionRouter);
 
 
 app.listen(port, () => {
