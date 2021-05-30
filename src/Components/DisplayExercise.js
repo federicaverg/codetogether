@@ -98,10 +98,13 @@ export default class DisplayExercise extends PureComponent {
   // to add new tab pane given a selected version
   addPane = (ver) => {
     const { panes } = this.state;
-    const titleVersion = ver;
+    const titleVersion = ver.title;
     const activeKey = `newTab${this.newTabIndex++}`;
+
+    console.log(ver);
     
-    panes.push({ title: titleVersion, content: "New Pane fresco", key: activeKey });
+    // FEDERICAAAAA --> If I insert "<Container/> here it pushes the body content (code) in the "source code" pane
+    panes.push({ title: titleVersion, content: <Container codice={ver.code}/>, key: activeKey });
     this.setState({ panes, activeKey });
   }
 
