@@ -1,10 +1,10 @@
 import React from 'react';
-import { Form, Input, DatePicker, Button, InputNumber } from 'antd';
-import { CodeOutlined } from '@ant-design/icons';
+import { Form, Input, DatePicker, Button, InputNumber, Space } from 'antd';
+import { CodeOutlined, CheckCircleTwoTone } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
-// define layout of page in columns and rows
+// To define layout of page in columns and rows
 const layout = {
   labelCol: {
     span: 5,
@@ -24,12 +24,30 @@ const onFinish = (values) => {
   
   //console.log(values.description);
 
-  console.log(values.parts);
+  //console.log(values.parts);
   //console.log(values.code);
 };
 
-export default class CreateSourceCode extends React.Component {
 
+
+
+export default class CreateSourceCode extends React.Component {
+  
+  state = {
+    temp: [],
+    number_parts: ["p"]
+  }
+
+  onChange = value => {
+    //save number of parts into state as it gets changed
+    this.setState({temp: value});
+    
+  };
+
+  updateParts = () => {
+    console.log(this.state.temp);
+  }
+ 
   render() {
     return (
       <div className="create-source-code" style={{ padding: '0 50px', marginTop:80,}}>
@@ -47,14 +65,12 @@ export default class CreateSourceCode extends React.Component {
         </Form.Item>
 
         <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>} >
-        <InputNumber min={1} max={10} defaultValue={1}/>
+        <InputNumber min={1} max={10} onChange={this.onChange}/> 
+         <Button type="text" icon={ <CheckCircleTwoTone twoToneColor="#4663ac" onClick={this.updateParts}/>} />
         </Form.Item>
 
         <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
-        <TextArea
-          placeholder="</>"
-          autoSize={{ minRows: 5, maxRows: 20 }}
-        />
+          {this.state.number_parts.map(part => (<TextArea placeHolder="</>"  autoSize={{ minRows: 5, maxRows: 20 }}/>))}
         </Form.Item>
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
