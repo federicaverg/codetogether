@@ -25,28 +25,21 @@ class Car extends Vehicle {
 }
 `;
 
-var code = codeWrong.replace(/\s/g, '');
+// var code = codeWrong.replace(/\s/g, '');
 
-function hex2a(hexx) {
-    var hex = hexx.toString();
-    var code = '';
-    for (var i = 0; i < hex.length; i += 2)
-        code += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-return code;}
+// function hex2a(hexx) {
+//     var hex = hexx.toString();
+//     var code = '';
+//     for (var i = 0; i < hex.length; i += 2)
+//         code += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+// return code;}
 
-var codeRight = hex2a(code);
+// var codeRight = hex2a(code);
 
 export default function Container(props) {
   const [value, setValue] = useState("");
 
-  var codeProps = props.codice.replace(/\s/g, '');
-
-  var ciao = hex2a(codeProps);
-
   console.log(props.match);
-
-
-
 
   useEffect(() => {
     console.log(value);
@@ -55,7 +48,7 @@ export default function Container(props) {
   // reload browser after chage
   return (
     <Editor
-      initialValue={ciao}
+      initialValue={props.codice}
       onChange={value => setValue(value)}
     />
   );

@@ -1,6 +1,12 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Form, Input, DatePicker, Button, InputNumber, Space } from 'antd';
 import { CodeOutlined, CheckCircleTwoTone } from '@ant-design/icons';
+=======
+import { Form, Input, DatePicker, Button, InputNumber } from 'antd';
+import { CodeOutlined } from '@ant-design/icons';
+import axios from 'axios';
+>>>>>>> debcb1a926e630403735c247e504ef9e1f53a103
 
 const { TextArea } = Input;
 
@@ -20,12 +26,37 @@ const onFinish = (values) => {
   //console.log(values.title);
 
   //console.log(values.date);
-  //console.log(JSON.stringify(values.date));
+  console.log(JSON.stringify(values.date));
   
   //console.log(values.description);
 
   //console.log(values.parts);
   //console.log(values.code);
+
+  axios.get(`http://localhost:5000/versions/title/${values.title}`)
+    .then(response => {
+      console.log(response.data)
+      if(response.data === ""){
+        axios.post(`http://localhost:5000/exercises/add`, {
+          title: values.title,
+          date: values.date,
+          description: values.description,
+          code: values.code,
+          parts: values.parts
+        })
+    .then(response => {
+      console.log(response)
+    })
+    .catch((error) => { console.log(error);})
+      }
+      else{
+        console.log("Esercizio già presente");
+      }
+
+      
+      console.log(this.state.exercises)
+    })
+    .catch((error) => { console.log(error);})
 };
 
 
@@ -65,8 +96,12 @@ export default class CreateSourceCode extends React.Component {
         </Form.Item>
 
         <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>} >
+<<<<<<< HEAD
         <InputNumber min={1} max={10} onChange={this.onChange}/> 
          <Button type="text" icon={ <CheckCircleTwoTone twoToneColor="#4663ac" onClick={this.updateParts}/>} />
+=======
+        <InputNumber min={1} max={10}/>
+>>>>>>> debcb1a926e630403735c247e504ef9e1f53a103
         </Form.Item>
 
         <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>

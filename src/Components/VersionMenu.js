@@ -2,7 +2,9 @@
 
 import React, {Component} from 'react';
 import { Layout, Table, Tooltip, Space, message, Popconfirm } from 'antd';
+import {BrowserRouter as Router,  Link, Route} from "react-router-dom";
 import { DeleteFilled } from '@ant-design/icons';
+import axios from 'axios';
 
 const { Content } = Layout;
 
@@ -16,15 +18,17 @@ class VersionMenu extends Component {
   columns = [
     {
       title: "Version",
-      dataIndex: 'version',
-      key: 'version',
+      dataIndex: 'title',
+      key: 'title',
       render: text => <a>{text}</a>,
     },
     {
       title: "Source code",
-      dataIndex: 'sourcecode',
-      key: 'sourcecode',
-      render: text => <a>{text}</a>,
+      dataIndex: 'exercise',
+      key: 'exercise',
+      render: (text) => <Link to={`/display/exercise/${text}`}>
+        {text}
+      </Link>,
     },
     {
       title: "Date",
@@ -33,8 +37,8 @@ class VersionMenu extends Component {
     },
     {
       title: "Last update",
-      dataIndex: 'lastAccess',
-      key: 'lastAccess',
+      dataIndex: 'updatedAt',
+      key: 'updatedAt',
     },
     {
       title: "Description",
@@ -74,33 +78,24 @@ class VersionMenu extends Component {
   ];
 
   // where the data of the table is stored
-  state = {
-    data: [
-      {
-        key: '1',
-        version: 'John Doe',
-        sourcecode: 'Exercise 1',
-        date: '20/04/2021',
-        lastAccess: '05/03/2021',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      },
-      {
-        key: '2',
-        version: 'Jane Doe',
-        sourcecode: 'Exercise 2',
-        date: '10/02/2021',
-        lastAccess: '05/03/2021',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      },
-      {
-        key: '3',
-        version: 'Billy Bob',
-        sourcecode: 'Exercise 3',
-        date: '12/10/2021',
-        lastAccess: '05/03/2021',
-        description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      },
-    ]
+  state = { 
+    versions: []
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:5000/versions')
+    .then(response => {
+      console.log(response.data)
+      this.setState({versions: response.data })
+
+      for(var i = 0; i<response.data.length; i++){
+          response.data[i].date = response.data[i].date.substring(0,10);
+          response.data[i].updatedAt = response.data[i].updatedAt.substring(0,10);
+      }
+      this.setState({versions: response.data })
+      console.log(this.state.versions)
+    })
+    .catch((error) => { console.log(error);})
   }
 
   // method to remove the row of a selected version
@@ -117,7 +112,7 @@ class VersionMenu extends Component {
     <div className="homepage">
     <Content className="site-layout" style={{ padding: '0 50px', marginTop:50}}>
       <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
-      <Table columns={this.columns} dataSource={this.state.data}  />
+      <Table columns={this.columns} dataSource={this.state.versions}  />
       </div>
     </Content>
     </div>
