@@ -20,11 +20,11 @@ router.route('/add').post((req, res) => {
     //const lastAccess = Date.parse(req.body.lastAccess);
     const description = req.body.description;
     const code = req.body.code;
-    const exercise = [];
+    const exercise = req.body.exercise;
     const parts = Number(req.body.parts);
     //const intervals = req.body.parts;
 
-    const newVersion = new Exercise({
+    const newVersion = new Version({
         title,
         date,
         //lastAccess,
@@ -50,6 +50,17 @@ router.route('/title/:title?').get((req, res) => {
         })
       .catch(err => res.status(400).json('Error: ' + err));
   });
+
+router.route('/exercise/:exercise?').get((req,res) => {
+    console.log(req.params.exercise);
+    console.log("Getting a title");
+    Version.find({exercise: req.params.exercise})
+        .then(versions => {
+            console.log(versions)
+            res.json(versions);
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
   router.route('/:id').delete((req,res) => {
     Version.findByIdAndDelete(req.params.id)

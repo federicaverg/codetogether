@@ -62,21 +62,35 @@ export default class DisplayExercise extends PureComponent {
       cont: ["ciao"],
       dateString: "",
       exerciseInfo: props.match,
-      versions: [],
+      versions: ["Hello", "ciao", "why"],
       };
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:5000/exercises/title/${this.state.exerciseInfo.params.id}`)
+    console.log(this.state.exerciseInfo.params.title);
+    axios.get(`http://localhost:5000/exercises/title/${this.state.exerciseInfo.params.title}`)
     .then(response => {
       console.log(response)
       this.setState({cont: response.data });
-      // override first tab pane with code from database
+      // overriding first tab pane with code from database
       const first = [{title:'SOURCE CODE', content: <Container codice={this.state.cont.code}/>, closable:false, key: '1'}]
       //const first = [{title:'SOURCE CODE', content: this.state.cont.code, closable:false, key: '1'}]
       this.setState({dateString: this.state.cont.date.substring(0,10)})
       this.setState({panes: first});
-      console.log(this.state.cont)
+      console.log(this.state.exerciseInfo.params.title)
+
+      axios.get(`http://localhost:5000/versions/exercise/${this.state.exerciseInfo.params.title}`)
+      .then(response => {
+        console.log("Hello i'm here");
+        console.log(response.data)
+
+        this.setState({versions: response.data});
+
+        response.data.map(ver => console.log(ver.title));
+        this.state.versions.map(ver => console.log(ver.title));
+      })
+      .catch((error) => { console.log(error);})
+
     })
     .catch((error) => { console.log(error);})
   }
@@ -135,7 +149,7 @@ export default class DisplayExercise extends PureComponent {
 
                     <Dropdown overlay={
                       <Menu>
-                        {this.state.versions.map(ver => (<Menu.Item key={ver._id}><Button type="link" onClick={() => {this.addPane(ver)}}>{ver}</Button></Menu.Item>))}
+                        {this.state.versions.map(ver => (<Menu.Item key={ver._id}><Button type="link" onClick={() => {this.addPane(ver)}}>{ver.title}</Button></Menu.Item>))}
                         </Menu>}>
                         <Button icon={<PlusOutlined />}/>
                       </Dropdown>

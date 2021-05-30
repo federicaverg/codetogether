@@ -47,6 +47,7 @@ router.route('/add').post((req, res) => {
 //       .catch(err => res.status(400).json('Error: ' + err));
 //   });
 
+// To find the single exercise
 router.route('/title/:title?').get((req, res) => {
     console.log(req.params.title);
     console.log("Sono qui");
