@@ -18,6 +18,7 @@ const layout = {
 
 const onFinish = (values) => {
   console.log(values);
+  console.log(this.state.nparts);
   message.success('Successfully submitted');
   axios.get(`http://localhost:5000/versions/title/${values.title}`)
     .then(response => {
@@ -47,7 +48,7 @@ const onFinish = (values) => {
 export default class CreateSourceCode extends React.Component {
 
   state = {
-    nparts: "",
+    nparts: '',
     codeareas: [],
   }
 
@@ -60,17 +61,24 @@ export default class CreateSourceCode extends React.Component {
   buttonClicked = () => {
     const n = this.state.nparts;
     const updated = [];
-    for (var i = 0; i < n; i++) {
-      const newarea = {title:"part", key:i+1};
+
+    if (n == 1) {
+      const newarea = {title:"Code", key:''}
       updated.push(newarea);
+    } else {
+      for (var i = 0; i < n; i++) {
+        const newarea = {title:"Part", key:i+1};
+        updated.push(newarea);
+      }
     }
+    
     this.setState({codeareas: updated});
   }
 
    render() {
     return (
       <div className="create-source-code" style={{ padding: '0 50px', marginTop:80,}}>
-      <Form {...layout} name="nest-messages" onFinish={onFinish} >
+      <Form {...layout} name="nest-messages" onFinish={onFinish.bind(this)} >
       <Form.Item name="title" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Title</label>} rules={[{ required: true, }, ]}>
         <Input name="title"/>
       </Form.Item>
@@ -83,13 +91,13 @@ export default class CreateSourceCode extends React.Component {
         <TextArea />
         </Form.Item>
 
-        <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>
-          <Button onClick={this.buttonClicked.bind(this)} type="text" icon={<CheckCircleTwoTone twoToneColor="#52c41a" />}/>Parts</label>} >
-        <InputNumber onChange={this.updateParts.bind(this)} min={1} max={10}/></Form.Item>
+        <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}} >
+          <Button onClick={this.buttonClicked.bind(this)} type="text" icon={<CheckCircleTwoTone twoToneColor="#52c41a" />}/>Parts</label>} rules={[{required: true}]}>
+        <InputNumber onChange={this.updateParts.bind(this)} min={1} max={10} /></Form.Item>
 
 
-        {this.state.codeareas.map(p => (<Form.Item name={`code_${p.key}`} wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
-          <TextArea placeholder={`Part ${p.key}`} autoSize={{ minRows: 5, maxRows: 20 }}/>
+        {this.state.codeareas.map(p => (<Form.Item name={`code${p.key}`} wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
+          <TextArea placeholder={p.title + ' ' + p.key} autoSize={{ minRows: 5, maxRows: 20 }}/>
         </Form.Item>))}
         
 
