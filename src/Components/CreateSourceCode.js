@@ -19,14 +19,10 @@ const layout = {
 
 const onFinish = (values) => {
   console.log(values);
-
   //console.log(values.title);
-
   //console.log(values.date);
-  console.log(JSON.stringify(values.date));
-  
+  //console.log(JSON.stringify(values.date));
   //console.log(values.description);
-
   //console.log(values.parts);
   //console.log(values.code);
 
@@ -39,7 +35,10 @@ const onFinish = (values) => {
           date: values.date,
           description: values.description,
           code: values.code,
+
+          //PROVARE SE FUNZIONA CON DB
           parts: values.parts
+          //parts: this.state.nParts,
         })
     .then(response => {
       console.log(response)
@@ -60,23 +59,9 @@ const onFinish = (values) => {
 
 
 export default class CreateSourceCode extends React.Component {
-  
-  state = {
-    temp: [],
-    number_parts: ["p"]
-  }
 
-  onChange = value => {
-    //save number of parts into state as it gets changed
-    this.setState({temp: value});
-    
-  };
 
-  updateParts = () => {
-    console.log(this.state.temp);
-  }
- 
-  render() {
+   render() {
     return (
       <div className="create-source-code" style={{ padding: '0 50px', marginTop:80,}}>
       <Form {...layout} name="nest-messages" onFinish={onFinish} >
@@ -98,7 +83,7 @@ export default class CreateSourceCode extends React.Component {
         </Form.Item>
 
         <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
-          {this.state.number_parts.map(part => (<TextArea placeHolder="</>"  autoSize={{ minRows: 5, maxRows: 20 }}/>))}
+          <TextArea placeholder="</>"  autoSize={{ minRows: 5, maxRows: 20 }}/>
         </Form.Item>
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
