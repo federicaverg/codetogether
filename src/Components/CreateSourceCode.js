@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Input, DatePicker, Button, InputNumber } from 'antd';
 import { CodeOutlined,CheckCircleTwoTone } from '@ant-design/icons';
 import axios from 'axios';
+import Container from './Container';
 
 const { TextArea } = Input;
 
@@ -17,13 +18,6 @@ const layout = {
 
 const onFinish = (values) => {
   console.log(values);
-  //console.log(values.title);
-  //console.log(values.date);
-  //console.log(JSON.stringify(values.date));
-  //console.log(values.description);
-  //console.log(values.parts);
-  //console.log(values.code);
-
   axios.get(`http://localhost:5000/versions/title/${values.title}`)
     .then(response => {
       console.log(response.data)
@@ -33,10 +27,7 @@ const onFinish = (values) => {
           date: values.date,
           description: values.description,
           code: values.code,
-
-          //PROVARE SE FUNZIONA CON DB
           parts: values.parts
-          //parts: this.state.nParts,
         })
     .then(response => {
       console.log(response)
@@ -60,7 +51,7 @@ export default class CreateSourceCode extends React.Component {
 
   state = {
     nparts: "",
-    codeareas: ["default"],
+    codeareas: [],
   }
 
   updateParts = (value) => {
@@ -68,13 +59,13 @@ export default class CreateSourceCode extends React.Component {
   }
 
   buttonClicked = () => {
-    //console.log(this.state.nparts);
     const n = this.state.nparts;
-    const { codeareas } = this.state;
-    for (var i = 0; i < n-1; i++) {
-      codeareas.push("new");
+    const updated = [];
+    for (var i = 0; i < n; i++) {
+      const newarea = {title:"part", key:i+1};
+      updated.push(newarea);
     }
-    this.setState({codeareas});
+    this.setState({codeareas: updated});
   }
 
 
@@ -98,9 +89,11 @@ export default class CreateSourceCode extends React.Component {
           <Button onClick={this.buttonClicked.bind(this)} type="text" icon={<CheckCircleTwoTone twoToneColor="#52c41a" />}/>Parts</label>} >
         <InputNumber onChange={this.updateParts.bind(this)} min={1} max={10}/></Form.Item>
 
-        <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
-          {this.state.codeareas.map(p => (<TextArea  autoSize={{ minRows: 5, maxRows: 20 }}/>))}
-        </Form.Item>
+
+        {this.state.codeareas.map(p => (<Form.Item name={`code_${p.key}`} wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
+          <TextArea placeholder={`Part ${p.key}`} autoSize={{ minRows: 5, maxRows: 20 }}/>
+        </Form.Item>))}
+        
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
         <Button type="primary" icon={<CodeOutlined />} size='large' />
