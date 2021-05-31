@@ -1,12 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Form, Input, DatePicker, Button, InputNumber, Space } from 'antd';
-import { CodeOutlined, CheckCircleTwoTone } from '@ant-design/icons';
-=======
 import { Form, Input, DatePicker, Button, InputNumber } from 'antd';
-import { CodeOutlined } from '@ant-design/icons';
+import { CodeOutlined,CheckCircleTwoTone } from '@ant-design/icons';
 import axios from 'axios';
->>>>>>> debcb1a926e630403735c247e504ef9e1f53a103
 
 const { TextArea } = Input;
 
@@ -22,14 +17,10 @@ const layout = {
 
 const onFinish = (values) => {
   console.log(values);
-
   //console.log(values.title);
-
   //console.log(values.date);
-  console.log(JSON.stringify(values.date));
-  
+  //console.log(JSON.stringify(values.date));
   //console.log(values.description);
-
   //console.log(values.parts);
   //console.log(values.code);
 
@@ -42,7 +33,10 @@ const onFinish = (values) => {
           date: values.date,
           description: values.description,
           code: values.code,
+
+          //PROVARE SE FUNZIONA CON DB
           parts: values.parts
+          //parts: this.state.nParts,
         })
     .then(response => {
       console.log(response)
@@ -63,23 +57,9 @@ const onFinish = (values) => {
 
 
 export default class CreateSourceCode extends React.Component {
-  
-  state = {
-    temp: [],
-    number_parts: ["p"]
-  }
 
-  onChange = value => {
-    //save number of parts into state as it gets changed
-    this.setState({temp: value});
-    
-  };
 
-  updateParts = () => {
-    console.log(this.state.temp);
-  }
- 
-  render() {
+   render() {
     return (
       <div className="create-source-code" style={{ padding: '0 50px', marginTop:80,}}>
       <Form {...layout} name="nest-messages" onFinish={onFinish} >
@@ -95,17 +75,12 @@ export default class CreateSourceCode extends React.Component {
         <TextArea />
         </Form.Item>
 
-        <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>} >
-<<<<<<< HEAD
-        <InputNumber min={1} max={10} onChange={this.onChange}/> 
-         <Button type="text" icon={ <CheckCircleTwoTone twoToneColor="#4663ac" onClick={this.updateParts}/>} />
-=======
-        <InputNumber min={1} max={10}/>
->>>>>>> debcb1a926e630403735c247e504ef9e1f53a103
-        </Form.Item>
+        <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>
+          <Button type="text" icon={<CheckCircleTwoTone twoToneColor="#52c41a" />}/>Parts</label>} >
+        <InputNumber min={1} max={10}/></Form.Item>
 
         <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
-          {this.state.number_parts.map(part => (<TextArea placeHolder="</>"  autoSize={{ minRows: 5, maxRows: 20 }}/>))}
+          <TextArea placeholder="</>"  autoSize={{ minRows: 5, maxRows: 20 }}/>
         </Form.Item>
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>

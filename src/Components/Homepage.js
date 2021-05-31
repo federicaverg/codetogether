@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Layout, Table, Tooltip, Space, Popconfirm, message } from 'antd';
-import {BrowserRouter as Router,  Link, Route} from "react-router-dom";
+import {Link} from "react-router-dom";
 import { EditFilled, DeleteFilled } from '@ant-design/icons';
 import axios from 'axios';
 

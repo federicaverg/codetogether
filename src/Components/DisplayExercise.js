@@ -54,7 +54,7 @@ export default class DisplayExercise extends PureComponent {
     // hard-coded initial pane for source code
     const panes = [{title:'SOURCE CODE', content: [], key: '1', closable: false}];
 
-    console.log(props.match);
+    //console.log(props.match);
 
     this.state = {
       activeKey: panes[0].key,
@@ -70,24 +70,24 @@ export default class DisplayExercise extends PureComponent {
     console.log(this.state.exerciseInfo.params.title);
     axios.get(`http://localhost:5000/exercises/title/${this.state.exerciseInfo.params.title}`)
     .then(response => {
-      console.log(response)
+      //console.log(response)
       this.setState({cont: response.data });
       // overriding first tab pane with code from database
       const first = [{title:'SOURCE CODE', content: <Container codice={this.state.cont.code}/>, closable:false, key: '1'}]
       //const first = [{title:'SOURCE CODE', content: this.state.cont.code, closable:false, key: '1'}]
       this.setState({dateString: this.state.cont.date.substring(0,10)})
       this.setState({panes: first});
-      console.log(this.state.exerciseInfo.params.title)
+      //console.log(this.state.exerciseInfo.params.title)
 
       axios.get(`http://localhost:5000/versions/exercise/${this.state.exerciseInfo.params.title}`)
       .then(response => {
-        console.log("Hello i'm here");
-        console.log(response.data)
+        //console.log("Hello i'm here");
+        //console.log(response.data)
 
         this.setState({versions: response.data});
 
-        response.data.map(ver => console.log(ver.title));
-        this.state.versions.map(ver => console.log(ver.title));
+        //response.data.map(ver => console.log(ver.title));
+        //this.state.versions.map(ver => console.log(ver.title));
       })
       .catch((error) => { console.log(error);})
 
