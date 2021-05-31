@@ -58,6 +58,25 @@ const onFinish = (values) => {
 
 export default class CreateSourceCode extends React.Component {
 
+  state = {
+    nparts: "",
+    codeareas: ["default"],
+  }
+
+  updateParts = (value) => {
+    this.setState({nparts: value});
+  }
+
+  buttonClicked = () => {
+    //console.log(this.state.nparts);
+    const n = this.state.nparts;
+    const { codeareas } = this.state;
+    for (var i = 0; i < n-1; i++) {
+      codeareas.push("new");
+    }
+    this.setState({codeareas});
+  }
+
 
    render() {
     return (
@@ -76,11 +95,11 @@ export default class CreateSourceCode extends React.Component {
         </Form.Item>
 
         <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>
-          <Button type="text" icon={<CheckCircleTwoTone twoToneColor="#52c41a" />}/>Parts</label>} >
-        <InputNumber min={1} max={10}/></Form.Item>
+          <Button onClick={this.buttonClicked.bind(this)} type="text" icon={<CheckCircleTwoTone twoToneColor="#52c41a" />}/>Parts</label>} >
+        <InputNumber onChange={this.updateParts.bind(this)} min={1} max={10}/></Form.Item>
 
         <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
-          <TextArea placeholder="</>"  autoSize={{ minRows: 5, maxRows: 20 }}/>
+          {this.state.codeareas.map(p => (<TextArea  autoSize={{ minRows: 5, maxRows: 20 }}/>))}
         </Form.Item>
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
