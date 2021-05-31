@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import { Form, Input, Button, Select } from 'antd';
+import axios from 'axios';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -21,6 +22,9 @@ const onFinish = (values) => {
   };
   
 export default class CreateVersion extends PureComponent {
+
+    componentDidMount(){
+    }
     
       render() {
         return (
@@ -28,6 +32,7 @@ export default class CreateVersion extends PureComponent {
           <Form {...layout} name="nest-messages" onFinish={onFinish} >
           <Form.Item name="exercise" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Exercise</label>} rules={[{required:true}]} >
             <Select style={{ width: 200 }}>
+              {}
             <Option value="1" /*exercise._id*/>Exercise 1</Option>
             <Option value="2">Exercise A*</Option>
             </Select>

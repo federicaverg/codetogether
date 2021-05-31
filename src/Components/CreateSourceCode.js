@@ -1,12 +1,9 @@
 import React from 'react';
-<<<<<<< HEAD
+
 import { Form, Input, DatePicker, Button, InputNumber, Space } from 'antd';
 import { CodeOutlined, CheckCircleTwoTone } from '@ant-design/icons';
-=======
-import { Form, Input, DatePicker, Button, InputNumber } from 'antd';
-import { CodeOutlined } from '@ant-design/icons';
 import axios from 'axios';
->>>>>>> debcb1a926e630403735c247e504ef9e1f53a103
+
 
 const { TextArea } = Input;
 
@@ -96,12 +93,8 @@ export default class CreateSourceCode extends React.Component {
         </Form.Item>
 
         <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>} >
-<<<<<<< HEAD
         <InputNumber min={1} max={10} onChange={this.onChange}/> 
          <Button type="text" icon={ <CheckCircleTwoTone twoToneColor="#4663ac" onClick={this.updateParts}/>} />
-=======
-        <InputNumber min={1} max={10}/>
->>>>>>> debcb1a926e630403735c247e504ef9e1f53a103
         </Form.Item>
 
         <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>

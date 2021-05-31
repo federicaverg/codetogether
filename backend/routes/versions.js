@@ -62,7 +62,7 @@ router.route('/exercise/:exercise?').get((req,res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-  router.route('/:id').delete((req,res) => {
+router.route('/:id').delete((req,res) => {
     Version.findByIdAndDelete(req.params.id)
     .then(() => res.json('Version deleted.'))
     .catch(err => res.status(400).json('Error' + err));
