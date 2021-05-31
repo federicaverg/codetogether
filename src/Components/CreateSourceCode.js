@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, DatePicker, Button, InputNumber } from 'antd';
+import { Form, Input, DatePicker, Button, InputNumber, message } from 'antd';
 import { CodeOutlined,CheckCircleTwoTone } from '@ant-design/icons';
 import axios from 'axios';
 import Container from './Container';
@@ -18,6 +18,7 @@ const layout = {
 
 const onFinish = (values) => {
   console.log(values);
+  message.success('Successfully submitted');
   axios.get(`http://localhost:5000/versions/title/${values.title}`)
     .then(response => {
       console.log(response.data)
@@ -35,17 +36,13 @@ const onFinish = (values) => {
     .catch((error) => { console.log(error);})
       }
       else{
-        console.log("Esercizio già presente");
+        console.log("Source code already exists");
+        message.error('Source code already exists');
       }
-
-      
       console.log(this.state.exercises)
     })
     .catch((error) => { console.log(error);})
 };
-
-
-
 
 export default class CreateSourceCode extends React.Component {
 
@@ -54,10 +51,12 @@ export default class CreateSourceCode extends React.Component {
     codeareas: [],
   }
 
+  // updates the number of parts in a temporary variable
   updateParts = (value) => {
     this.setState({nparts: value});
   }
 
+  // generates text areas
   buttonClicked = () => {
     const n = this.state.nparts;
     const updated = [];
@@ -67,7 +66,6 @@ export default class CreateSourceCode extends React.Component {
     }
     this.setState({codeareas: updated});
   }
-
 
    render() {
     return (
