@@ -18,7 +18,6 @@ const layout = {
 
 const onFinish = (values) => {
   console.log(values);
-  console.log(this.state.nparts);
   message.success('Successfully submitted');
   axios.get(`http://localhost:5000/versions/title/${values.title}`)
     .then(response => {
@@ -50,6 +49,7 @@ export default class CreateSourceCode extends React.Component {
   state = {
     nparts: '',
     codeareas: [],
+    submitDisabled: true,
   }
 
   // updates the number of parts in a temporary variable
@@ -57,10 +57,20 @@ export default class CreateSourceCode extends React.Component {
     this.setState({nparts: value});
   }
 
+  // enable the submit button only if number of parts is defined 
+  enableSubmit() {
+    this.setState({submitDisabled: false})
+  }
+
   // generates text areas
   buttonClicked = () => {
+    
     const n = this.state.nparts;
     const updated = [];
+
+    if (n !== '') {
+      this.enableSubmit();
+    }
 
     if (n == 1) {
       const newarea = {title:"Code", key:''}
@@ -71,8 +81,8 @@ export default class CreateSourceCode extends React.Component {
         updated.push(newarea);
       }
     }
-    
     this.setState({codeareas: updated});
+
   }
 
    render() {
@@ -106,7 +116,7 @@ export default class CreateSourceCode extends React.Component {
         </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
-        <Button type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}}> 
+        <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}} disabled={this.state.submitDisabled}> 
           Submit
         </Button>
       </Form.Item>
