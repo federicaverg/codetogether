@@ -3,6 +3,7 @@ import React from 'react';
 import { Form, Input, DatePicker, Button, InputNumber, Space } from 'antd';
 import { CodeOutlined, CheckCircleTwoTone } from '@ant-design/icons';
 import axios from 'axios';
+import Container from './Container';
 
 
 const { TextArea } = Input;
@@ -19,13 +20,7 @@ const layout = {
 
 const onFinish = (values) => {
   console.log(values);
-  //console.log(values.title);
-  //console.log(values.date);
-  //console.log(JSON.stringify(values.date));
-  //console.log(values.description);
-  //console.log(values.parts);
-  //console.log(values.code);
-
+  message.success('Successfully submitted');
   axios.get(`http://localhost:5000/versions/title/${values.title}`)
     .then(response => {
       console.log(response.data)
@@ -35,10 +30,7 @@ const onFinish = (values) => {
           date: values.date,
           description: values.description,
           code: values.code,
-
-          //PROVARE SE FUNZIONA CON DB
           parts: values.parts
-          //parts: this.state.nParts,
         })
     .then(response => {
       console.log(response)
@@ -46,44 +38,59 @@ const onFinish = (values) => {
     .catch((error) => { console.log(error);})
       }
       else{
-        console.log("Esercizio già presente");
+        console.log("Source code already exists");
+        message.error('Source code already exists');
       }
-
-      
       console.log(this.state.exercises)
     })
     .catch((error) => { console.log(error);})
 };
 
-
-
-
 export default class CreateSourceCode extends React.Component {
 
   state = {
-    nparts: "",
-    codeareas: ["default"],
+    nparts: '',
+    codeareas: [],
+    submitDisabled: true,
   }
 
+  // updates the number of parts in a temporary variable
   updateParts = (value) => {
     this.setState({nparts: value});
   }
 
-  buttonClicked = () => {
-    //console.log(this.state.nparts);
-    const n = this.state.nparts;
-    const { codeareas } = this.state;
-    for (var i = 0; i < n-1; i++) {
-      codeareas.push("new");
-    }
-    this.setState({codeareas});
+  // enable the submit button only if number of parts is defined 
+  enableSubmit() {
+    this.setState({submitDisabled: false})
   }
 
+  // generates text areas
+  buttonClicked = () => {
+    
+    const n = this.state.nparts;
+    const updated = [];
+
+    if (n !== '') {
+      this.enableSubmit();
+    }
+
+    if (n == 1) {
+      const newarea = {title:"Code", key:''}
+      updated.push(newarea);
+    } else {
+      for (var i = 0; i < n; i++) {
+        const newarea = {title:"Part", key:i+1};
+        updated.push(newarea);
+      }
+    }
+    this.setState({codeareas: updated});
+
+  }
 
    render() {
     return (
       <div className="create-source-code" style={{ padding: '0 50px', marginTop:80,}}>
-      <Form {...layout} name="nest-messages" onFinish={onFinish} >
+      <Form {...layout} name="nest-messages" onFinish={onFinish.bind(this)} >
       <Form.Item name="title" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Title</label>} rules={[{ required: true, }, ]}>
         <Input name="title"/>
       </Form.Item>
@@ -101,16 +108,18 @@ export default class CreateSourceCode extends React.Component {
          <Button type="text" icon={ <CheckCircleTwoTone twoToneColor="#4663ac" onClick={this.updateParts}/>} />
         </Form.Item>
 
-        <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
-          {this.state.codeareas.map(p => (<TextArea  autoSize={{ minRows: 5, maxRows: 20 }}/>))}
-        </Form.Item>
+
+        {this.state.codeareas.map(p => (<Form.Item name={`code${p.key}`} wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
+          <TextArea placeholder={p.title + ' ' + p.key} autoSize={{ minRows: 5, maxRows: 20 }}/>
+        </Form.Item>))}
+        
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
         <Button type="primary" icon={<CodeOutlined />} size='large' />
         </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
-        <Button type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}}> 
+        <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}} disabled={this.state.submitDisabled}> 
           Submit
         </Button>
       </Form.Item>
