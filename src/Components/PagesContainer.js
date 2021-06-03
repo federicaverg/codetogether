@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import { Layout, Space, Typography, Menu } from 'antd';
-import {CodepenCircleOutlined, HomeOutlined, MenuOutlined, FileAddOutlined} from '@ant-design/icons';
+import {CodepenCircleOutlined, HomeOutlined, MenuOutlined, FileAddOutlined, CodeSandboxOutlined} from '@ant-design/icons';
 import {BrowserRouter as Router,  Link, Route} from "react-router-dom";
 
 import Homepage from "./Homepage";
@@ -21,8 +21,8 @@ export default class PagesContainer extends PureComponent {
               <Router>
                 <Header>
                 <Space>
-                <CodepenCircleOutlined style={{ fontSize: '20px', color: '#fff' }}/>
-                <Text style={{fontSize: '20px', color:'#fff', fontFamily:'Vidaloka'}}>Group Project</Text>
+                <CodeSandboxOutlined  style={{ fontSize: '20px', color: '#fff', paddingLeft:'17px' }}/>
+                <Text style={{fontSize: '20px', color:'#fff', fontFamily:'Assistant', textTransform:'uppercase', letterSpacing:'3px'}}>CODE TOGETHER</Text>
                 </Space>
                 </Header>
                 <Menu mode="horizontal">
