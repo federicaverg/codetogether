@@ -15,7 +15,7 @@ const comments = [
   {
     //actions: [<span key="comment-list-reply-to-0">Reply to</span>],
     author: 'John Doe',
-    avatar: 'https://png2.cleanpng.com/sh/5fe1cfc4233cbd91920b61031ec6e683/L0KzQYm3WcIxN6pngJH0aYP2gLBuTfNwdaF6jNd7LXnmf7B6TgBweqVmet5uLX7ohMj2kvsub6NmiNpyY4OwccfolPFzNZpoRadrYUPmRofsU8A3amI6RqICNUa1R4KAUcU0P2U6Uao7MkG8SIS1kP5o/kisspng-computer-icons-portable-network-graphics-avatar-ic-5ba3c66e306b15.0756271715374598221983.png',
+    avatar: 'https://mpng.subpng.com/20180523/tha/kisspng-businessperson-computer-icons-avatar-clip-art-lattice-5b0508dc6a3a10.0013931115270566044351.jpg',
     content: (
       <p>
         I think that the loop should be increased with a counter declared inside of the second method.
@@ -149,7 +149,6 @@ export default class DisplayExercise extends PureComponent {
                 <Tabs hideAdd activeKey={this.state.activeKey} onChange={this.onChange} type="editable-card" onEdit={this.onEdit}>
                      {this.state.panes.map(pane => (<TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{pane.content}</TabPane>))}
                     </Tabs></Col>
-
                     <Dropdown overlay={
                       <Menu>
                         {this.state.versions.map(ver => (<Menu.Item key={ver._id}><Button type="link" onClick={() => {this.addPane(ver)}}>{ver.title}</Button></Menu.Item>))}
