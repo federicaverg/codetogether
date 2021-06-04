@@ -1,5 +1,7 @@
 import React, {PureComponent} from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, InputNumber, message } from 'antd';
+import { CheckCircleTwoTone } from '@ant-design/icons';
+
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -21,7 +23,45 @@ const onFinish = (values) => {
   };
   
 export default class CreateVersion extends PureComponent {
+  state = {
+    nparts: '',
+    codeareas: [],
+    submitDisabled: true,
+  }
+
+  // updates the number of parts in a temporary variable
+  updateParts = (value) => {
+    this.setState({nparts: value});
+  }
+    // enable the submit button only if number of parts is defined 
+    enableSubmit() {
+      this.setState({submitDisabled: false})
+    }
+
+   // generates text areas
+   buttonClicked = () => {
     
+    const n = this.state.nparts;
+    const updated = [];
+
+    if (n !== '') {
+      this.enableSubmit();
+    }
+
+    if (n == 1) {
+      const newarea = {title:"Code", key:''}
+      updated.push(newarea);
+    } else {
+      for (var i = 0; i < n; i++) {
+        const newarea = {title:"Part", key:i+1};
+        updated.push(newarea);
+      }
+    }
+    this.setState({codeareas: updated});
+
+  }
+
+
       render() {
         return (
           <div className="create-source-code" style={{ padding: '0 50px', marginTop:80,}}>
@@ -37,16 +77,17 @@ export default class CreateVersion extends PureComponent {
         <TextArea />
         </Form.Item>
 
-        <Form.Item name="code" wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
-        <TextArea
-          onChange={this.onChange}
-          placeholder="</>"
-          autoSize={{ minRows: 5, maxRows: 15 }}
-        />
-        </Form.Item>
+        <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}} >
+          <Button onClick={this.buttonClicked.bind(this)} type="text" icon={<CheckCircleTwoTone twoToneColor="#52c41a" />}/>Parts</label>} rules={[{required: true}]}>
+        <InputNumber onChange={this.updateParts.bind(this)} min={1} max={10} /></Form.Item>
+
+
+        {this.state.codeareas.map(p => (<Form.Item name={`code${p.key}`} wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
+          <TextArea placeholder={p.title + ' ' + p.key} autoSize={{ minRows: 5, maxRows: 20 }}/>
+        </Form.Item>))}
 
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
-        <Button type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}}>
+        <Button disabled={this.state.submitDisabled} type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}}>
           Submit
         </Button>
       </Form.Item>
