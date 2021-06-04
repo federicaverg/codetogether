@@ -1,10 +1,8 @@
 import React from 'react';
-
-import { Form, Input, DatePicker, Button, InputNumber, Space } from 'antd';
-import { CodeOutlined, CheckCircleTwoTone } from '@ant-design/icons';
+import { Form, Input, DatePicker, Button, InputNumber, message } from 'antd';
+import { CodeOutlined,CheckCircleTwoTone } from '@ant-design/icons';
 import axios from 'axios';
 import Container from './Container';
-
 
 const { TextArea } = Input;
 
@@ -103,10 +101,9 @@ export default class CreateSourceCode extends React.Component {
         <TextArea />
         </Form.Item>
 
-        <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>} >
-        <InputNumber min={1} max={10} onChange={this.onChange}/> 
-         <Button type="text" icon={ <CheckCircleTwoTone twoToneColor="#4663ac" onClick={this.updateParts}/>} />
-        </Form.Item>
+        <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}} >
+          <Button onClick={this.buttonClicked.bind(this)} type="text" icon={<CheckCircleTwoTone twoToneColor="#52c41a" />}/>Parts</label>} rules={[{required: true}]}>
+        <InputNumber onChange={this.updateParts.bind(this)} min={1} max={10} /></Form.Item>
 
 
         {this.state.codeareas.map(p => (<Form.Item name={`code${p.key}`} wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
