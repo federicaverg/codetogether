@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import { Form, Input, Button, Select, InputNumber, message } from 'antd';
+import axios from 'axios';
 import { CheckCircleTwoTone } from '@ant-design/icons';
-
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -27,7 +27,27 @@ export default class CreateVersion extends PureComponent {
     nparts: '',
     codeareas: [],
     submitDisabled: true,
+    exercisesTitle: [],
   }
+
+  componentDidMount() {
+    axios.get('http://localhost:5000/exercises')
+    .then(response => {
+      console.log(response.data)
+
+
+      var exercises = response.data.map(ex => ex.title);
+
+    
+
+      this.setState({exercisesTitle: exercises })
+
+      console.log(this.state.exercisesTitle)
+
+
+    })
+    .catch((error) => { console.log(error);})
+    }
 
   // updates the number of parts in a temporary variable
   updateParts = (value) => {
@@ -68,8 +88,7 @@ export default class CreateVersion extends PureComponent {
           <Form {...layout} name="nest-messages" onFinish={onFinish} >
           <Form.Item name="exercise" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Exercise</label>} rules={[{required:true}]} >
             <Select style={{ width: 200 }}>
-            <Option value="1" /*exercise._id*/>Exercise 1</Option>
-            <Option value="2">Exercise A*</Option>
+              {this.state.exercisesTitle.map(option => (<Option value={option}>{option}</Option>) )}
             </Select>
           </Form.Item>
 
