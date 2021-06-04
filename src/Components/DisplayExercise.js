@@ -1,14 +1,17 @@
 import React, {PureComponent} from 'react';
-import {Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, List} from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import {Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, List,Typography} from 'antd';
+import { PlusCircleOutlined, SaveOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import axios from 'axios';
 
 import Container from './Container';
+import ButtonGroup from 'antd/lib/button/button-group';
 
 const {Content} = Layout;
 
 const { TabPane } = Tabs;
+
+const { Text } = Typography;
 
 // Hard-coded comments
 const comments = [
@@ -70,27 +73,17 @@ export default class DisplayExercise extends PureComponent {
     console.log(this.state.exerciseInfo.params.title);
     axios.get(`http://localhost:5000/exercises/title/${this.state.exerciseInfo.params.title}`)
     .then(response => {
-      //console.log(response)
       this.setState({cont: response.data });
       // overriding first tab pane with code from database
       const first = [{title:'SOURCE CODE', content: <Container codice={this.state.cont.code}/>, closable:false, key: '1'}]
-      //const first = [{title:'SOURCE CODE', content: this.state.cont.code, closable:false, key: '1'}]
       this.setState({dateString: this.state.cont.date.substring(0,10)})
       this.setState({panes: first});
-      //console.log(this.state.exerciseInfo.params.title)
 
       axios.get(`http://localhost:5000/versions/exercise/${this.state.exerciseInfo.params.title}`)
       .then(response => {
-        //console.log("Hello i'm here");
-        //console.log(response.data)
-
         this.setState({versions: response.data});
-
-        //response.data.map(ver => console.log(ver.title));
-        //this.state.versions.map(ver => console.log(ver.title));
       })
       .catch((error) => { console.log(error);})
-
     })
     .catch((error) => { console.log(error);})
   }
@@ -138,6 +131,10 @@ export default class DisplayExercise extends PureComponent {
     this.setState({ panes, activeKey });
   };
 
+  saveEdits = () => {
+    console.log("saved");
+  }
+
     render() {
         return(
             <div className="display-exercise">
@@ -149,14 +146,20 @@ export default class DisplayExercise extends PureComponent {
                 <Tabs hideAdd activeKey={this.state.activeKey} onChange={this.onChange} type="editable-card" onEdit={this.onEdit}>
                      {this.state.panes.map(pane => (<TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{pane.content}</TabPane>))}
                     </Tabs></Col>
+                  <ButtonGroup>
+                  <Tooltip title="SAVE" color='#e1e2e2'>
+                    <Button icon={<SaveOutlined />} onClick={this.saveEdits}></Button>
+                    </Tooltip>
                     <Dropdown overlay={
                       <Menu>
                         {this.state.versions.map(ver => (<Menu.Item key={ver._id}><Button type="link" onClick={() => {this.addPane(ver)}}>{ver.title}</Button></Menu.Item>))}
-                        </Menu>}>
-                        <Button icon={<PlusOutlined />}/>
+                        </Menu>}><Tooltip title="VERSIONS" color='#e1e2e2' >
+                        <Button icon={<PlusCircleOutlined />} /></Tooltip>
                       </Dropdown>
+                      </ButtonGroup>
 
-                <Col span={6}><Card title={this.state.cont.title} >
+                <Col span={6}>
+                  <Card title={this.state.cont.title} >
                     <p><i>{this.state.dateString}</i></p>
                     <p>{this.state.cont.description}</p>
                     </Card>
