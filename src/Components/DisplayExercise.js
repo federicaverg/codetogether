@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
-import {Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, List,Typography} from 'antd';
-import { PlusCircleOutlined, SaveOutlined } from '@ant-design/icons';
+import {Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, List, Popconfirm, message} from 'antd';
+import { PlusCircleOutlined, SaveOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -10,8 +10,6 @@ import ButtonGroup from 'antd/lib/button/button-group';
 const {Content} = Layout;
 
 const { TabPane } = Tabs;
-
-const { Text } = Typography;
 
 // Hard-coded comments
 const comments = [
@@ -47,7 +45,10 @@ const comments = [
   },
 ];  
 
-const exercise = [];
+function confirm(e) {
+  console.log(e);
+  message.success('Saved');
+}
 
 export default class DisplayExercise extends PureComponent {
   
@@ -134,6 +135,7 @@ export default class DisplayExercise extends PureComponent {
   saveEdits = () => {
     console.log("saved");
   }
+  
 
     render() {
         return(
@@ -147,9 +149,18 @@ export default class DisplayExercise extends PureComponent {
                      {this.state.panes.map(pane => (<TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{pane.content}</TabPane>))}
                     </Tabs></Col>
                   <ButtonGroup>
+                    <Popconfirm title='Confirm changes?' 
+                    placement='left'
+                    okText='Yes' 
+                    cancelText='No' 
+                    okType='default'
+                    onConfirm={confirm}
+                    icon={<QuestionCircleOutlined style={{ color: 'orange' }} />}>
                   <Tooltip title="SAVE" color='#e1e2e2'>
                     <Button icon={<SaveOutlined />} onClick={this.saveEdits}></Button>
                     </Tooltip>
+                    </Popconfirm>
+
                     <Dropdown overlay={
                       <Menu>
                         {this.state.versions.map(ver => (<Menu.Item key={ver._id}><Button type="link" onClick={() => {this.addPane(ver)}}>{ver.title}</Button></Menu.Item>))}
