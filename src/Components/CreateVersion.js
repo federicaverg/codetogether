@@ -20,6 +20,8 @@ const onFinish = (values) => {
     //console.log(values.exercise);
     //console.log(values.description);
     //console.log(values.code);
+
+    
   };
   
 export default class CreateVersion extends PureComponent {
@@ -38,13 +40,9 @@ export default class CreateVersion extends PureComponent {
 
       var exercises = response.data.map(ex => ex.title);
 
-    
-
       this.setState({exercisesTitle: exercises })
 
       console.log(this.state.exercisesTitle)
-
-
     })
     .catch((error) => { console.log(error);})
     }

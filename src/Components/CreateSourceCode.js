@@ -18,8 +18,15 @@ const layout = {
 
 const onFinish = (values) => {
   console.log(values);
+  var codes = []
+
+  for (const [key, value] of Object.entries(values)) {
+    if(key.includes("code"))
+      codes.push(value);
+  }
+
   message.success('Successfully submitted');
-  axios.get(`http://localhost:5000/versions/title/${values.title}`)
+  axios.get(`http://localhost:5000/exercises/title/${values.title}`)
     .then(response => {
       console.log(response.data)
       if(response.data === ""){
@@ -27,7 +34,7 @@ const onFinish = (values) => {
           title: values.title,
           date: values.date,
           description: values.description,
-          code: values.code,
+          code: codes,
           parts: values.parts
         })
     .then(response => {

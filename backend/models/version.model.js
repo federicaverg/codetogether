@@ -9,7 +9,7 @@ const versionSchema = new Schema({
     date: {type: Date, required: true},
     //lastAccess: {type: Date, required: true},
     description: {type: String, required: true},
-    code: {type: String, required: true},
+    code: [{type: String, required: true}],
     exercise: {type: String, required: true}
 }, {timestamps: true});
 
