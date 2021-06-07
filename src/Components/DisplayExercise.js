@@ -1,9 +1,10 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent,useState, useEffect} from 'react';
 import {Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, List, Popconfirm, message} from 'antd';
 import { PlusCircleOutlined, SaveOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import axios from 'axios';
 
+import Editor from "./Editor";
 import Container from './Container';
 import ButtonGroup from 'antd/lib/button/button-group';
 
@@ -50,6 +51,12 @@ function confirm(e) {
   message.success('Saved');
 }
 
+function getCodes(codeArr){
+  return codeArr.map(singleCode => (<Container codice={singleCode} />));
+  //return [<Container codice="ciao" />, <Container codice="secondo" />]
+}
+
+
 export default class DisplayExercise extends PureComponent {
   
   constructor(props){
@@ -57,8 +64,6 @@ export default class DisplayExercise extends PureComponent {
     this.newTabIndex = 0;
     // hard-coded initial pane for source code
     const panes = [{title:'SOURCE CODE', content: [], key: '1', closable: false}];
-
-    //console.log(props.match);
 
     this.state = {
       activeKey: panes[0].key,
@@ -72,11 +77,17 @@ export default class DisplayExercise extends PureComponent {
 
   componentDidMount() {
     console.log(this.state.exerciseInfo.params.title);
+
     axios.get(`http://localhost:5000/exercises/title/${this.state.exerciseInfo.params.title}`)
     .then(response => {
       this.setState({cont: response.data });
+
       // overriding first tab pane with code from database
-      const first = [{title:'SOURCE CODE', content: <Container codice={this.state.cont.code}/>, closable:false, key: '1'}]
+      // CHANGEEEE ---> <Container codice={this.state.cont.code}/>
+
+
+      this.setState({})
+      const first = [{title:'SOURCE CODE', content: <Container codice={this.state.cont.code[0]}/>, closable:false, key: '1'}]
       this.setState({dateString: this.state.cont.date.substring(0,10)})
       this.setState({panes: first});
 
@@ -95,10 +106,11 @@ export default class DisplayExercise extends PureComponent {
     const titleVersion = ver.title;
     const activeKey = `newTab${this.newTabIndex++}`;
 
-    console.log(ver);
+    console.log("This is the code: " + ver.code);
+    //<Container codice={ver.code}/>
     
     // FEDERICAAAAA --> If I insert "<Container/> here it pushes the body content (code) in the "source code" pane
-    panes.push({ title: titleVersion, content: <Container codice={ver.code}/>, key: activeKey });
+    panes.push({ title: titleVersion, content: <Container codice={ver.code[0]}/>, key: activeKey });
     this.setState({ panes, activeKey });
   }
 
@@ -133,6 +145,10 @@ export default class DisplayExercise extends PureComponent {
   };
 
   saveEdits = () => {
+    axios.put(`http://localhost:5000/exercises/add`)
+    .then(response => {
+      console.log(response.data);
+    })
     console.log("saved");
   }
   

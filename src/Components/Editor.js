@@ -5,13 +5,14 @@ import { highlight } from "mdhl";
 
 import "mdhl/mdhl.css";
 import "./prism.css";
+import "../Styles/style-container.css"
 
 
 function highlighter(value) {
     return Prism.highlight(value, Prism.languages.java, "java");
 }
 
-export default function App({ initialValue, onChange }) {
+export default function App({ initialValue, onChange, key }) {
   useEffect(() => {
     const editor = new Yace("#editor", {
       lineNumbers: true,
@@ -32,7 +33,7 @@ export default function App({ initialValue, onChange }) {
   }, []); // eslint-disable-line
 
   return (
-    <div className="wrap">
+    <div className="wrap" key={key}>
       <div id="editor" />
     </div>
   );
