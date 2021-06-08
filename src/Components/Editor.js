@@ -54,10 +54,5 @@ export default function App({ initialValue, onChange, key }) {
       highlight={highlight} // Highlight function, receive the editor
       lineNumbers={true} // Show line numbers
     />
-
-    /*
-    <div className="wrap" key={key}>
-      <div id="editor" />
-    </div>*/
   );
 }

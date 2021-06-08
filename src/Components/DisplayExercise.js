@@ -87,7 +87,7 @@ export default class DisplayExercise extends PureComponent {
 
 
       this.setState({})
-      const first = [{title:'SOURCE CODE', content: <Container codice={this.state.cont.code[0]}/>, closable:false, key: '1'}]
+      const first = [{title:'SOURCE CODE', content: getCodes(this.state.cont.code), closable:false, key: '1'}]
       this.setState({dateString: this.state.cont.date.substring(0,10)})
       this.setState({panes: first});
 
@@ -170,10 +170,13 @@ export default class DisplayExercise extends PureComponent {
                     okText='Yes' 
                     cancelText='No' 
                     okType='default'
-                    onConfirm={confirm}
+                    onConfirm={() => {
+                      confirm();
+                      this.saveEdits();
+                    }}
                     icon={<QuestionCircleOutlined style={{ color: 'orange' }} />}>
                   <Tooltip title="SAVE" color='#e1e2e2'>
-                    <Button icon={<SaveOutlined />} onClick={this.saveEdits}></Button>
+                    <Button icon={<SaveOutlined />}></Button>
                     </Tooltip>
                     </Popconfirm>
 

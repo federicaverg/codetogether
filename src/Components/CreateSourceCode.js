@@ -17,7 +17,30 @@ const layout = {
 };
 
 const onFinish = (values) => {
+
+
   console.log(values);
+  // var codes = []
+
+  // var i = 0;
+  // var codeDivided = "";
+  // for (const [key, value] of Object.entries(values)) {
+
+  //   if(key.includes("code")) {
+  //     i++;
+  //     if(i == 1){
+  //       codeDivided = codeDivided + "// PART " + i + " \n\n" + value;
+  //     }
+  //     else {
+  //       codeDivided = codeDivided + "\n\n// PART " + i + " \n\n" + value;
+  //       console.log(codeDivided);
+  //     }
+  //   }     
+  // }
+
+  // codes.push(codeDivided );
+
+
   var codes = []
 
   var i = 0;
@@ -26,19 +49,12 @@ const onFinish = (values) => {
 
     if(key.includes("code")) {
       i++;
-      if(i == 1){
-        codeDivided = codeDivided + "// PART " + i + " \n\n" + value;
-      }
-      else {
-        codeDivided = codeDivided + "\n\n// PART " + i + " \n\n" + value;
-        console.log(codeDivided);
-      }
+      codeDivided = "// PART " + i + " \n\n" + value;
+      console.log(codeDivided);
+      codes.push(codeDivided);
     }     
   }
 
-  codes.push(codeDivided );
-
-  message.success('Successfully submitted');
   axios.get(`http://localhost:5000/exercises/title/${values.title}`)
     .then(response => {
       console.log(response.data)
@@ -53,6 +69,7 @@ const onFinish = (values) => {
         })
     .then(response => {
       console.log(response)
+      message.success('Successfully submitted');
     })
     .catch((error) => { console.log(error);})
       }
