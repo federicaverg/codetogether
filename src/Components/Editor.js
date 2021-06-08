@@ -4,9 +4,8 @@ import Prism from "prismjs";
 import { ReactCodeJar, useCodeJar } from "react-codejar";
 
 
-import "mdhl/mdhl.css";
+//import "mdhl/mdhl.css";
 import "./prism.css";
-import "../Styles/style-container.css"
 
 
 /*unction highlighter(value) {

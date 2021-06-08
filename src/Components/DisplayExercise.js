@@ -3,14 +3,14 @@ import {Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, L
 import { PlusCircleOutlined, SaveOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import axios from 'axios';
-
-import Editor from "./Editor";
 import Container from './Container';
 import ButtonGroup from 'antd/lib/button/button-group';
 
 const {Content} = Layout;
 
 const { TabPane } = Tabs;
+
+
 
 // Hard-coded comments
 const comments = [
@@ -58,12 +58,30 @@ function getCodes(codeArr){
 
 
 export default class DisplayExercise extends PureComponent {
+   codiceProva = `class HELLO {
+    protected String brand = "Ford";         // Vehicle attribute
+    public void honk() {                     // Vehicle method
+      System.out.println("Tuut, tuut!");
+    }
+  }
+  class Car extends Vehicle {
+    private String modelName = "Mustang";    // Car attribute
+    public static void main(String[] args) {
+      // Create a myCar object
+      Car myCar = new Car();
+      // Call the honk() method (from the Vehicle class) on the myCar object
+      myCar.honk();
+      // Display the value of the brand attribute (from the Vehicle class) and the value of the modelName from the Car class
+      System.out.println(myCar.brand + " " + myCar.modelName);
+    }
+  }
+  `
   
   constructor(props){
     super(props);
     this.newTabIndex = 0;
     // hard-coded initial pane for source code
-    const panes = [{title:'SOURCE CODE', content: [], key: '1', closable: false}];
+    const panes = [{title:'SOURCE CODE', content: <Container codice={this.codiceProva} />, key: '1', closable: false}];
 
     this.state = {
       activeKey: panes[0].key,
@@ -84,9 +102,10 @@ export default class DisplayExercise extends PureComponent {
 
       // overriding first tab pane with code from database
       // CHANGEEEE ---> <Container codice={this.state.cont.code}/>
-
+      
 
       this.setState({})
+      // CHANGE BACK TO THIS WITH DB
       const first = [{title:'SOURCE CODE', content: getCodes(this.state.cont.code), closable:false, key: '1'}]
       this.setState({dateString: this.state.cont.date.substring(0,10)})
       this.setState({panes: first});
