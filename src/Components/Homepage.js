@@ -84,7 +84,7 @@ class Homepage extends React.Component {
         title="Delete this exercise?"
         onConfirm={() => {
           confirm();
-          this.removeExercise(record._id);
+          this.removeExercise(record);
         }}
         okText="Yes"
         cancelText="No"
@@ -102,16 +102,25 @@ class Homepage extends React.Component {
   }
   
   //To remove row for selected exercise
-  removeExercise = (id) => {
-    console.log('delete ', id);
+  removeExercise = (record) => {
+    console.log(record)
+    console.log('delete ', record);
     const dataSource = [...this.state.exercises];
-    this.setState({ exercises: dataSource.filter(item => item._id !== id) });
+    this.setState({ exercises: dataSource.filter(item => item._id !== record._id) });
 
     //INSERT HERE CALL TO DELETE
 
-    axios.delete(`http://localhost:5000/exercises/${id}`)
+    axios.delete(`http://localhost:5000/exercises/${record._id}`)
     .then(response => {
       console.log(response)
+
+      axios.delete(`http://localhost:5000/versions/${record.title}`)
+        .then(response => {
+          console.log(response)
+        })
+        .catch((error) => { console.log(error);})
+
+
     })
     .catch((error) => { console.log(error);})
   }

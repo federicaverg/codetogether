@@ -64,7 +64,7 @@ class VersionMenu extends Component {
         title="Delete this version?"
         onConfirm={() => {
           confirm();
-          this.removeVersion(record.key);
+          this.removeVersion(record);
         }}
         okText="Yes"
         cancelText="No"
@@ -99,11 +99,11 @@ class VersionMenu extends Component {
   }
 
   // method to remove the row of a selected version
-  removeVersion = (key) => {
-    console.log('delete ', key);
-    const dataSource = [...this.state.data];
+  removeVersion = (record) => {
+    console.log('delete ', record);
+    const dataSource = [...this.state.versions];
     console.log(dataSource);
-    this.setState({ data: dataSource.filter(item => item.key !== key) });
+    this.setState({ data: dataSource.filter(item => item._id !== record._id) });
     console.log(dataSource);
   }
 

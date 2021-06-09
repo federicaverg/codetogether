@@ -1,6 +1,6 @@
 import React, {PureComponent,useState, useEffect} from 'react';
 import {Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, List, Popconfirm, message} from 'antd';
-import { PlusCircleOutlined, SaveOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, SaveOutlined, QuestionCircleOutlined, CodeSandboxOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -47,12 +47,11 @@ const comments = [
 ];  
 
 function confirm(e) {
-  console.log(e);
   message.success('Saved');
 }
 
 function getCodes(codeArr){
-  return codeArr.map(singleCode => (<Container codice={singleCode} />));
+  return codeArr.map(singleCode => (<Editor initialValue={singleCode} />));
   //return [<Container codice="ciao" />, <Container codice="secondo" />]
 }
 
@@ -145,11 +144,13 @@ export default class DisplayExercise extends PureComponent {
   };
 
   saveEdits = () => {
-    axios.put(`http://localhost:5000/exercises/add`)
+    console.log(this.state.panes[0].content);
+   
+    /*axios.put(`http://localhost:5000/exercises/add`)
     .then(response => {
       console.log(response.data);
     })
-    console.log("saved");
+    console.log("saved");*/
   }
   
 

@@ -15,7 +15,8 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const title = req.body.title;
+    //const title = req.body.title;
+    const title = "User";
     const date = Date.parse(req.body.date);
     //const lastAccess = Date.parse(req.body.lastAccess);
     const description = req.body.description;
@@ -62,10 +63,16 @@ router.route('/exercise/:exercise?').get((req,res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').delete((req,res) => {
-    Version.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Version deleted.'))
+router.route('/:exerciseTitle').delete((req,res) => {
+    console.log("CIAOOOO");
+    console.log(req.params);
+    Version.deleteMany({exercise: req.params.exerciseTitle})
+    .then(() => res.json('Versions deleted.'))
     .catch(err => res.status(400).json('Error' + err));
+    // Version.findByIdAndDelete(req.params.id)
+    // Version.deleteMany()
+    // .then(() => res.json('Version deleted.'))
+    // .catch(err => res.status(400).json('Error' + err));
 });
 
 

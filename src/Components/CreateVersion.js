@@ -21,6 +21,59 @@ const onFinish = (values) => {
     //console.log(values.description);
     //console.log(values.code);
 
+  var codes = []
+
+  var i = 0;
+  var codeDivided = "";
+  for (const [key, value] of Object.entries(values)) {
+
+    if(key.includes("code")) {
+      i++;
+      codeDivided = "// PART " + i + " \n\n" + value;
+      console.log(codeDivided);
+      codes.push(codeDivided);
+    }     
+  }
+  axios.post(`http://localhost:5000/versions/add`, {
+          title: "User",
+          date: Date().toLocaleString(),
+          description: values.description,
+          code: codes,
+          exercise: values.exercise
+          })
+    .then(response => {
+      console.log(response)
+      message.success('Successfully submitted');
+    })
+    .catch((error) => { console.log(error.response);})
+
+  // If you need to check that the title doesn't exist already use this:
+  // axios.get(`http://localhost:5000/versions/title/${values.title}`)
+  //   .then(response => {
+  //     console.log(response.data)
+  //     if(response.data === null){
+  //       console.log("SONO QUIII");
+  //       axios.post(`http://localhost:5000/versions/add`, {
+  //         title: "User",
+  //         date: values.date,
+  //         description: values.description,
+  //         code: codes,
+  //         exercise: values.exercise,
+  //         parts: values.parts
+  //       })
+  //   .then(response => {
+  //     console.log(response)
+  //     message.success('Successfully submitted');
+  //   })
+  //   .catch((error) => { console.log(error);})
+  //     }
+  //     else{
+  //       console.log("Source code already exists");
+  //       message.error('Source code already exists');
+  //     }
+  //   })
+  //   .catch((error) => { console.log(error);})
+
     
   };
   

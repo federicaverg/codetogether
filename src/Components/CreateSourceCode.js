@@ -65,7 +65,6 @@ const onFinish = (values) => {
           date: values.date,
           description: values.description,
           code: codes,
-          parts: values.parts
         })
     .then(response => {
       console.log(response)
@@ -82,6 +81,8 @@ const onFinish = (values) => {
     .catch((error) => { console.log(error);})
 };
 
+
+
 export default class CreateSourceCode extends React.Component {
 
   state = {
@@ -94,7 +95,6 @@ export default class CreateSourceCode extends React.Component {
   updateParts = (value) => {
     this.setState({nparts: value});
   }
-
 
   // enable the submit button only if number of parts is defined 
   enableSubmit() {
