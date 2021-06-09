@@ -3,14 +3,14 @@ import {Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, L
 import { PlusCircleOutlined, SaveOutlined, QuestionCircleOutlined, CodeSandboxOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import axios from 'axios';
-
-import Editor from "./Editor";
 import Container from './Container';
 import ButtonGroup from 'antd/lib/button/button-group';
 
 const {Content} = Layout;
 
 const { TabPane } = Tabs;
+
+
 
 // Hard-coded comments
 const comments = [
@@ -57,12 +57,13 @@ function getCodes(codeArr){
 
 
 export default class DisplayExercise extends PureComponent {
+
   
   constructor(props){
     super(props);
     this.newTabIndex = 0;
     // hard-coded initial pane for source code
-    const panes = [{title:'SOURCE CODE', content: [], key: '1', closable: false}];
+    const panes = [{title:'SOURCE CODE', content:[], key: '1', closable: false}];
 
     this.state = {
       activeKey: panes[0].key,
@@ -83,7 +84,7 @@ export default class DisplayExercise extends PureComponent {
 
       // overriding first tab pane with code from database
       // CHANGEEEE ---> <Container codice={this.state.cont.code}/>
-
+      
 
       this.setState({})
       const first = [{title:'SOURCE CODE', content: getCodes(this.state.cont.code), closable:false, key: '1'}]
