@@ -65,6 +65,7 @@ const onFinish = (values) => {
           date: values.date,
           description: values.description,
           code: codes,
+          parts: values.parts
         })
     .then(response => {
       console.log(response)
@@ -76,7 +77,6 @@ const onFinish = (values) => {
         console.log("Source code already exists");
         message.error('Source code already exists');
       }
-      console.log(this.state.exercises)
     })
     .catch((error) => { console.log(error);})
 };
@@ -148,11 +148,7 @@ export default class CreateSourceCode extends React.Component {
         {this.state.codeareas.map(p => (<Form.Item name={`code${p.key}`} wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
           <TextArea placeholder={p.title + ' ' + p.key} autoSize={{ minRows: 5, maxRows: 20 }}/>
         </Form.Item>))}
-        
-
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
-        <Button type="primary" icon={<CodeOutlined />} size='large' />
-        </Form.Item>
+      
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
         <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px'}} disabled={this.state.submitDisabled}> 

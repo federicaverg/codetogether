@@ -20,7 +20,6 @@ class VersionMenu extends Component {
       title: "Version",
       dataIndex: 'title',
       key: 'title',
-      render: text => <a>{text}</a>,
     },
     {
       title: "Source code",
@@ -103,8 +102,14 @@ class VersionMenu extends Component {
     console.log('delete ', record);
     const dataSource = [...this.state.versions];
     console.log(dataSource);
-    this.setState({ data: dataSource.filter(item => item._id !== record._id) });
+    this.setState({ versions: dataSource.filter(item => item._id !== record._id) });
     console.log(dataSource);
+
+    axios.delete(`http://localhost:5000/versions/${record._id}`)
+    .then(response => {
+      console.log(response)
+    })
+    .catch((error) => { console.log(error.response);})
   }
 
   render() {

@@ -4,6 +4,7 @@ import { PlusCircleOutlined, SaveOutlined, QuestionCircleOutlined, CodeSandboxOu
 import moment from 'moment';
 import axios from 'axios';
 import Container from './Container';
+import Editor from "./Editor";
 import ButtonGroup from 'antd/lib/button/button-group';
 
 const {Content} = Layout;
@@ -110,7 +111,7 @@ export default class DisplayExercise extends PureComponent {
     //<Container codice={ver.code}/>
     
     // FEDERICAAAAA --> If I insert "<Container/> here it pushes the body content (code) in the "source code" pane
-    panes.push({ title: titleVersion, content: <Container codice={ver.code[0]}/>, key: activeKey });
+    panes.push({ title: titleVersion, content: getCodes(ver.code), key: activeKey });
     this.setState({ panes, activeKey });
   }
 

@@ -79,7 +79,6 @@ class Homepage extends React.Component {
       render: (record) => (
         <center>
           <Space size="large">
-          <a><EditFilled /></a>
           <Popconfirm
         title="Delete this exercise?"
         onConfirm={() => {
@@ -114,7 +113,7 @@ class Homepage extends React.Component {
     .then(response => {
       console.log(response)
 
-      axios.delete(`http://localhost:5000/versions/${record.title}`)
+      axios.delete(`http://localhost:5000/versions/delete/${record.title}`)
         .then(response => {
           console.log(response)
         })

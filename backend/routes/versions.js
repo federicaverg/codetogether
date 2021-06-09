@@ -63,7 +63,7 @@ router.route('/exercise/:exercise?').get((req,res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:exerciseTitle').delete((req,res) => {
+router.route('/delete/:exerciseTitle').delete((req,res) => {
     console.log("CIAOOOO");
     console.log(req.params);
     Version.deleteMany({exercise: req.params.exerciseTitle})
@@ -73,6 +73,12 @@ router.route('/:exerciseTitle').delete((req,res) => {
     // Version.deleteMany()
     // .then(() => res.json('Version deleted.'))
     // .catch(err => res.status(400).json('Error' + err));
+});
+
+router.route('/:id').delete((req,res) => {
+    Version.findByIdAndDelete(req.params.id)
+    .then(() => res.json('Version deleted.'))
+    .catch(err => res.status(400).json('Error' + err));
 });
 
 
