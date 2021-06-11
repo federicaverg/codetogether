@@ -107,8 +107,6 @@ class Homepage extends React.Component {
     const dataSource = [...this.state.exercises];
     this.setState({ exercises: dataSource.filter(item => item._id !== record._id) });
 
-    //INSERT HERE CALL TO DELETE
-
     axios.delete(`http://localhost:5000/exercises/${record._id}`)
     .then(response => {
       console.log(response)

@@ -16,10 +16,6 @@ const layout = {
 };
   
 const onFinish = (values) => {
-    console.log(values);
-    //console.log(values.exercise);
-    //console.log(values.description);
-    //console.log(values.code);
 
   var codes = []
 

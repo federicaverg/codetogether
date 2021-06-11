@@ -3,14 +3,12 @@ import {Layout,Row, Col, Tabs, Dropdown, Menu, Button, Card, Comment, Tooltip, L
 import { PlusCircleOutlined, SaveOutlined, QuestionCircleOutlined, CodeSandboxOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import axios from 'axios';
-import Container from './Container';
 import Editor from "./Editor";
 import ButtonGroup from 'antd/lib/button/button-group';
 
 const {Content} = Layout;
 
 const { TabPane } = Tabs;
-
 
 
 // Hard-coded comments
@@ -51,28 +49,26 @@ function confirm(e) {
   message.success('Saved');
 }
 
-function getCodes(codeArr){
-  return codeArr.map(singleCode => (<Editor initialValue={singleCode} />));
-  //return [<Container codice="ciao" />, <Container codice="secondo" />]
+function getCodes(codeArr, setCallBack){
+  return codeArr.map((singleCode, index) => (<Editor initialValue={singleCode} setCallBack={setCallBack} index={index}/>));
 }
-
 
 export default class DisplayExercise extends PureComponent {
 
-  
   constructor(props){
     super(props);
     this.newTabIndex = 0;
+
     // hard-coded initial pane for source code
     const panes = [{title:'SOURCE CODE', content:[], key: '1', closable: false}];
 
     this.state = {
       activeKey: panes[0].key,
       panes,
-      cont: ["ciao"],
+      cont: [""],
       dateString: "",
       exerciseInfo: props.match,
-      versions: ["Hello", "ciao", "why"],
+      versions: [""],
       };
   }
 
@@ -84,17 +80,20 @@ export default class DisplayExercise extends PureComponent {
       this.setState({cont: response.data });
 
       // overriding first tab pane with code from database
-      // CHANGEEEE ---> <Container codice={this.state.cont.code}/>
       
-
       this.setState({})
-      const first = [{title:'SOURCE CODE', content: getCodes(this.state.cont.code), closable:false, key: '1'}]
+      const first = [{title:'SOURCE CODE', content: getCodes(this.state.cont.code, (value, index) => { 
+        this.state.cont.code[index] = value; 
+        console.log(this.state.cont.code[index]); 
+        this.setState({cont: this.state.cont})}), closable:false, key: '1'}]
+
       this.setState({dateString: this.state.cont.date.substring(0,10)})
       this.setState({panes: first});
 
       axios.get(`http://localhost:5000/versions/exercise/${this.state.exerciseInfo.params.title}`)
       .then(response => {
         this.setState({versions: response.data});
+        console.log("AAAAAAAAAAAAAA ", this.state.cont);
       })
       .catch((error) => { console.log(error);})
     })
@@ -107,11 +106,7 @@ export default class DisplayExercise extends PureComponent {
     const titleVersion = ver.title;
     const activeKey = `newTab${this.newTabIndex++}`;
 
-    console.log("This is the code: " + ver.code);
-    //<Container codice={ver.code}/>
-    
-    // FEDERICAAAAA --> If I insert "<Container/> here it pushes the body content (code) in the "source code" pane
-    panes.push({ title: titleVersion, content: getCodes(ver.code), key: activeKey });
+    panes.push({ title: titleVersion, content: getCodes(ver.code, (value, index) => { ver.code[index] = value; console.log(ver.code[index]); this.setState({versions: this.state.versions})}), key: activeKey });
     this.setState({ panes, activeKey });
   }
 
@@ -125,7 +120,7 @@ export default class DisplayExercise extends PureComponent {
     this[action](targetKey);
   };
 
-  // to close  atab
+  // to close a tab
   remove = targetKey => {
     let { activeKey } = this.state;
     let lastIndex;
@@ -146,16 +141,15 @@ export default class DisplayExercise extends PureComponent {
   };
 
   saveEdits = () => {
-    console.log(this.state.panes[0].content);
-   
-    /*axios.put(`http://localhost:5000/exercises/add`)
-    .then(response => {
-      console.log(response.data);
-    })
-    console.log("saved");*/
+    for(var i = 0; i<3; i++){
+      console.log(this.state.cont.code[i]);
+    }
+    console.log(this.state.cont);
+    axios.post('http://localhost:5000/exercises/update/' + this.state.cont._id, this.state.cont.code)
+    .then(res => console.log(res.data));
+    console.log("saved");
   }
   
-
     render() {
         return(
             <div className="display-exercise">
@@ -215,7 +209,6 @@ export default class DisplayExercise extends PureComponent {
                     )}
                 />
                 </Col>
-
                 </Row>                       
                 </Content>
             </div>

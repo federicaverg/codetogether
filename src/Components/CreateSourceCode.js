@@ -1,8 +1,7 @@
 import React from 'react';
 import { Form, Input, DatePicker, Button, InputNumber, message } from 'antd';
-import { CodeOutlined,CheckCircleTwoTone } from '@ant-design/icons';
+import { CheckCircleTwoTone } from '@ant-design/icons';
 import axios from 'axios';
-import Container from './Container';
 
 const { TextArea } = Input;
 
@@ -16,32 +15,12 @@ const layout = {
   },
 };
 
+
 const onFinish = (values) => {
 
-
   console.log(values);
-  // var codes = []
 
-  // var i = 0;
-  // var codeDivided = "";
-  // for (const [key, value] of Object.entries(values)) {
-
-  //   if(key.includes("code")) {
-  //     i++;
-  //     if(i == 1){
-  //       codeDivided = codeDivided + "// PART " + i + " \n\n" + value;
-  //     }
-  //     else {
-  //       codeDivided = codeDivided + "\n\n// PART " + i + " \n\n" + value;
-  //       console.log(codeDivided);
-  //     }
-  //   }     
-  // }
-
-  // codes.push(codeDivided );
-
-
-  var codes = []
+  var codes = [];
 
   var i = 0;
   var codeDivided = "";
@@ -50,16 +29,13 @@ const onFinish = (values) => {
     if(key.includes("code")) {
       i++;
       codeDivided = "// PART " + i + " \n\n" + value;
-      console.log(codeDivided);
       codes.push(codeDivided);
     }     
   }
 
   axios.get(`http://localhost:5000/exercises/title/${values.title}`)
     .then(response => {
-      console.log(response.data)
       if(response.data === null){
-        console.log("SONO QUA");
         axios.post(`http://localhost:5000/exercises/add`, {
           title: values.title,
           date: values.date,
@@ -68,13 +44,11 @@ const onFinish = (values) => {
           parts: values.parts
         })
     .then(response => {
-      console.log(response)
       message.success('Successfully submitted');
     })
     .catch((error) => { console.log(error);})
       }
       else{
-        console.log("Source code already exists");
         message.error('Source code already exists');
       }
     })
