@@ -3,11 +3,9 @@ import axios from 'axios';
 import moment from 'moment';
 import { Form, Input, DatePicker, Button, InputNumber, message, Space } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
+
 const { TextArea } = Input;
-
-// EDIT - non so perchè qui il format che fa funzionare il datepicker è questo ma in realtà è l'opposto bo okay
 const dateFormat = 'DD/MM/YYYY';
-
 const layout = {
     labelCol: {
       span: 5,
@@ -16,6 +14,15 @@ const layout = {
       span: 14,
     },
   };
+
+  // triggered when save changes button is clicked
+  const onFinish = (values) => {
+    console.log(values);  
+    }
+
+  function cancelChanges() {
+    console.log("cancel");
+  }
 
 export default class EditingPage extends React.Component {
 
@@ -33,7 +40,7 @@ export default class EditingPage extends React.Component {
      render() {
       return (
         <div className="editing-page" style={{ padding: '0 50px', marginTop:80, paddingBottom:'80px'}}>
-            <Form {...layout} name="nest-messages" onFinish={console.log("finished")} >
+            <Form {...layout} name="nest-messages" onFinish={onFinish.bind(this)} >
             <h1 style={{fontSize: '20px', paddingLeft:'280px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
                         color:'#54748e', textTransform:'uppercase', fontWeight:'bold'}}>Edit Code</h1>
 
@@ -61,7 +68,7 @@ export default class EditingPage extends React.Component {
               </Form.Item>
 
               <div className="button-custom">
-              <Button name="submitButton" type="default" htmlType="reset" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
+              <Button name="submitButton" type="default" htmlType="reset" onClick={() => cancelChanges()} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
                   Cancel
                 </Button>
                 <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
