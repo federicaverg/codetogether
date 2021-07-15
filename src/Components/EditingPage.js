@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { Form, Input, DatePicker, Button, InputNumber, message } from 'antd';
+import { Form, Input, DatePicker, Button, InputNumber, message, Space } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 
@@ -32,9 +32,9 @@ export default class EditingPage extends React.Component {
 
      render() {
       return (
-        <div className="editing-page" style={{ padding: '0 50px', marginTop:80}}>
+        <div className="editing-page" style={{ padding: '0 50px', marginTop:80, paddingBottom:'80px'}}>
             <Form {...layout} name="nest-messages" onFinish={console.log("finished")} >
-            <h1 style={{fontSize: '17px', paddingLeft:'280px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
+            <h1 style={{fontSize: '20px', paddingLeft:'280px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
                         color:'#54748e', textTransform:'uppercase', fontWeight:'bold'}}>Edit Code</h1>
 
             {/* EDIT - now takes hardcoded data from the state for all the information */}
@@ -59,7 +59,17 @@ export default class EditingPage extends React.Component {
               onClick={() =>{this.removePart()} }/></div>
              </Form.Item>))}
               </Form.Item>
+
+              <div className="button-custom">
+              <Button name="submitButton" type="default" htmlType="reset" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
+                  Cancel
+                </Button>
+                <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
+                  Save changes
+                </Button>
+                </div>
             </Form>
+
       </div>
       );
     }
