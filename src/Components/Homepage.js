@@ -90,14 +90,19 @@ class Homepage extends React.Component {
       >
       <a href="#"><DeleteFilled /></a>
       </Popconfirm>
+      
+      {/* EDIT 
+          GIORGIO: Redirect to edit page of the specific exercise, for now it redirects to default edit page */}
+      <Link to="/edit"><EditFilled /></Link>
         </Space>
         </center>
       ),
     },
   ]
 
+  // TEST
   state = {
-      exercises: []
+      exercises: ["a"]
   }
   
   //To remove row for selected exercise

@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import { Layout, Space, Typography, Menu } from 'antd';
-import {CodepenCircleOutlined, HomeOutlined, MenuOutlined, FileAddOutlined, CodeSandboxOutlined} from '@ant-design/icons';
+import {HomeOutlined, MenuOutlined, FileAddOutlined, CodeSandboxOutlined} from '@ant-design/icons';
 import {BrowserRouter as Router,  Link, Route} from "react-router-dom";
 
 import Homepage from "./Homepage";
@@ -8,7 +8,8 @@ import VersionMenu from "./VersionMenu";
 import CreateSourceCode from "./CreateSourceCode";
 import CreateVersion from "./CreateVersion";
 import DisplayExercise from "./DisplayExercise";
-import DisplayVersion from "./DisplayVersion";
+import DisplayVersion from "./DisplayVersion"; // REMOVE
+import EditingPage from "./EditingPage";
 
 const {Header} = Layout;
 const {Text} = Typography;
@@ -44,6 +45,8 @@ export default class PagesContainer extends PureComponent {
                 <Route exact path='/create/version' exact component={CreateVersion} />
                 <Route exact path='/display/exercise' exact component={DisplayExercise} />
                 <Route exact path='/display/exercise/:title' exact component={DisplayExercise} />
+                {/* EDIT - route to edit page, needs to be tweaked with the exercise's title/id and its info */}
+                <Route exact path='/edit' exact component={EditingPage} />
                 </Router>
             </div>
         )

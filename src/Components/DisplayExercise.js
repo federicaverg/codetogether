@@ -93,7 +93,6 @@ export default class DisplayExercise extends PureComponent {
       axios.get(`http://localhost:5000/versions/exercise/${this.state.exerciseInfo.params.title}`)
       .then(response => {
         this.setState({versions: response.data});
-        console.log("AAAAAAAAAAAAAA ", this.state.cont);
       })
       .catch((error) => { console.log(error);})
     })
