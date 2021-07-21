@@ -83,7 +83,8 @@ class Homepage extends React.Component {
         title="Delete this exercise?"
         onConfirm={() => {
           confirm();
-          this.removeExercise(record);
+          console.log("not true, this is it: ", record.title);
+          //this.removeExercise(record);
         }}
         okText="Yes"
         cancelText="No"
@@ -93,7 +94,7 @@ class Homepage extends React.Component {
       
       {/* EDIT 
           GIORGIO: Redirect to edit page of the specific exercise, for now it redirects to default edit page */}
-      <Link to="/edit"><EditFilled /></Link>
+      <Link to={`/edit/${record.title}`}><EditFilled /></Link>
         </Space>
         </center>
       ),

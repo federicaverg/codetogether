@@ -78,6 +78,7 @@ export default class DisplayExercise extends PureComponent {
     axios.get(`http://localhost:5000/exercises/title/${this.state.exerciseInfo.params.title}`)
     .then(response => {
       this.setState({cont: response.data });
+      console.log(this.state.cont);
 
       // overriding first tab pane with code from database
       
