@@ -75,7 +75,7 @@ export default class EditingPage extends React.Component {
             </Form.Item>
 
             <Form.Item name="description" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Description</label>} >
-            <TextArea defaultValue={this.state.data.description}></TextArea>
+            <TextArea defaultValue={this.state.data.description}>{this.state.data.description}</TextArea>
             </Form.Item>
 
             <Form.Item name="date" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Date of lecture</label>}>
