@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { Form, Input, DatePicker, Button, InputNumber, message, Space } from 'antd';
+import { Input, DatePicker, Button, message, Space } from 'antd';
 import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
-
 
 const { TextArea } = Input;
 const dateFormat = 'YYYY/MM/DD';
@@ -15,11 +14,6 @@ const layout = {
       span: 14,
     },
   };
-
-  // triggered when save changes button is clicked
-  const onFinish = (values) => {
-    console.log(values);  
-    }
 
     // to reset the form
   function cancelChanges() {
@@ -89,16 +83,14 @@ export default class EditingPage extends React.Component {
             ))}
 
             <Button name="addButton" icon= {<PlusOutlined />} type="default" htmlType="reset" shape="round" onClick={this.addPart.bind(this)}
-             style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'right'}}>Add</Button>
+             style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'left', marginTop:'10px'}}>Add</Button>
 
-              <div className="button-custom">
-              <Button name="submitButton" type="default" htmlType="reset" onClick={() => cancelChanges()} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
-                  Cancel
-                </Button>
-                <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
+                <Button name="submitButton" type="primary" htmlType="submit" style={{marginLeft:'280px', textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
                   Save changes
                 </Button>
-                </div>
+                <Button name="submitButton" type="default" htmlType="reset" onClick={() => cancelChanges()} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
+                  Cancel
+                </Button>
       </div>
       );
     }
