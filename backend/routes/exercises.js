@@ -37,19 +37,31 @@ router.route('/add').post((req, res) => {
 });
 
 
-// Update Exercise
+// Update Exercise text from displayExercise
 router.route('/update/:id').post((req, res) => {
     Exercise.findById(req.params.id)
       .then(exercise => {
         console.log(req.body);
         exercise.code = req.body;
 
-  
+        
         exercise.save()
           .then(() => res.json('Exercise updated!'))
           .catch(err => res.status(400).json('Error: ' + err));
       })
       .catch(err => res.status(400).json('Error: ' + err));
+  });
+
+  // Update
+  router.route('/edit/:id').post((req, res) => {
+    Exercise.findById(req.params.id)
+    .then(exercise => {
+      console.log(req.body);
+
+      // I NEED TO CHANGE IN THE EDITING PAGE WHAT I PASS IN THIS FUNCTION (REQ.BODY)
+      //exercise.code = req.body;
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
   });
 
 // To find the single exercise

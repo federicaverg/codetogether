@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { Form, Input, DatePicker, Button, InputNumber, message, Space } from 'antd';
-import { CloseCircleOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 const dateFormat = 'YYYY/MM/DD';
@@ -30,16 +30,15 @@ export default class EditingPage extends React.Component {
     super(props);
 
     this.state = {
-      data: [""],
-      dataTitle: props.match,
-      dateString: ""
+      data: [{code: []}],
+      dataProps: props.match,
+      dateString: props.match.params.date.substring(0,10),
+      parts: ["p1","p2"]
     }
   }
 
   componentDidMount() {
-    console.log(this.state.dataTitle.params.title);
-
-    axios.get(`http://localhost:5000/exercises/title/${this.state.dataTitle.params.title}`)
+    axios.get(`http://localhost:5000/exercises/title/${this.state.dataProps.params.title}`)
     .then(response => {
       this.setState({data: response.data });
       console.log(this.state.data);
@@ -56,7 +55,24 @@ export default class EditingPage extends React.Component {
     .catch((error) => { console.log(error);})
   }
 
-
+          // to add a part
+          addPart() {
+            const num = this.state.parts.length;
+            const updated = this.state.parts;
+            let str1 = "Part ";
+            let str2 = num+1;
+            const newPart = str1.concat(str2);
+            updated.push(newPart);
+            this.updateParts(updated);
+            console.log("New part was added")
+          }
+     
+          updateParts = (value) => {
+            this.setState({parts: value});
+            console.log(this.state.parts);
+          }
+     
+          // to remove a part
     removePart = (record) => {
       console.log("oplà")
       console.log(record)
@@ -71,16 +87,33 @@ export default class EditingPage extends React.Component {
 
             {/* EDIT - now takes hardcoded data from the state for all the information */}
             <Form.Item name="title" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Title</label>} >
-            <Input name="title" defaultValue={this.state.dataTitle.params.title}/>
+            <Input name="title" defaultValue={this.state.dataProps.params.title}/>
             </Form.Item>
 
             <Form.Item name="description" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Description</label>} >
-            <TextArea defaultValue={this.state.data.description}>{this.state.data.description}</TextArea>
+            <TextArea defaultValue={this.state.data.code}></TextArea>
             </Form.Item>
 
             <Form.Item name="date" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Date of lecture</label>}>
-            <DatePicker name="datePicker" defaultValue={moment(this.state.data.date, dateFormat)}/>
+            <DatePicker name="datePicker" defaultValue={moment(this.state.dateString, dateFormat)}/>
             </Form.Item>
+
+               {/**EDIT - map through the hardcoded parts in the state, then gives it index="indice" to all of them
+           * the default value passed 'p' should be a string because in the state, parts is an array of strings
+          */}
+            <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}} >
+              Parts</label>}>
+              {this.state.parts.map(p => (<Form.Item name="indice" >
+              <TextArea autoSize={{ minRows: 5, maxRows: 15 }} defaultValue={p}/>
+              <div style={{float:'right', marginBottom: '-10px'}}><Button type='text' icon={<CloseCircleOutlined style={{color: '#54748e'}} />} 
+              // EDIT - a removePart va passato l'id della parte, l'indice o qualsiasi cosa che la identifichi
+              onClick={this.removePart.bind(this)}/></div>
+             </Form.Item>))}
+
+             <Button name="addButton" icon= {<PlusOutlined />} type="default" shape="round" onClick={this.addPart.bind(this)}
+             style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'right'}}>Add</Button>
+              </Form.Item> 
+
 
             {/* <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}} >
               Parts</label>}>
@@ -92,6 +125,7 @@ export default class EditingPage extends React.Component {
              </Form.Item>))}
               </Form.Item> */}
 
+              <TextArea value={this.state.data.code}></TextArea>
               <div className="button-custom">
               <Button name="submitButton" type="default" htmlType="reset" onClick={() => cancelChanges()} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
                   Cancel
