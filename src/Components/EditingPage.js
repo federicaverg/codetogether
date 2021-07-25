@@ -15,6 +15,14 @@ const layout = {
     },
   };
 
+const tailLayout = {
+    wrapperCol: {
+      offset: 3,
+      span: 16,
+    },
+  };
+  
+
   // triggered when save changes button is clicked
   const onFinish = (values) => {
     console.log(values);  
@@ -51,7 +59,7 @@ export default class EditingPage extends React.Component {
       console.log(this.state.dateString);
       console.log(this.state.data.description);
       console.log(this.state.data.date);
-      this.setState({})
+      this.setState({parts: this.state.data.code})
     })
     .catch((error) => { console.log(error);})
   }
@@ -85,35 +93,54 @@ export default class EditingPage extends React.Component {
 
      render() {
       return (
-        <div className="editing-page" style={{ padding: '0 50px', marginTop:80, paddingBottom:'80px'}}>
-            <h1 style={{fontSize: '20px', paddingLeft:'280px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
-                        color:'#54748e', textTransform:'uppercase', fontWeight:'bold'}}>Edit Code</h1>
-            
-            <Input name="title" defaultValue={"titolo"} />
+    
+        <div className="editing-page" style={{ padding: '0 50px', marginTop:60}}>
+             <Form {...layout} name="nest-messages" onFinish={onFinish.bind(this)} >
+            <h1 style={{fontSize: '20px', paddingLeft:'280px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
+                        color:'#54748e', textTransform:'uppercase', fontWeight:'bold'}}>Edit Code</h1>
 
-            <TextArea defaultValue={this.state.data.description} />
-            
-            {/*defaultValue={/*moment(this.state.data.date, dateFormat)*/}
-            <DatePicker name="datePicker" />
-            
-            {this.state.parts.map(part => (
-              <React.Fragment>
+            {/* EDIT - now takes hardcoded data from the state for all the information */}
+            <Form.Item name="title" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Title</label>} >
+            <div key={this.state.data.title}>
+            <Input name="title" defaultValue={this.state.data.title}/>
+            </div>
+            </Form.Item>
+
+            <Form.Item name="description" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Description</label>} >
+            <div key={this.state.data.description}>
+            <TextArea defaultValue={this.state.data.description} />
+            </div></Form.Item>
+
+            {/*defaultValue={/*moment(this.state.data.date, dateFormat)*/}
+            <Form.Item name="date" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Date</label>} >
+                <div key={this.state.data.date}>
+             <DatePicker name="datePicker" defaultValue={moment(this.state.data.date, dateFormat)}/>
+            </div>
+            </Form.Item>
+            
+            <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>} >
+            {this.state.parts.map(part => (
+              <Form.Item name={part.indexOf} >
+                <div key={part}>
               <TextArea autoSize={{ minRows: 5, maxRows: 15 }} defaultValue={part} />
               <div style={{float:'right'}}><Button type='text' icon={<CloseCircleOutlined style={{color: '#54748e'}} />} onClick={() =>{this.removePart()} }/></div>
-              </React.Fragment>
-            ))}
-
-            <Button name="addButton" icon= {<PlusOutlined />} type="default" htmlType="reset" shape="round" onClick={this.addPart.bind(this)}
+              </div>
+            </Form.Item>
+            ))} 
+            <Button name="addButton" icon= {<PlusOutlined />} type="default" htmlType="reset" shape="round" onClick={this.addPart.bind(this)}
              style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'right'}}>Add</Button>
-
-              <div className="button-custom">
-              <Button name="submitButton" type="default" htmlType="reset" onClick={() => cancelChanges()} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
-                  Cancel
-                </Button>
-                <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
-                  Save changes
-                </Button>
-                </div>
+            </Form.Item>
+            
+            <Form.Item {...tailLayout} >
+              <Button name="submitButton" type="default" htmlType="reset" onClick={cancelChanges.bind(this)} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px', float: 'right'}}> 
+                  Cancel
+                </Button>
+                <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px', float: 'right'}}> 
+                  Save changes
+                </Button>
+                </Form.Item>
+             </Form>
+            
       </div>
       );
     }
