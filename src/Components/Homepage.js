@@ -83,8 +83,7 @@ class Homepage extends React.Component {
         title="Delete this exercise?"
         onConfirm={() => {
           confirm();
-          console.log("not true, this is it: ", record.title);
-          //this.removeExercise(record);
+          this.removeExercise(record);
         }}
         okText="Yes"
         cancelText="No"
