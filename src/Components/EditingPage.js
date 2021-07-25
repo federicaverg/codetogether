@@ -3,6 +3,10 @@ import axios from 'axios';
 import moment from 'moment';
 import { Form, Input, DatePicker, Button, InputNumber, message, Space } from 'antd';
 import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 524c933fa29d0eaacc13f982cdb94013d71361c0
 
 const { TextArea } = Input;
 const dateFormat = 'YYYY/MM/DD';
@@ -20,6 +24,7 @@ const layout = {
     console.log(values);  
     }
 
+    // to reset the form
   function cancelChanges() {
     console.log("cancel");
   }
@@ -30,10 +35,17 @@ export default class EditingPage extends React.Component {
     super(props);
 
     this.state = {
+<<<<<<< HEAD
       data: [{code: []}],
       dataProps: props.match,
       dateString: props.match.params.date.substring(0,10),
       parts: ["p1","p2"]
+=======
+      data: [""],
+      dataTitle: props.match,
+      dateString: "",
+      parti: ["p1","p2"]
+>>>>>>> 524c933fa29d0eaacc13f982cdb94013d71361c0
     }
   }
 
@@ -78,13 +90,19 @@ export default class EditingPage extends React.Component {
       console.log(record)
     }
 
+    addPart = () => {
+      console.log("Part added")
+    }
+
      render() {
       return (
         <div className="editing-page" style={{ padding: '0 50px', marginTop:80, paddingBottom:'80px'}}>
-            <Form {...layout} name="nest-messages" onFinish={onFinish.bind(this)} >
             <h1 style={{fontSize: '20px', paddingLeft:'280px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
                         color:'#54748e', textTransform:'uppercase', fontWeight:'bold'}}>Edit Code</h1>
+            
+            <Input name="title" defaultValue={this.state.dataTitle.params.title} />
 
+<<<<<<< HEAD
             {/* EDIT - now takes hardcoded data from the state for all the information */}
             <Form.Item name="title" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Title</label>} >
             <Input name="title" defaultValue={this.state.dataProps.params.title}/>
@@ -124,6 +142,21 @@ export default class EditingPage extends React.Component {
               onClick={() =>{this.removePart()} }/></div>
              </Form.Item>))}
               </Form.Item> */}
+=======
+            <TextArea defaultValue={this.state.data.description} />
+            
+            <DatePicker name="datePicker" defaultValue={moment(this.state.data.date, dateFormat)}/>
+            
+            {this.state.parti.map(part => (
+              <React.Fragment>
+              <TextArea autoSize={{ minRows: 5, maxRows: 15 }} defaultValue={part} />
+              <div style={{float:'right'}}><Button type='text' icon={<CloseCircleOutlined style={{color: '#54748e'}} />} onClick={() =>{this.removePart()} }/></div>
+              </React.Fragment>
+            ))}
+
+            <Button name="addButton" icon= {<PlusOutlined />} type="default" htmlType="reset" shape="round" onClick={this.addPart.bind(this)}
+             style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'right'}}>Add</Button>
+>>>>>>> 524c933fa29d0eaacc13f982cdb94013d71361c0
 
               <TextArea value={this.state.data.code}></TextArea>
               <div className="button-custom">
@@ -134,8 +167,6 @@ export default class EditingPage extends React.Component {
                   Save changes
                 </Button>
                 </div>
-            </Form>
-
       </div>
       );
     }
