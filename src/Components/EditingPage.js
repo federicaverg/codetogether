@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { Form, Input, DatePicker, Button, InputNumber, message, Space } from 'antd';
-import { CloseCircleOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, FieldBinaryOutlined } from '@ant-design/icons';
+
 
 const { TextArea } = Input;
 const dateFormat = 'YYYY/MM/DD';
@@ -20,6 +21,7 @@ const layout = {
     console.log(values);  
     }
 
+    // to reset the form
   function cancelChanges() {
     console.log("cancel");
   }
@@ -32,7 +34,8 @@ export default class EditingPage extends React.Component {
     this.state = {
       data: [""],
       dataTitle: props.match,
-      dateString: ""
+      dateString: "",
+      parti: ["p1","p2"]
     }
   }
 
@@ -65,32 +68,21 @@ export default class EditingPage extends React.Component {
      render() {
       return (
         <div className="editing-page" style={{ padding: '0 50px', marginTop:80, paddingBottom:'80px'}}>
-            <Form {...layout} name="nest-messages" onFinish={onFinish.bind(this)} >
             <h1 style={{fontSize: '20px', paddingLeft:'280px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
                         color:'#54748e', textTransform:'uppercase', fontWeight:'bold'}}>Edit Code</h1>
+            
+            <Input name="title" defaultValue={this.state.dataTitle.params.title} />
 
-            {/* EDIT - now takes hardcoded data from the state for all the information */}
-            <Form.Item name="title" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Title</label>} >
-            <Input name="title" defaultValue={this.state.dataTitle.params.title}/>
-            </Form.Item>
-
-            <Form.Item name="description" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Description</label>} >
-            <TextArea defaultValue={this.state.data.description}>{this.state.data.description}</TextArea>
-            </Form.Item>
-
-            <Form.Item name="date" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Date of lecture</label>}>
+            <TextArea defaultValue={this.state.data.description} />
+            
             <DatePicker name="datePicker" defaultValue={moment(this.state.data.date, dateFormat)}/>
-            </Form.Item>
-
-            {/* <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}} >
-              Parts</label>}>
-              {this.state.data.code.map(p => (<Form.Item name={`code${p.indexOf}`} >
-              <TextArea autoSize={{ minRows: 5, maxRows: 15 }} defaultValue={p}/>
-              <div style={{float:'right'}}><Button type='text' icon={<CloseCircleOutlined style={{color: '#54748e'}} />} 
-              // EDIT - a removePart va passato l'id della parte, l'indice o qualsiasi cosa che la identifichi
-              onClick={() =>{this.removePart()} }/></div>
-             </Form.Item>))}
-              </Form.Item> */}
+            
+            {this.state.parti.map(part => (
+              <React.Fragment>
+              <TextArea autoSize={{ minRows: 5, maxRows: 15 }} defaultValue={part} />
+              <div style={{float:'right'}}><Button type='text' icon={<CloseCircleOutlined style={{color: '#54748e'}} />} onClick={() =>{this.removePart()} }/></div>
+              </React.Fragment>
+            ))}
 
               <div className="button-custom">
               <Button name="submitButton" type="default" htmlType="reset" onClick={() => cancelChanges()} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
@@ -100,8 +92,6 @@ export default class EditingPage extends React.Component {
                   Save changes
                 </Button>
                 </div>
-            </Form>
-
       </div>
       );
     }
