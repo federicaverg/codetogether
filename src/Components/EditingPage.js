@@ -5,7 +5,7 @@ import { Input, DatePicker, Button, message, Space } from 'antd';
 import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
-const dateFormat = 'YYYY/MM/DD';
+const dateFormat = 'YYYY/MM/DD'; 
 const layout = {
     labelCol: {
       span: 5,
@@ -26,10 +26,10 @@ export default class EditingPage extends React.Component {
     super(props);
 
     this.state = {
-      data: [""],
-      dataTitle: props.match,
-      dateString: "",
-      parti: ["p1","p2"]
+      data: [{code: []}],
+      dataProps: props.match,
+      dateString: "props.match.params.date.substring(0,10)",
+      parts: ["p1","p2"]
     }
   }
 
@@ -69,13 +69,14 @@ export default class EditingPage extends React.Component {
             <h1 style={{fontSize: '20px', paddingLeft:'280px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
                         color:'#54748e', textTransform:'uppercase', fontWeight:'bold'}}>Edit Code</h1>
             
-            <Input name="title" defaultValue={this.state.dataTitle.params.title} />
+            <Input name="title" defaultValue={"titolo"} />
 
             <TextArea defaultValue={this.state.data.description} />
             
-            <DatePicker name="datePicker" defaultValue={moment(this.state.data.date, dateFormat)}/>
+            {/*defaultValue={/*moment(this.state.data.date, dateFormat)*/}
+            <DatePicker name="datePicker" />
             
-            {this.state.parti.map(part => (
+            {this.state.parts.map(part => (
               <React.Fragment>
               <TextArea autoSize={{ minRows: 5, maxRows: 15 }} defaultValue={part} />
               <div style={{float:'right'}}><Button type='text' icon={<CloseCircleOutlined style={{color: '#54748e'}} />} onClick={() =>{this.removePart()} }/></div>
@@ -83,9 +84,13 @@ export default class EditingPage extends React.Component {
             ))}
 
             <Button name="addButton" icon= {<PlusOutlined />} type="default" htmlType="reset" shape="round" onClick={this.addPart.bind(this)}
-             style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'left', marginTop:'10px'}}>Add</Button>
+             style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'right'}}>Add</Button>
 
-                <Button name="submitButton" type="primary" htmlType="submit" style={{marginLeft:'280px', textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
+              <div className="button-custom">
+              <Button name="submitButton" type="default" htmlType="reset" onClick={() => cancelChanges()} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
+                  Cancel
+                </Button>
+                <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
                   Save changes
                 </Button>
                 <Button name="submitButton" type="default" htmlType="reset" onClick={() => cancelChanges()} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
