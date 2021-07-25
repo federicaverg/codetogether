@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { Form, Input, DatePicker, Button, InputNumber, message, Space } from 'antd';
-import { CloseCircleOutlined, FieldBinaryOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 
 const { TextArea } = Input;
@@ -65,6 +65,10 @@ export default class EditingPage extends React.Component {
       console.log(record)
     }
 
+    addPart = () => {
+      console.log("Part added")
+    }
+
      render() {
       return (
         <div className="editing-page" style={{ padding: '0 50px', marginTop:80, paddingBottom:'80px'}}>
@@ -83,6 +87,9 @@ export default class EditingPage extends React.Component {
               <div style={{float:'right'}}><Button type='text' icon={<CloseCircleOutlined style={{color: '#54748e'}} />} onClick={() =>{this.removePart()} }/></div>
               </React.Fragment>
             ))}
+
+            <Button name="addButton" icon= {<PlusOutlined />} type="default" htmlType="reset" shape="round" onClick={this.addPart.bind(this)}
+             style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'right'}}>Add</Button>
 
               <div className="button-custom">
               <Button name="submitButton" type="default" htmlType="reset" onClick={() => cancelChanges()} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px'}}> 
