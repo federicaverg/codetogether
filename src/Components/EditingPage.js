@@ -131,20 +131,18 @@ export default class EditingPage extends React.Component {
 
             <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>} >
             {this.state.parts.map(part => (
-              <Form.Item name={this.state.parts.indexOf(part)} >
+              <Form.Item name={this.state.parts.indexOf(part)} style={{marginTop: '-15px', marginBottom: '-15px'}}>
                 <div key={part}>
               <TextArea autoSize={{ minRows: 5, maxRows: 15 }} defaultValue={part} />
-
-
                 <Popconfirm
-                    title="Are you sure to delete this task?"
+                    title="Are you sure to delete this part?"
                     onConfirm={() => {
                         confirm();
                         this.removePart(this.state.parts.indexOf(part));
                     }}
                     okText="Yes"
                     cancelText="No">
-                <div style={{float:'right'}}><Button type='text' icon={<CloseCircleOutlined style={{color: '#54748e'}} />}/></div>
+                <div style={{float:'right'}}><Button type='text' icon={<CloseCircleOutlined style={{color: '#54748e', padding: '10px'}} />}/></div>
                 </Popconfirm>
               
                 
@@ -152,7 +150,7 @@ export default class EditingPage extends React.Component {
             </Form.Item>
             ))} 
             <Button name="addButton" icon= {<PlusOutlined />} type="default" htmlType="reset" shape="round" onClick={this.addPart.bind(this)}
-             style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'right'}}>Add</Button>
+             style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'right', marginTop: '30px'}}>Add</Button>
             </Form.Item>
 
 
