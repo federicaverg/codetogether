@@ -31,20 +31,14 @@ const tailLayout = {
     console.log(values);  
     }
 
-    // to reset the form
-  const onReset = () => {
-    console.log("reset")
-  };
-
 export default class EditingPage extends React.Component {
-
-    
 
   constructor(props){
     super(props);
 
     this.state = {
       data: [{code: []}],
+      backup: [],
       dataProps: props.match,
       dateString: "props.match.params.date.substring(0,10)",
       parts: [],
@@ -55,6 +49,7 @@ export default class EditingPage extends React.Component {
     axios.get(`http://localhost:5000/exercises/title/${this.state.dataProps.params.title}`)
     .then(response => {
       this.setState({data: response.data });
+      this.setState({backup: response.data })
       console.log(this.state.data);
       console.log(this.state.data.title);
 
@@ -97,11 +92,16 @@ export default class EditingPage extends React.Component {
       }
     }
 
+onReset = () => {
+  console.log("reset")
+  console.log(this.state.backup)
+};
+
      render() {
       return (
     
         <div className="editing-page" style={{ padding: '0 50px', marginTop:60}}>
-             <Form {...layout} name="nest-messages" onFinish={onFinish.bind(this)} >
+             <Form {...layout} name="edit-form" onFinish={onFinish.bind(this)} >
             <h1 style={{fontSize: '20px', paddingLeft:'280px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
                         color:'#54748e', textTransform:'uppercase', fontWeight:'bold'}}>Edit Code</h1>
 
@@ -156,11 +156,11 @@ export default class EditingPage extends React.Component {
 
             
             <Form.Item {...tailLayout} >
-              <Button name="submitButton" type="default" htmlType="reset" onClick={onReset} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px', float: 'right'}}> 
-                  Cancel
-                </Button>
-                <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px', float: 'right'}}> 
+            <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px', float: 'right'}}> 
                   Save changes
+                </Button>
+              <Button name="resetButton" type="default" htmlType="reset" onClick={this.onReset.bind(this)} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px', float: 'right'}}> 
+                  Cancel
                 </Button>
                 </Form.Item>
              </Form>
