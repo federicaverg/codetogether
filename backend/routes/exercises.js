@@ -52,6 +52,25 @@ router.route('/update/:id').post((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
 
+  router.route('/edit/:id').post((req, res) => {
+    console.log("sei qui");
+    Exercise.findById(req.params.id)
+    .then(exercise => {
+      console.log(req.body);
+      // LIST OF THINGS TO UPDATE
+      exercise.title = req.body.title;
+      exercise.description = req.body.description;
+      exercise.date = req.body.date;
+      exercise.code = req.body.code;
+      exercise.save()
+      .then(() => res.json('Exercise updated!'))
+      .catch(err => res.status(400).json('Erroree: ' + err));
+    })
+    .catch(err => res.status(400).json('Errore: ' + err));
+  })
+
+
+
 // To find the single exercise
 router.route('/title/:title?').get((req, res) => {
     Exercise.findOne({title: req.params.title})

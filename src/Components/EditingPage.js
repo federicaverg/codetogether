@@ -3,17 +3,19 @@ import axios from 'axios';
 import moment from 'moment';
 import { Form, Input, DatePicker, Button, Popconfirm, message } from 'antd';
 import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import {Link} from "react-router-dom";
+
 
 const { TextArea } = Input;
 const dateFormat = 'YYYY/MM/DD'; 
 const layout = {
-    labelCol: {
-      span: 5,
-    },
-    wrapperCol: {
-      span: 14,
-    },
-  };
+    labelCol: {
+      span: 5,
+    },
+    wrapperCol: {
+      span: 14,
+    },
+  };
 
 const tailLayout = {
     wrapperCol: {
@@ -26,48 +28,83 @@ const tailLayout = {
     message.success('Successfully removed');
   }
 
-  // triggered when save changes button is clicked
-  const onFinish = (values) => {
-    console.log(values);  
-    }
 
-    // to reset the form
-  const onReset = () => {
+    // to reset the form
+  const onReset = () => {
     console.log("reset")
   };
 
 export default class EditingPage extends React.Component {
 
+      formRef = React.createRef();
+
+        // triggered when save changes button is clicked
+   onFinish = (values) => {
+      console.log(values);
+      console.log(this.state.data);
+
+      var codes = [];
+      
+      for (const [key, value] of Object.entries(values)) {
+
+            if(parseInt(key) == this.state.data.code.indexOf(this.state.data.code[key])){
+                  if(value == undefined){
+                        codes.push(this.state.data.code[key]);                              
+                  }
+                  else{
+                        codes.push(value);
+                   }
+            }
+      }
+      console.log(codes);
+  
+      
+      axios.post('http://localhost:5000/exercises/edit/' + this.state.data._id, {
+            title: values.title,
+            description: values.description,
+            date: values.date,
+            code: codes
+      })
+      .then(response => {
+            message.success('Successfully submitted');
+      })
+      .catch((error) => { console.log(error);
+      })
+      }
+
     
 
-  constructor(props){
-    super(props);
+  constructor(props){
+    super(props);
 
-    this.state = {
-      data: [{code: []}],
-      dataProps: props.match,
-      dateString: "props.match.params.date.substring(0,10)",
-      parts: [],
-    }
-  }
+    this.state = {
+      data: [{code: []}],
+      dataProps: props.match,
+      dateP: "",
+      parts: [],
+    }
+  }
 
-  componentDidMount() {
-    axios.get(`http://localhost:5000/exercises/title/${this.state.dataProps.params.title}`)
-    .then(response => {
-      this.setState({data: response.data });
-      console.log(this.state.data);
-      console.log(this.state.data.title);
+  componentDidMount() {
+    axios.get(`http://localhost:5000/exercises/title/${this.state.dataProps.params.title}`)
+    .then(response => {
+      this.setState({data: response.data });
+      console.log(this.state.data);
+      console.log(this.state.data.title);
 
+      console.log(this.state.data.description);
+      console.log(this.state.data.date);
+      this.setState({parts: this.state.data.code})
 
+      this.formRef.current.setFieldsValue({
+            title: this.state.data.title,
+            description: this.state.data.description,
+            date: this.state.data.date
+          });
 
-      this.setState({dateString: this.state.data.date.substring(0,10)})
-      console.log(this.state.dateString);
-      console.log(this.state.data.description);
-      console.log(this.state.data.date);
-      this.setState({parts: this.state.data.code})
-    })
-    .catch((error) => { console.log(error);})
-  }
+    })
+    .catch((error) => { console.log(error);})
+  }
 
     addPart() {
         const num = this.state.data.code.length;
@@ -81,8 +118,8 @@ export default class EditingPage extends React.Component {
         console.log("New part added.")
     }
 
-    removePart = (p) => {
-      const num = this.state.parts.length;
+    removePart = (p) => {
+      const num = this.state.parts.length;
       const updated = this.state.parts;
       if (num == 1) {
         const arr = [];
@@ -95,13 +132,17 @@ export default class EditingPage extends React.Component {
          updated.splice(p, 1);
          this.setState({parts: updated});
       }
-    }
+    }
 
-     render() {
-      return (
+     datePick() {
+      //this.setState({dateP: value });
+    }
+
+     render() {
+      return (
     
-        <div className="editing-page" style={{ padding: '0 50px', marginTop:60}}>
-             <Form {...layout} name="nest-messages" onFinish={onFinish.bind(this)} >
+        <div className="editing-page" style={{ padding: '0 50px', marginTop:60}}>
+             <Form {...layout} ref={this.formRef} name="nest-messages" onFinish={this.onFinish.bind(this)}>
             <h1 style={{fontSize: '20px', paddingLeft:'280px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
                         color:'#54748e', textTransform:'uppercase', fontWeight:'bold'}}>Edit Code</h1>
 
@@ -124,16 +165,16 @@ export default class EditingPage extends React.Component {
 
             <Form.Item name="date" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Date</label>} >
                 <div key={this.state.data.date}>
-             <DatePicker name="datePicker" defaultValue={moment(this.state.data.date, dateFormat)}/>
+             <DatePicker name="datePicker" onChange={(value, e) => {this.setState({dateP: value }); console.log(this.state.dateP)}} defaultValue={moment(this.state.data.date, dateFormat)} format={dateFormat}/>
             </div>
             </Form.Item>
             
 
             <Form.Item name="parts" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Parts</label>} >
             {this.state.parts.map(part => (
-              <Form.Item name={this.state.parts.indexOf(part)} >
+              <Form.Item name={this.state.parts.indexOf(part)} >
                 <div key={part}>
-              <TextArea autoSize={{ minRows: 5, maxRows: 15 }} defaultValue={part} />
+              <TextArea autoSize={{ minRows: 5, maxRows: 15 }} defaultValue={part} />
 
 
                 <Popconfirm
@@ -146,28 +187,28 @@ export default class EditingPage extends React.Component {
                     cancelText="No">
                 <div style={{float:'right'}}><Button type='text' icon={<CloseCircleOutlined style={{color: '#54748e'}} />}/></div>
                 </Popconfirm>
-              
+              
                 
-              </div>
+              </div>
             </Form.Item>
-            ))} 
+            ))} 
             <Button name="addButton" icon= {<PlusOutlined />} type="default" htmlType="reset" shape="round" onClick={this.addPart.bind(this)}
-             style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'right'}}>Add</Button>
+             style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', float: 'right'}}>Add</Button>
             </Form.Item>
 
 
             
             <Form.Item {...tailLayout} >
-              <Button name="submitButton" type="default" htmlType="reset" onClick={onReset} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px', float: 'right'}}> 
-                  Cancel
+              <Button name="submitButton" type="default" htmlType="reset" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px', float: 'right'}}> 
+                  <Link to='/'>Cancel</Link>
                 </Button>
                 <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px', float: 'right'}}> 
                   Save changes
                 </Button>
                 </Form.Item>
-             </Form>
-            
-      </div>
-      );
-    }
-  }
+             </Form>
+            
+      </div>
+      );
+    }
+  }

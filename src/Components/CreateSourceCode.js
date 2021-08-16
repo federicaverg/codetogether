@@ -43,10 +43,10 @@ const onFinish = (values) => {
           code: codes,
           parts: values.parts
         })
-    .then(response => {
-      message.success('Successfully submitted');
-    })
-    .catch((error) => { console.log(error);})
+        .then(response => {
+          message.success('Successfully submitted');
+        })
+        .catch((error) => { console.log(error);})
       }
       else{
         message.error('Source code already exists');
