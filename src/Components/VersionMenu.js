@@ -43,7 +43,6 @@ class VersionMenu extends Component {
       title: "Description",
       dataIndex: 'description',
       key: 'description',
-      width: 400,
       ellipsis: {
         showTitle: false,
       },
@@ -117,7 +116,7 @@ class VersionMenu extends Component {
     <div className="homepage">
     <Content className="site-layout" style={{ padding: '0 50px', marginTop:50}}>
       <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
-      <Table columns={this.columns} dataSource={this.state.versions}  />
+      <Table columns={this.columns} dataSource={this.state.versions}  style={{minWidth: 650}} pagination={{ position: ['bottomLeft'] }}/>
       </div>
     </Content>
     </div>

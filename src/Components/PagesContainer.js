@@ -27,10 +27,10 @@ export default class PagesContainer extends PureComponent {
                 </Space>
                 </Header>
                 <Menu mode="horizontal">
-                <Menu.Item key="home" icon={<HomeOutlined />}>
+                <Menu.Item key="home" icon={<HomeOutlined />} >
                   <Link to="/">Home</Link>
                 </Menu.Item>
-                <Menu.Item key="versions" icon={<MenuOutlined />}>
+                <Menu.Item key="versions" icon={<MenuOutlined />} >
                 <Link to="/versions">Versions</Link>
                 </Menu.Item>
                 <SubMenu key="create" title="Create" icon={<FileAddOutlined />}>
