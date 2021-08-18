@@ -8,7 +8,6 @@ import VersionMenu from "./VersionMenu";
 import CreateSourceCode from "./CreateSourceCode";
 import CreateVersion from "./CreateVersion";
 import DisplayExercise from "./DisplayExercise";
-import DisplayVersion from "./DisplayVersion"; // REMOVE
 import EditingPage from "./EditingPage";
 
 const {Header} = Layout;
@@ -20,7 +19,7 @@ export default class PagesContainer extends PureComponent {
         return (
             <div className="pages-container">
               <Router>
-                <Header>
+                <Header style={{minWidth: 800}} >
                 <Space>
                 <CodeSandboxOutlined  style={{ fontSize: '20px', color: '#fff', paddingLeft:'17px' }}/>
                 <Text style={{fontSize: '20px', color:'#fff', fontFamily:'Assistant', textTransform:'uppercase', letterSpacing:'3px'}}>CODE TOGETHER</Text>
