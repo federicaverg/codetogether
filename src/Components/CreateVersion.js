@@ -148,7 +148,7 @@ export default class CreateVersion extends PureComponent {
         <InputNumber onChange={this.updateParts.bind(this)} min={1} max={10} /></Form.Item>
 
 
-        {this.state.codeareas.map(p => (<Form.Item name={`code${p.key}`} wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
+        {this.state.codeareas.map(p => (<Form.Item name={`code${p.key}`} label={`Part ${p.key}`} rules={[{required: true}]}>
           <TextArea placeholder={p.title + ' ' + p.key} autoSize={{ minRows: 5, maxRows: 20 }}/>
         </Form.Item>))}
 

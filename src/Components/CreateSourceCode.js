@@ -11,7 +11,7 @@ const layout = {
     span: 5,
   },
   wrapperCol: {
-    span: 14,
+    span: 15,
   },
 };
 
@@ -100,8 +100,8 @@ export default class CreateSourceCode extends React.Component {
 
    render() {
     return (
-      <div className="create-source-code" style={{ padding: '0 50px', marginTop:80,}}>
-      <Form {...layout} name="nest-messages" onFinish={onFinish.bind(this)} >
+      <div className="create-source-code" style={{ padding: '0 50px', marginTop:80}}>
+      <Form {...layout} name="nest-messages" onFinish={onFinish.bind(this)} style={{float: 'center'}}>
       <Form.Item name="title" label={<label style={{textTransform:'uppercase',letterSpacing:'2px', fontSize:'14px'}}>Title</label>} rules={[{ required: true, }, ]}>
         <Input name="title"/>
       </Form.Item>
@@ -119,7 +119,7 @@ export default class CreateSourceCode extends React.Component {
         <InputNumber onChange={this.updateParts.bind(this)} min={1} max={10} /></Form.Item>
 
 
-        {this.state.codeareas.map(p => (<Form.Item name={`code${p.key}`} wrapperCol={{ ...layout.wrapperCol, offset: 5 }} rules={[{required: true}]}>
+        {this.state.codeareas.map(p => (<Form.Item name={`code${p.key}`} label={`Part ${p.key}`} rules={[{required: true}]} >
           <TextArea placeholder={p.title + ' ' + p.key} autoSize={{ minRows: 5, maxRows: 20 }}/>
         </Form.Item>))}
       
