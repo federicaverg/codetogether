@@ -158,7 +158,8 @@ export default class DisplayExercise extends PureComponent {
 
                 <Col span={15}>
                   
-                <Tabs hideAdd activeKey={this.state.activeKey} onChange={this.onChange} type="editable-card" onEdit={this.onEdit}>
+                <Tabs hideAdd activeKey={this.state.activeKey} onChange={this.onChange} type="editable-card" onEdit={this.onEdit} 
+                style={{minWidth: 800}}>
                      {this.state.panes.map(pane => (<TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{pane.content}</TabPane>))}
                     </Tabs></Col>
                   <ButtonGroup>
@@ -176,7 +177,7 @@ export default class DisplayExercise extends PureComponent {
                     <Button icon={<SaveOutlined />}></Button>
                     </Tooltip>
                     </Popconfirm>
-
+                    
                     <Dropdown overlay={
                       <Menu>
                         {this.state.versions.map(ver => (<Menu.Item key={ver._id}><Button type="link" onClick={() => {this.addPane(ver)}}>{ver.title}</Button></Menu.Item>))}
@@ -185,13 +186,13 @@ export default class DisplayExercise extends PureComponent {
                       </Dropdown>
                       </ButtonGroup>
 
-                <Col span={6}>
-                  <Card title={this.state.cont.title} >
+                
+                  <Card title={this.state.cont.title} style={{minWidth: 300}} >
                     <p><i>{this.state.dateString}</i></p>
                     <p>{this.state.cont.description}</p>
                     </Card>
 
-                    <List
+                    <List 
                     className="comment-list"
                     header={`${comments.length} replies`}
                     itemLayout="horizontal"
@@ -204,11 +205,11 @@ export default class DisplayExercise extends PureComponent {
                         avatar={item.avatar}
                         content={item.content}
                         datetime={item.datetime}
+                        style={{minWidth:300}}
                         />
                     </li>
                     )}
                 />
-                </Col>
                 </Row>                       
                 </Content>
             </div>
