@@ -19,7 +19,7 @@ export default class PagesContainer extends PureComponent {
         return (
             <div className="pages-container">
               <Router>
-                <Header style={{minWidth: 800}} >
+                <Header style={{minWidth:1000}} >
                 <Space>
                 <CodeSandboxOutlined  style={{ fontSize: '20px', color: '#fff', paddingLeft:'17px' }}/>
                 <Text style={{fontSize: '20px', color:'#fff', fontFamily:'Assistant', textTransform:'uppercase', letterSpacing:'3px'}}>CODE TOGETHER</Text>
