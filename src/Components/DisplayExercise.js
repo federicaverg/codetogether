@@ -152,17 +152,15 @@ export default class DisplayExercise extends PureComponent {
   
     render() {
         return(
-            <div className="display-exercise">
-                <Content style={{ padding: '0 50px', marginTop:55}}>
-                <Row justify="space-around">
+            <div className="display-exercise" >
+                <Content style={{ marginTop:55, marginLeft:'20%'}}>
 
                 <Col span={15}>
-                  
                 <Tabs hideAdd activeKey={this.state.activeKey} onChange={this.onChange} type="editable-card" onEdit={this.onEdit} 
-                style={{minWidth: 800}}>
+                style={{minWidth:830}}>
                      {this.state.panes.map(pane => (<TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{pane.content}</TabPane>))}
-                    </Tabs></Col>
-                  <ButtonGroup>
+                    </Tabs>
+                  <ButtonGroup style={{padding:5}}>
                     <Popconfirm title='Confirm changes?' 
                     placement='left'
                     okText='Yes' 
@@ -184,10 +182,10 @@ export default class DisplayExercise extends PureComponent {
                         </Menu>}><Tooltip title="VERSIONS" color='#e1e2e2' >
                         <Button icon={<PlusCircleOutlined />} /></Tooltip>
                       </Dropdown>
-                      </ButtonGroup>
+                      </ButtonGroup></Col>
 
-                
-                  <Card title={this.state.cont.title} style={{minWidth: 300}} >
+                      <div style={{width:800, padding:5, paddingBottom:'5%'}}>
+                  <Card title={this.state.cont.title} >
                     <p><i>{this.state.dateString}</i></p>
                     <p>{this.state.cont.description}</p>
                     </Card>
@@ -209,8 +207,8 @@ export default class DisplayExercise extends PureComponent {
                         />
                     </li>
                     )}
-                />
-                </Row>                       
+                /></div>
+                                       
                 </Content>
             </div>
         )
