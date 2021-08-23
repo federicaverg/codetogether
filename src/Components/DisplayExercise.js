@@ -152,15 +152,15 @@ export default class DisplayExercise extends PureComponent {
   
     render() {
         return(
-            <div className="display-exercise" >
-                <Content style={{ marginTop:55, marginLeft:'20%'}}>
+            <div className="display-exercise" style={{marginTop:55}}>
 
                 <Col span={15}>
                 <Tabs hideAdd activeKey={this.state.activeKey} onChange={this.onChange} type="editable-card" onEdit={this.onEdit} 
-                style={{minWidth:830}}>
+                style={{width: '140%', marginLeft:'10%', minWidth:800}}>
                      {this.state.panes.map(pane => (<TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{pane.content}</TabPane>))}
                     </Tabs>
-                  <ButtonGroup style={{padding:5}}>
+                    <div style={{width:'50%', marginLeft:'16%', minWidth:500, paddingBottom:10, paddingTop:10}}>
+                  <ButtonGroup>
                     <Popconfirm title='Confirm changes?' 
                     placement='left'
                     okText='Yes' 
@@ -174,7 +174,7 @@ export default class DisplayExercise extends PureComponent {
                   <Tooltip title="SAVE" color='#e1e2e2'>
                     <Button icon={<SaveOutlined />}></Button>
                     </Tooltip>
-                    </Popconfirm>
+                    </Popconfirm> 
                     
                     <Dropdown overlay={
                       <Menu>
@@ -182,9 +182,9 @@ export default class DisplayExercise extends PureComponent {
                         </Menu>}><Tooltip title="VERSIONS" color='#e1e2e2' >
                         <Button icon={<PlusCircleOutlined />} /></Tooltip>
                       </Dropdown>
-                      </ButtonGroup></Col>
-
-                      <div style={{width:800, padding:5, paddingBottom:'5%'}}>
+                      </ButtonGroup></div></Col>
+                      
+                      <div style={{width:'75%',minWidth:300, paddingBottom:25, marginLeft:'10%'}} >
                   <Card title={this.state.cont.title} >
                     <p><i>{this.state.dateString}</i></p>
                     <p>{this.state.cont.description}</p>
@@ -209,7 +209,7 @@ export default class DisplayExercise extends PureComponent {
                     )}
                 /></div>
                                        
-                </Content>
+                
             </div>
         )
     }
