@@ -195,13 +195,9 @@ export default class EditingPage extends React.Component {
             </Form.Item>
 
 
-            
             <Form.Item {...tailLayout} >
             <Button name="submitButton" type="primary" htmlType="submit" style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px', float: 'right'}}> 
                   Save changes
-                </Button>
-              <Button name="resetButton" type="default" htmlType="reset" onClick={this.onReset.bind(this)} style={{textTransform:'uppercase', fontSize:'12px', letterSpacing:'2px', margin: '5px', float: 'right'}}> 
-                  Cancel
                 </Button>
                 </Form.Item>
              </Form>
