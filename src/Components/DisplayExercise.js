@@ -159,7 +159,7 @@ export default class DisplayExercise extends PureComponent {
                 style={{width: '140%', marginLeft:'10%', minWidth:800}}>
                      {this.state.panes.map(pane => (<TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{pane.content}</TabPane>))}
                     </Tabs>
-                    <div style={{width:'50%', marginLeft:'16%', minWidth:500, paddingBottom:10, paddingTop:10}}>
+                    <div style={{ marginLeft:'16%', minWidth:500, paddingBottom:10, paddingTop:10}}>
                   <ButtonGroup>
                     <Popconfirm title='Confirm changes?' 
                     placement='left'
