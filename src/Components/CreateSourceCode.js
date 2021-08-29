@@ -85,7 +85,7 @@ export default class CreateSourceCode extends React.Component {
       this.enableSubmit();
     }
 
-    if (n == 1) {
+    if (n === 1) {
       const newarea = {title:"Code", key:''}
       updated.push(newarea);
     } else {

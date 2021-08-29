@@ -19,7 +19,7 @@ export default class PagesContainer extends PureComponent {
         return (
             <div className="pages-container">
               <Router>
-                <Header style={{minWidth:1000}} >
+                <Header style={{minWidth:820}} >
                 <Space>
                 <CodeSandboxOutlined  style={{ fontSize: '20px', color: '#fff', paddingLeft:'17px' }}/>
                 <Text style={{fontSize: '20px', color:'#fff', fontFamily:'Assistant', textTransform:'uppercase', letterSpacing:'3px'}}>CODE TOGETHER</Text>
@@ -38,14 +38,14 @@ export default class PagesContainer extends PureComponent {
                 </SubMenu>
                 </Menu>
 
-                <Route exact path='/' exact component={Homepage} />
-                <Route exact path='/versions' exact component={VersionMenu} />
-                <Route exact path='/create/source-code' exact component={CreateSourceCode} />
-                <Route exact path='/create/version' exact component={CreateVersion} />
-                <Route exact path='/display/exercise' exact component={DisplayExercise} />
-                <Route exact path='/display/exercise/:title' exact component={DisplayExercise} />
-                <Route exact path='/edit/:title' exact component={EditingPage} />
-                <Route exact path='/edit' exact component={EditingPage} />
+                <Route  path='/' exact component={Homepage} />
+                <Route  path='/versions' exact component={VersionMenu} />
+                <Route  path='/create/source-code' exact component={CreateSourceCode} />
+                <Route  path='/create/version' exact component={CreateVersion} />
+                <Route  path='/display/exercise' exact component={DisplayExercise} />
+                <Route  path='/display/exercise/:title' exact component={DisplayExercise} />
+                <Route  path='/edit/:title' exact component={EditingPage} />
+                <Route  path='/edit' exact component={EditingPage} />
                 </Router>
             </div>
         )

@@ -143,8 +143,8 @@ export default class EditingPage extends React.Component {
     
         <div className="editing-page" style={{ padding: '0 50px', marginTop:60}}>
              <Form {...layout} ref={this.formRef} name="nest-messages" onFinish={this.onFinish.bind(this)}>
-            <h1 style={{fontSize: '20px', paddingLeft:'280px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
-                        color:'#54748e', textTransform:'uppercase', fontWeight:'bold'}}>Edit Code</h1>
+            <center><h1 style={{fontSize: '20px', letterSpacing:'2px', fontFamily:'Source Sans Pro',
+                        color:'#54748e', textTransform:'uppercase', fontWeight:'bold'}}>Edit Code</h1></center>
 
 
 

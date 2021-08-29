@@ -115,7 +115,7 @@ export default class CreateVersion extends PureComponent {
       this.enableSubmit();
     }
 
-    if (n == 1) {
+    if (n === 1) {
       const newarea = {title:"Code", key:''}
       updated.push(newarea);
     } else {
