@@ -91,8 +91,6 @@ class Homepage extends React.Component {
       <a href="#"><DeleteFilled /></a>
       </Popconfirm>
       
-      {/* EDIT 
-          GIORGIO: Redirect to edit page of the specific exercise, for now it redirects to default edit page */}
       <Link to={`/edit/${record.title}`}><EditFilled /></Link>
         </Space>
         </center>
@@ -100,7 +98,6 @@ class Homepage extends React.Component {
     },
   ]
 
-  // TEST
   state = {
       exercises: ["a"]
   }
