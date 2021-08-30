@@ -1,3 +1,17 @@
+# Required dependencies to install (IMPORTANT)
+
+CRACO is used to get an easier configuration and customization of the app on top of the benefits of crate-react-app. We need to install chaco-less to have a Less file support, as required and specified in the Customization Theme documentation of the Ant Design library (check https://ant.design/docs/react/use-with-create-react-app). Run the following command in the project directory:
+
+## `npm add craco-less`
+
+Secondly, to be able to connect to the database, we need to install nodemon. Change into the backend directory, and install nodemon.
+
+## `cd backend`
+
+## `npm install nodemon`
+
+Finally, it’s needed to overwrite the prims.js file for code formatting and syntax-highlighting. Navigate to the node_modules folder, find the prismjs folder and then overwrite the prism.js file with the following code:
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
