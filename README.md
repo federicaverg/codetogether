@@ -10,8 +10,6 @@ Secondly, to be able to connect to the database, we need to install nodemon. Cha
 
 ## `npm install nodemon`
 
-Finally, it’s needed to overwrite the prims.js file for code formatting and syntax-highlighting. Navigate to the node_modules folder, find the prismjs folder and then overwrite the prism.js file with the following code:
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
